@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "790957298562",
+    "project_id": "insurance-hero-app",
+    "storage_bucket": "insurance-hero-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790957298562:android:04ef5ed62563e9cfc2b59b",
+        "android_client_info": {
+          "package_name": "com.app.developlogix.insurancehero"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "790957298562-cn9efuqejlosep705akkc6moc8tqbhp1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCW1vUnpy1LRTepMazmv6VS7T2TyDgj_Dk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "790957298562-cn9efuqejlosep705akkc6moc8tqbhp1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "790957298562-nce45tti34p41eju62q0ei3nfappmqod.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.developlogix.insurancehero"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
