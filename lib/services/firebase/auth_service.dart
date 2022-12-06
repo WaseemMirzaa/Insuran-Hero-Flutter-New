@@ -1,12 +1,12 @@
 import 'dart:io';
+
 import 'package:flutter/foundation.dart';
-// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
+// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
@@ -35,32 +35,32 @@ Future<void> performSignUp({
   required Box box,
   File? img,
 }) async {
-  String photoUrl =
-      await StorageMethods().uploadImageToStorage("profiles", img!);
-  auth
-      .createUserWithEmailAndPassword(email: email, password: password)
-      .then((value) => addUserData(
-            email: email,
-            firstName: firstName,
-            lastName: lastName,
-            phone: phone,
-            profileUrl: photoUrl,
-          )
-      .whenComplete(() {
-    toHive(box, context);
-  }
-  ).catchError((e) {
+
+  print('🔴🔴🔴🔴🔴🔴🔴Sign Up called');
+ try{
+    print('🔴🔴🔴🔴🔴🔴🔴photo url uploaded');
+   await auth.createUserWithEmailAndPassword(email: email, password: password);
+    print('🔴🔴🔴🔴🔴🔴🔴User created');
+    String photoUrl =
+    await StorageMethods().uploadImageToStorage("profiles", img!);
+    await addUserData(
+      email: email,
+      firstName: firstName,
+      lastName: lastName,
+      phone: phone,
+      profileUrl: photoUrl,
+    );
+    print('🔴🔴🔴🔴🔴🔴🔴🔴Added user data');
+  await  toHive(box, context);
+    print('🔴🔴🔴🔴🔴🔴🔴🔴to Hive Called');
+  }  on FirebaseAuthException catch  (e) {
     loadingController.isLoading.value = false;
-    if (e.toString().contains("The email address is already in use by another account.")) {
-      toastMessage("The email address is already in use by another account.");
-    } else if (e.toString().contains("The email address is badly formatted")) {
-      toastMessage("Please Enter Valid Email");
-    } else {
-      toastMessage("Something Went Wrong");
-    }
-    print(loadingController.isLoading.value);
-    print(e.toString());
-  }));
+    print('🔴🔴🔴🔴🔴🔴🔴🔴 error message ${e.message}');
+    toastMessage(e.message ?? '');
+    print('Failed with error code: ${e.code}');
+print(e.message);
+}
+
 }
 
 Future<void> performSigIn(
@@ -68,22 +68,18 @@ Future<void> performSigIn(
     required String password,
     required BuildContext context,
     required Box boxs}) async {
-  auth
-      .signInWithEmailAndPassword(email: email, password: password)
-      .whenComplete(() => toHive(boxs, context))
-      .catchError((e) {
-    if (e.toString().contains("There is no user record corresponding to this identifier")) {
-      toastMessage("User Not Found");
-    } else if (e.toString().contains("The email address is badly formatted")) {
-      toastMessage("Please Enter Valid Email");
-    } else if (e.toString().contains(
-        "The password is invalid or the user does not have a password")) {
-      toastMessage("Incorrect Password");
-    } else {
-      toastMessage("Something Went Wrong");
-    }
-    // toastMessage(e.toString());
-  });
+  try{
+    await auth.signInWithEmailAndPassword(email: email, password: password);
+    await toHive(boxs, context);
+  } on FirebaseAuthException catch  (e) {
+    loadingController.isLoading.value = false;
+    print('🔴🔴🔴🔴🔴🔴🔴🔴 error message ${e.message}');
+    toastMessage(e.message ?? '');
+    print('Failed with error code: ${e.code}');
+    print(e.message);
+  }
+
+
 }
 
 Future resetPassword({required String email}) async {
@@ -127,15 +123,28 @@ Future<UserCredential> signInWithGoogle() async {
 
 // Future<UserCredential> signInWithFacebook() async {
 //   // Trigger the sign-in flow
-//   // final LoginResult loginResult = await FacebookAuth.instance.login();
-//   //
-//   // // Create a credential from the access token
-//   // final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
-//   //
-//   // // Once signed in, return the UserCredential
-//   // return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+//   final LoginResult loginResult = await FacebookAuth.instance.login();
+//
+//   // Create a credential from the access token
+//   final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken.token);
+//
+//   // Once signed in, return the UserCredential
+//   return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
 // }
+//
 // Future<UserCredential> signInWithFacebook() async {
+//
+//   final LoginResult loginResult = await FacebookAuth.instance.login();
+//
+//   // Create a credential from the access token
+//   final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
+//
+//   // Once signed in, return the UserCredential
+//   return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+// }
+//
+//
+// Future<UserCredential> signInWithFaceboook() async {
 //   // Trigger the sign-in flow
 //   final LoginResult loginResult = await FacebookAuth.instance.login();
 //

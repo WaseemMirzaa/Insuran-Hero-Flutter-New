@@ -6,6 +6,7 @@ import 'package:insurancehero/question.dart';
 import 'package:insurancehero/services/firebase/quizz_service.dart';
 import 'package:insurancehero/utils/colors.dart';
 import 'package:insurancehero/utils/firebase_instances.dart';
+import 'package:insurancehero/utils/toast_message.dart';
 import 'main.dart';
 import 'models/question_model.dart';
 
@@ -262,7 +263,7 @@ class _HomeState extends State<Home> {
                               allQuizz[i]
                                       .attemptedUsers!
                                       .contains(userController.userModel.value.uid)
-                                  ? null
+                                  ? toastMessage("Quiz Already Completed")
                                   : Navigator.of(context)
                                       .push(MaterialPageRoute(
                                           builder: (context) => QuestionView(

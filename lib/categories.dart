@@ -51,6 +51,7 @@ class _CategoriesViewState extends State<CategoriesView> {
   Future<List<dynamic>> getMySubjects() async {
     List<dynamic> mySubjects = [];
     mySubjects = await QuizService().getMySubjects();
+    categories = mySubjects;
     return mySubjects;
   }
 

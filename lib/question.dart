@@ -205,7 +205,6 @@ class _QuestionViewState extends State<QuestionView>
                           fontWeight: FontWeight.w500),
                       softWrap: true,
                     ),
-                    verticalGap(15),
                     Align(
                       alignment: Alignment.center,
                       child: CircularCountDownTimer(
@@ -249,7 +248,7 @@ class _QuestionViewState extends State<QuestionView>
                       ),
                     ),
                     SizedBox(
-                      height: 25,
+                      height: 15,
                     ),
                     ListView.builder(
                         shrinkWrap: true,

@@ -113,85 +113,89 @@ class _LoginViewState extends State<LoginView> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  verticalGap(Gaps.verticalPadding),
-                  Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: const Color(0xfff6f6f6),
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(
-                          width: 2.0, color: const Color(0xffe9e9e9)),
+                Obx(() =>
+                   Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    verticalGap(Gaps.verticalPadding),
+                    Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: const Color(0xfff6f6f6),
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(
+                            width: 2.0, color: const Color(0xffe9e9e9)),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          customTextField(
+                            validator: (v){
+                                       if (v == null || v.isEmpty || v.length<6 || !Validate(userName)) {
+                                            return 'Please enter Valid Email Address';
+                                        }
+                                    },
+                              keyBoardType: TextInputType.emailAddress,
+                              hintText: "Email",
+                              onChanged: (val) {
+                                setState(() {
+                                  userName = val;
+                                });
+                              }),
+                          Container(
+                            height: 1,
+                            color: Colors.grey[300],
+                          ),
+                          passwordField(
+                              hintText: "Password",
+                              onChanged: (v) {
+                                setState(() {
+                                  password = v;
+                                });
+                              })
+                        ],
+                      ),
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        customTextField(
-                          validator: (v){
-                                     if (v == null || v.isEmpty || v.length<6 || !Validate(userName)) {
-                                          return 'Please enter Valid Email Address';
-                                      }
-                                  },
-                            keyBoardType: TextInputType.emailAddress,
-                            hintText: "Email",
-                            onChanged: (val) {
-                              setState(() {
-                                userName = val;
-                              });
-                            }),
-                        Container(
-                          height: 1,
-                          color: Colors.grey[300],
-                        ),
-                        passwordField(
-                            hintText: "Password",
-                            onChanged: (v) {
-                              setState(() {
-                                password = v;
-                              });
-                            })
-                      ],
-                    ),
-                  ),
-                  verticalGap(25),
-                  fullWidthButton(
-                      context: context,
-                      title: "Log In",
-                      buttonColor: const Color(0xff89e100),
-                      shadowColor: const Color(0xff7ccc00),
+                    verticalGap(25),
+                    loadingController.isLoading.value
+                        ? loadingWidget(context)  : fullWidthButton(
+                        context: context,
+                        title: "Log In",
+                        buttonColor: const Color(0xff89e100),
+                        shadowColor: const Color(0xff7ccc00),
+                        onTap: () {
+                          loadingController.isLoading.value = true;
+                          if (password != "" && userName != "") {
+                            loadingController.isLoading.value = true;
+                            performSigIn(
+                              boxs: box,
+                              password: password,
+                              email: userName,
+                              context: context,
+                            )
+                            .onError((error, stackTrace) => loadingController.isLoading.value = false);
+                          } else {
+                            toastMessage("Incorrect Username or Password");
+                          }
+                        }),
+                    verticalGap(15),
+                    GestureDetector(
                       onTap: () {
-                        if (password != "" && userName != "") {
-                          LoadingIndicatorDialog().show(context);
-                          performSigIn(
-                            boxs: box,
-                            password: password,
-                            email: userName,
-                            context: context,
-                          )
-                          .onError((error, stackTrace) => LoadingIndicatorDialog().dismiss());
-                        } else {
-                          toastMessage("Incorrect Username or Password");
-                        }
-                      }),
-                  verticalGap(15),
-                  GestureDetector(
-                    onTap: () {
-                      Get.to(ForgetPassword());
-                    },
-                    child: const Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                        "FORGET PASSWORD?",
-                        textAlign: TextAlign.end,
-                        style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          color: Colors.black,
-                          fontSize: 15,
+                        Get.to(ForgetPassword());
+                      },
+                      child: const Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "FORGET PASSWORD?",
+                          textAlign: TextAlign.end,
+                          style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            color: Colors.black,
+                            fontSize: 15,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ]),
+                  ]),
+                ),
                 verticalGap(20),
                 Column(
                   children: [
@@ -214,8 +218,8 @@ class _LoginViewState extends State<LoginView> {
                             ),
                             child: TextButton.icon(
                               onPressed: () async {
-                                // signInWithFacebook().
-                                // whenComplete(() => addSocialUserData()).then((value) => toHive(box, context));
+                             //   signInWithFacebook().
+                            //    whenComplete(() => addSocialUserData()).then((value) => toHive(box, context));
                               },
                               icon: Image.asset(
                                 'assets/images/facebook.png',
@@ -280,26 +284,26 @@ class _LoginViewState extends State<LoginView> {
                     const SizedBox(
                       height: 20,
                     ),
-                    // Offstage(
-                    //   offstage: !Platform.isIOS,
-                    //   child: SignInWithAppleButton(
-                    //     height: 50,
-                    //     onPressed: () async {
-                    //       // final appleProvider = AppleAuthProvider();
-                    //       // // await FirebaseAuth.instance.signInWithProvider(appleProvider);
-                    //       // final AuthorizationResult result = await TheAppleSignIn.performRequests([
-                    //       //   AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
-                    //       // ]).onError((error, stackTrace) => toastMessage("error occured"));
-                    //       // print(result.status);
-                    //
-                    //       final user = await AuthService().signInWithApple(
-                    //           scopes: [Scope.email, Scope.fullName]);
-                    //       print('uid: ${user.uid}');
-                    //   //   appleProvider signInWithApple();
-                    //    //   print(auth.currentUser?.uid ?? "");
-                    //     },
-                    //   ),
-                    // ),
+                    Offstage(
+                      offstage: !Platform.isIOS,
+                      child: SignInWithAppleButton(
+                        height: 50,
+                        onPressed: () async {
+                          // final appleProvider = AppleAuthProvider();
+                          // // await FirebaseAuth.instance.signInWithProvider(appleProvider);
+                          // final AuthorizationResult result = await TheAppleSignIn.performRequests([
+                          //   AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
+                          // ]).onError((error, stackTrace) => toastMessage("error occured"));
+                          // print(result.status);
+
+                          final user = await AuthService().signInWithApple(
+                              scopes: [Scope.email, Scope.fullName]);
+                          print('uid: ${user.uid}');
+                      //   appleProvider signInWithApple();
+                       //   print(auth.currentUser?.uid ?? "");
+                        },
+                      ),
+                    ),
                     SizedBox(height: 15,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,

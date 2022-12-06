@@ -39,7 +39,7 @@ class Answer extends StatelessWidget {
             style: TextStyle(
               fontFamily: 'Calibri',
               fontSize: 17,
-              color: answerColor,
+              color: Colors.black,
             ),
             softWrap: false,
           ),

@@ -138,11 +138,8 @@ class _SettingsViewState extends State<SettingsView> {
                  StreamBuilder(
                   stream: firebaseFirestore.collection("users").doc(userController.userModel.value.uid).snapshots(),
                   builder: (context,snap){
-
                     name.text = snap.data?["fullName"] ?? "";
                     phone.text = snap.data?["phone"] ?? "";
-
-
                     return  Column(
                           children: [
                             Row(
@@ -224,7 +221,7 @@ class _SettingsViewState extends State<SettingsView> {
                     shadowColor: Color(0xff7ccc00),
                     onTap: () async {
                       try {
-                        toastMessage("Uploading...");
+                        toastMessage("Updating");
                         await updateUser(
                             fullName: name.text, phone: phone.text);
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(

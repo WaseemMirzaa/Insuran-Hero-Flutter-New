@@ -269,7 +269,6 @@ class _SignupViewState extends State<SignupView> {
                                     buttonColor: const Color(0xff89e100),
                                     shadowColor: const Color(0xff7ccc00),
                                     onTap: () {
-
                                     Validate(email);
                                       if (_formKey.currentState!.validate() &&
                                           _image != null &&
@@ -287,12 +286,13 @@ class _SignupViewState extends State<SignupView> {
                                                 phone: phone,
                                                 img: _image)
                                             .whenComplete(
-                                                () => loadingController.isLoading.value = false)
-                                            .onError((error, stackTrace) {
-                                          loadingController.isLoading.value =
-                                              false;
-                                          setState(() {});
-                                        });
+                                                () => loadingController.isLoading.value = false);
+                                        //     .onError((error, stackTrace) {
+                                        //   loadingController.isLoading.value =
+                                        //       false;
+                                        //   setState(() {});
+                                        // });
+
                                       }
                                     }),
                             SizedBox(
@@ -482,4 +482,33 @@ class _SignupViewState extends State<SignupView> {
       ),
     );
   }
+}
+Widget loadingWidget(BuildContext context) {
+  return Container(
+    height: 50,
+    width: MediaQuery.of(context).size.width,
+    decoration: BoxDecoration(
+      color: const Color(0xff89e100),
+      borderRadius: BorderRadius.circular(20),
+      boxShadow: [
+        BoxShadow(
+          color: const Color(0xff7ccc00),
+          offset: Offset(0, 3),
+          blurRadius: 0,
+        ),
+      ],
+    ),
+    child: Material(
+      color: Colors.transparent,
+      // onPressed: () {
+      //
+      // },
+      child: Center(
+        child: SizedBox(
+            height: 30,
+            width: 30,
+            child: CircularProgressIndicator(color: Colors.white)),
+      ),
+    ),
+  );
 }

@@ -36,6 +36,7 @@ LoadingController loadingController = Get.put(LoadingController());
 // }
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  loadingController.isLoading.value = false;
 
   var directory = await getApplicationDocumentsDirectory();
   await Hive.initFlutter(directory.path);
