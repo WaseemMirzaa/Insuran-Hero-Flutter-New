@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
-
 class Answer extends StatelessWidget {
   final String answerText;
   final Color answerColor;
   final void Function()? answerTap;
 
-   Answer(
+  Answer(
       {required this.answerText,
       required this.answerColor,
       required this.answerTap});
@@ -17,7 +16,6 @@ class Answer extends StatelessWidget {
       onTap: answerTap,
       child: Container(
         margin: const EdgeInsets.only(bottom: 20),
-        height: 50,
         decoration: BoxDecoration(
           color: const Color(0xffffffff),
           borderRadius: BorderRadius.circular(15.0),
@@ -34,14 +32,19 @@ class Answer extends StatelessWidget {
           ],
         ),
         child: Center(
-          child: Text(
-            answerText,
-            style: TextStyle(
-              fontFamily: 'Calibri',
-              fontSize: 17,
-              color: Colors.black,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(8, 10, 8, 10),
+            child: Expanded(
+              child: Text(
+                answerText,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'Calibri',
+                  fontSize: 17,
+                  color: Colors.black,
+                ),
+              ),
             ),
-            softWrap: false,
           ),
         ),
       ),

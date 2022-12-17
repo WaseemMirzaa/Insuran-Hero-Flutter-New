@@ -21,19 +21,12 @@ import 'firebase_options.dart';
 import 'history.dart';
 import 'models/user_model.dart';
 import 'ui/auth/login.dart';
+
 late Box user;
 
 UserController userController = Get.put(UserController());
 LoadingController loadingController = Get.put(LoadingController());
-//
-// class AppleSignInAvailable {
-//   AppleSignInAvailable(this.isAvailable);
-//   final bool isAvailable;
-//
-//   static Future<AppleSignInAvailable> check() async {
-//     return AppleSignInAvailable(await AppleSignIn.isAvailable());
-//   }
-// }
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   loadingController.isLoading.value = false;
@@ -48,9 +41,9 @@ void main() async {
   );
 
   user = await Hive.openBox("users");
-  userController.userModel.value = user.get("users",defaultValue: UserModel());
+  userController.userModel.value = user.get("users", defaultValue: UserModel());
 
-   FlutterError.onError = (errorDetails) {
+  FlutterError.onError = (errorDetails) {
     // If you wish to record a "non-fatal" exception, please use `FirebaseCrashlytics.instance.recordFlutterError` instead
     FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
   };
@@ -68,20 +61,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        return GetMaterialApp(
-
-          routes: {
-            loginRoute: (context) => const LoginView(),
-            signupRoute: (context) => const SignupView(),
-            homeRoute: (context) => const Home(),
-            startRoute: (context) => const StartView(),
-            historyRoute: (context) => const HistoryView(),
-            profileRoute: (context) => const ProfileView(),
-            settingsRoute: (context) => const SettingsView(),
-            categoriesRoute: (context) => const CategoriesView(),
-            rankingRoute: (context) => const RankingView()
-          },
-          home: userController.userModel.value.uid == null ? Splash() : HomeView(),
-        );
+    return GetMaterialApp(
+      routes: {
+        loginRoute: (context) => const LoginView(),
+        signupRoute: (context) => const SignupView(),
+        homeRoute: (context) => const Home(),
+        startRoute: (context) => const StartView(),
+        historyRoute: (context) => const HistoryView(),
+        profileRoute: (context) => const ProfileView(),
+        settingsRoute: (context) => const SettingsView(),
+        categoriesRoute: (context) => const CategoriesView(),
+        rankingRoute: (context) => const RankingView()
+      },
+      home: userController.userModel.value.uid == null ? Splash() : HomeView(),
+    );
   }
 }

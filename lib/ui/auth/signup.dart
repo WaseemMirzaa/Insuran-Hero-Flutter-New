@@ -64,7 +64,6 @@ class _SignupViewState extends State<SignupView> {
     print(index);
   }
 
-
   Future<void> init() async {
     boxs = await Hive.openBox('users');
   }
@@ -269,7 +268,7 @@ class _SignupViewState extends State<SignupView> {
                                     buttonColor: const Color(0xff89e100),
                                     shadowColor: const Color(0xff7ccc00),
                                     onTap: () {
-                                    Validate(email);
+                                      Validate(email);
                                       if (_formKey.currentState!.validate() &&
                                           _image != null &&
                                           Validate(email)) {
@@ -285,8 +284,9 @@ class _SignupViewState extends State<SignupView> {
                                                 lastName: lastName,
                                                 phone: phone,
                                                 img: _image)
-                                            .whenComplete(
-                                                () => loadingController.isLoading.value = false);
+                                            .whenComplete(() =>
+                                                loadingController
+                                                    .isLoading.value = false);
                                         //     .onError((error, stackTrace) {
                                         //   loadingController.isLoading.value =
                                         //       false;
@@ -330,7 +330,7 @@ class _SignupViewState extends State<SignupView> {
                                   'By signing in to Insurance Hero, You agree to our',
                                   style: TextStyle(
                                     fontFamily: 'Calibri',
-                                    fontSize: 15,
+                                    fontSize: 14,
                                     color: Color(0xffb4b4b4),
                                     height: 1.411764705882353,
                                   ),
@@ -357,7 +357,7 @@ class _SignupViewState extends State<SignupView> {
                                 const Text(' and ',
                                     style: TextStyle(
                                         fontFamily: 'Calibri',
-                                        fontSize: 15,
+                                        fontSize: 14,
                                         color: Color(0xffb4b4b4))),
                                 GestureDetector(
                                     onTap: () {
@@ -483,6 +483,7 @@ class _SignupViewState extends State<SignupView> {
     );
   }
 }
+
 Widget loadingWidget(BuildContext context) {
   return Container(
     height: 50,

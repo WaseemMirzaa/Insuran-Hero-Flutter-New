@@ -113,88 +113,96 @@ class _LoginViewState extends State<LoginView> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Obx(() =>
-                   Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    verticalGap(Gaps.verticalPadding),
-                    Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: const Color(0xfff6f6f6),
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(
-                            width: 2.0, color: const Color(0xffe9e9e9)),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          customTextField(
-                            validator: (v){
-                                       if (v == null || v.isEmpty || v.length<6 || !Validate(userName)) {
-                                            return 'Please enter Valid Email Address';
-                                        }
-                                    },
-                              keyBoardType: TextInputType.emailAddress,
-                              hintText: "Email",
-                              onChanged: (val) {
-                                setState(() {
-                                  userName = val;
-                                });
-                              }),
-                          Container(
-                            height: 1,
-                            color: Colors.grey[300],
+                Obx(
+                  () => Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        verticalGap(Gaps.verticalPadding),
+                        Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: const Color(0xfff6f6f6),
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
+                                width: 2.0, color: const Color(0xffe9e9e9)),
                           ),
-                          passwordField(
-                              hintText: "Password",
-                              onChanged: (v) {
-                                setState(() {
-                                  password = v;
-                                });
-                              })
-                        ],
-                      ),
-                    ),
-                    verticalGap(25),
-                    loadingController.isLoading.value
-                        ? loadingWidget(context)  : fullWidthButton(
-                        context: context,
-                        title: "Log In",
-                        buttonColor: const Color(0xff89e100),
-                        shadowColor: const Color(0xff7ccc00),
-                        onTap: () {
-                          loadingController.isLoading.value = true;
-                          if (password != "" && userName != "") {
-                            loadingController.isLoading.value = true;
-                            performSigIn(
-                              boxs: box,
-                              password: password,
-                              email: userName,
-                              context: context,
-                            )
-                            .onError((error, stackTrace) => loadingController.isLoading.value = false);
-                          } else {
-                            toastMessage("Incorrect Username or Password");
-                          }
-                        }),
-                    verticalGap(15),
-                    GestureDetector(
-                      onTap: () {
-                        Get.to(ForgetPassword());
-                      },
-                      child: const Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          "FORGET PASSWORD?",
-                          textAlign: TextAlign.end,
-                          style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            color: Colors.black,
-                            fontSize: 15,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              customTextField(
+                                  validator: (v) {
+                                    if (v == null ||
+                                        v.isEmpty ||
+                                        v.length < 6 ||
+                                        !Validate(userName)) {
+                                      return 'Please enter Valid Email Address';
+                                    }
+                                  },
+                                  keyBoardType: TextInputType.emailAddress,
+                                  hintText: "Email",
+                                  onChanged: (val) {
+                                    setState(() {
+                                      userName = val;
+                                    });
+                                  }),
+                              Container(
+                                height: 1,
+                                color: Colors.grey[300],
+                              ),
+                              passwordField(
+                                  hintText: "Password",
+                                  onChanged: (v) {
+                                    setState(() {
+                                      password = v;
+                                    });
+                                  })
+                            ],
                           ),
                         ),
-                      ),
-                    ),
-                  ]),
+                        verticalGap(25),
+                        loadingController.isLoading.value
+                            ? loadingWidget(context)
+                            : fullWidthButton(
+                                context: context,
+                                title: "Log In",
+                                buttonColor: const Color(0xff89e100),
+                                shadowColor: const Color(0xff7ccc00),
+                                onTap: () {
+                                  loadingController.isLoading.value = true;
+                                  if (password != "" && userName != "") {
+                                    loadingController.isLoading.value = true;
+                                    performSigIn(
+                                      boxs: box,
+                                      password: password,
+                                      email: userName,
+                                      context: context,
+                                    ).onError((error, stackTrace) =>
+                                        loadingController.isLoading.value =
+                                            false);
+                                  } else {
+                                    toastMessage(
+                                        "Incorrect Username or Password");
+                                  }
+                                }),
+                        verticalGap(15),
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(ForgetPassword());
+                          },
+                          child: const Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              "FORGET PASSWORD?",
+                              textAlign: TextAlign.end,
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                color: Colors.black,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ]),
                 ),
                 verticalGap(20),
                 Column(
@@ -218,8 +226,8 @@ class _LoginViewState extends State<LoginView> {
                             ),
                             child: TextButton.icon(
                               onPressed: () async {
-                             //   signInWithFacebook().
-                            //    whenComplete(() => addSocialUserData()).then((value) => toHive(box, context));
+                                //   signInWithFacebook().
+                                //    whenComplete(() => addSocialUserData()).then((value) => toHive(box, context));
                               },
                               icon: Image.asset(
                                 'assets/images/facebook.png',
@@ -256,10 +264,11 @@ class _LoginViewState extends State<LoginView> {
                             ),
                             child: TextButton.icon(
                               onPressed: () async {
-                                // performSignOut();
-                                signInWithGoogle().
-                                whenComplete(() => addSocialUserData()).
-                                whenComplete(() => toHive(box, context));
+                                await signInWithGoogle();
+                                if (auth.currentUser?.uid != null) {
+                                  await addSocialUserData();
+                                  await toHive(box, context);
+                                }
                               },
                               icon: Image.asset(
                                 'assets/images/google.png',
@@ -299,12 +308,14 @@ class _LoginViewState extends State<LoginView> {
                           final user = await AuthService().signInWithApple(
                               scopes: [Scope.email, Scope.fullName]);
                           print('uid: ${user.uid}');
-                      //   appleProvider signInWithApple();
-                       //   print(auth.currentUser?.uid ?? "");
+                          //   appleProvider signInWithApple();
+                          //   print(auth.currentUser?.uid ?? "");
                         },
                       ),
                     ),
-                    SizedBox(height: 15,),
+                    SizedBox(
+                      height: 15,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -338,7 +349,7 @@ class _LoginViewState extends State<LoginView> {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: 'Calibri',
-                            fontSize: 15,
+                            fontSize: 14,
                             color: Color(0xffb4b4b4),
                             height: 1.411764705882353,
                           ),
@@ -365,7 +376,7 @@ class _LoginViewState extends State<LoginView> {
                         const Text(' and ',
                             style: TextStyle(
                                 fontFamily: 'Calibri',
-                                fontSize: 15,
+                                fontSize: 14,
                                 color: Color(0xffb4b4b4))),
                         GestureDetector(
                             onTap: () {
@@ -460,11 +471,6 @@ class _LoginViewState extends State<LoginView> {
   // }
 }
 
-
-
-
-
-
 class AuthService {
   final _firebaseAuth = FirebaseAuth.instance;
 
@@ -480,10 +486,10 @@ class AuthService {
         final credential = oAuthProvider.credential(
           idToken: String.fromCharCodes(appleIdCredential.identityToken!),
           accessToken:
-          String.fromCharCodes(appleIdCredential.authorizationCode!),
+              String.fromCharCodes(appleIdCredential.authorizationCode!),
         );
         final userCredential =
-        await _firebaseAuth.signInWithCredential(credential);
+            await _firebaseAuth.signInWithCredential(credential);
         final firebaseUser = userCredential.user!;
         if (scopes.contains(Scope.fullName)) {
           final fullName = appleIdCredential.fullName;

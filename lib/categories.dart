@@ -1,9 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:insurancehero/constants/gaps.dart';
 import 'package:insurancehero/history.dart';
 import 'package:insurancehero/home.dart';
+import 'package:insurancehero/models/category.dart' as cae;
 import 'package:insurancehero/services/firebase/quizz_service.dart';
 import 'package:insurancehero/services/firebase/user_services.dart';
 import 'package:insurancehero/ui/bottom_nav.dart';
@@ -22,28 +25,19 @@ class CategoriesView extends StatefulWidget {
 }
 
 class _CategoriesViewState extends State<CategoriesView> {
-  List categoryList = [];
+  List<Category> categoryList = [];
+  List<dynamic> titles = [];
 
-  getList() async {
-    List<dynamic> mySubjects = await getMySubjects();
-    categoryList = [
-      Category(mySubjects.contains('English'), 'English'),
-      Category(
-          mySubjects.contains('Mathematics') ? true : false, 'Mathematics'),
-      Category(mySubjects.contains('Chemistry') ? true : false, 'Chemistry'),
-      Category(mySubjects.contains('Organic Chemistry') ? true : false,
-          'Organic Chemistry'),
-      Category(mySubjects.contains('Science') ? true : false, 'Science'),
-      Category(
-          mySubjects.contains('Oceanography') ? true : false, 'Oceanography'),
-      Category(mySubjects.contains('Finance & Accounting') ? true : false,
-          'Finance & Accounting'),
-      Category(mySubjects.contains('Astronomy') ? true : false, 'Astronomy'),
-      Category(
-          mySubjects.contains('Fundamental Math or Basic Math') ? true : false,
-          'Fundamental Math or Basic Math'),
-    ];
-    setState(() {});
+  Future<List<dynamic>> getPapers() async {
+    DocumentSnapshot snap = await FirebaseFirestore.instance
+        .collection('titles')
+        .doc("iQJ1NqTmLw0ugCoOSMVu")
+        .get();
+
+    List<dynamic> titlesList = (snap.data() as Map<String, dynamic>)['titles'];
+    titles = titlesList;
+    print(titles.length);
+    return Future.value(titlesList);
   }
 
   List<dynamic> categories = [];
@@ -55,6 +49,17 @@ class _CategoriesViewState extends State<CategoriesView> {
     return mySubjects;
   }
 
+  getList() async {
+    List<dynamic> mySubjects = await getMySubjects();
+    //print(titles);
+    List<dynamic> titles = await getPapers();
+    for (int i = 0; i < titles.length; i++) {
+      categoryList.add(Category(
+          mySubjects.contains(titles[i]) ? true : false, titles[i] as String));
+      setState(() {});
+    }
+  }
+
   bool i = false;
 
   @override
@@ -62,6 +67,8 @@ class _CategoriesViewState extends State<CategoriesView> {
     super.initState();
     getMySubjects();
     getList();
+    getPapers();
+    print(categoryList.length);
   }
 
   @override
@@ -151,7 +158,6 @@ class _CategoriesViewState extends State<CategoriesView> {
                             });
                           },
                           child: Container(
-                            height: 50,
                             decoration: BoxDecoration(
                               color: const Color(0xffffffff),
                               borderRadius: BorderRadius.circular(15),
@@ -174,18 +180,21 @@ class _CategoriesViewState extends State<CategoriesView> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    category.subjectName,
-                                    style: TextStyle(
-                                      fontFamily: 'Calibri',
-                                      fontSize: 17,
-                                      color: !category.isChecked
-                                          ? const Color(0xffb4b4b4)
-                                          : const Color(0xff89e100),
+                                Container(
+                                  child: Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        category.subjectName,
+                                        style: TextStyle(
+                                          fontFamily: 'Calibri',
+                                          fontSize: 17,
+                                          color: !category.isChecked
+                                              ? const Color(0xffb4b4b4)
+                                              : const Color(0xff89e100),
+                                        ),
+                                      ),
                                     ),
-                                    softWrap: false,
                                   ),
                                 ),
                                 Checkbox(

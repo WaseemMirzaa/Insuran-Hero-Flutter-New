@@ -43,86 +43,77 @@ class _HomeState extends State<Home> {
     init();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
         backgroundColor: Colors.white,
-        centerTitle: true,
-        title: const Text(
-          'Insurance Hero',
-          style: TextStyle(
-            fontFamily: 'Calibri',
-            fontSize: 18,
-            color: Color(0xff000000),
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          centerTitle: true,
+          title: const Text(
+            'Insurance Hero',
+            style: TextStyle(
+              fontFamily: 'Calibri',
+              fontSize: 18,
+              color: Color(0xff000000),
+            ),
+            textAlign: TextAlign.center,
+            softWrap: false,
           ),
-          textAlign: TextAlign.center,
-          softWrap: false,
+          elevation: 1.5,
         ),
-        elevation: 1.5,
-      ),
-      body:
-      FutureBuilder<List<dynamic>>(
-              future: getMySubjects(),
-              builder: ((context, snapshot) {
-                if (snapshot.hasData && snapshot.data!.length > 0) {
-                  mySubjects = snapshot.data!;
-                  return Container(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: Gaps.horizontalPadding),
-                    height: double.infinity,
-                    width: double.infinity,
-                    decoration: const BoxDecoration(color: Color(0xffffffff)),
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Expanded(
-                            child: GridView.builder(
-                                itemCount: mySubjects.length,
-                                shrinkWrap: true,
+        body: FutureBuilder<List<dynamic>>(
+          future: getMySubjects(),
+          builder: ((context, snapshot) {
+            if (snapshot.hasData && snapshot.data!.length > 0) {
+              mySubjects = snapshot.data!;
+              return Container(
+                padding:
+                    EdgeInsets.symmetric(horizontal: Gaps.horizontalPadding),
+                height: double.infinity,
+                width: double.infinity,
+                decoration: const BoxDecoration(color: Color(0xffffffff)),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Expanded(
+                        child: GridView.builder(
+                            itemCount: mySubjects.length,
+                            shrinkWrap: true,
                             //    physics: NeverScrollableScrollPhysics(),
-                                scrollDirection: Axis.vertical,
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                  //  childAspectRatio: 90 / 256,
-                                  crossAxisCount: 2,
-                                ),
-                                itemBuilder: (context, i) {
-                                  return subjectItem(
-                                      title: mySubjects[i],
-                                      onTap: () async {
-                                        allQuizz = await QuizService()
-                                            .getPaper(mySubjects[i]);
-                                        showsDialogue();
-                                      });
-                                }),
-                          ),
-                        ]),
-                  );
-                }
-                else if (snapshot.connectionState == ConnectionState.waiting){
-                  return Center(
-                    child: Container(
-                      height: 30,width: 30,
-                        child: CircularProgressIndicator()),
-                  );
-
-                }
-                else {
+                            scrollDirection: Axis.vertical,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              //  childAspectRatio: 90 / 256,
+                              crossAxisCount: 2,
+                            ),
+                            itemBuilder: (context, i) {
+                              return subjectItem(
+                                  title: mySubjects[i],
+                                  onTap: () async {
+                                    allQuizz = await QuizService()
+                                        .getPaper(mySubjects[i]);
+                                    showsDialogue();
+                                  });
+                            }),
+                      ),
+                    ]),
+              );
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: Container(
+                    height: 30, width: 30, child: CircularProgressIndicator()),
+              );
+            } else {
               return const Center(
                 child: Text("Please select subjects from profile"),
               );
             }
           }),
-            )
-
-    );
+        ));
   }
 
   Widget crownIcon(
@@ -179,7 +170,6 @@ class _HomeState extends State<Home> {
       textHeightBehavior:
           const TextHeightBehavior(applyHeightToFirstAscent: false),
       textAlign: TextAlign.center,
-      softWrap: false,
     );
   }
 
@@ -254,15 +244,13 @@ class _HomeState extends State<Home> {
                               : null;
                           return crownIcon(
                             lessonNo: allQuizz[i].lessonNo ?? "",
-                            borderColor: allQuizz[i]
-                                    .attemptedUsers!
-                                    .contains(userController.userModel.value.uid)
+                            borderColor: allQuizz[i].attemptedUsers!.contains(
+                                    userController.userModel.value.uid)
                                 ? lightGreenColor
                                 : lightGrey,
                             onTap: () {
-                              allQuizz[i]
-                                      .attemptedUsers!
-                                      .contains(userController.userModel.value.uid)
+                              allQuizz[i].attemptedUsers!.contains(
+                                      userController.userModel.value.uid)
                                   ? toastMessage("Quiz Already Completed")
                                   : Navigator.of(context)
                                       .push(MaterialPageRoute(
@@ -274,9 +262,8 @@ class _HomeState extends State<Home> {
                               //     paper: allQuizz[i],
                               //   ));
                             },
-                            img: allQuizz[i]
-                                    .attemptedUsers!
-                                    .contains(userController.userModel.value.uid)
+                            img: allQuizz[i].attemptedUsers!.contains(
+                                    userController.userModel.value.uid)
                                 ? "green-crown"
                                 : "grey-crown",
                           );
@@ -325,6 +312,7 @@ class _HomeState extends State<Home> {
           padding: const EdgeInsets.only(top: 8),
           child: Text(
             title,
+            overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               fontFamily: 'Calibri',
               fontSize: 18,
@@ -335,7 +323,6 @@ class _HomeState extends State<Home> {
             textHeightBehavior:
                 const TextHeightBehavior(applyHeightToFirstAscent: false),
             textAlign: TextAlign.center,
-            softWrap: false,
           ),
         ),
       ],

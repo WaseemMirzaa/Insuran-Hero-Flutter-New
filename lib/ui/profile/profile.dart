@@ -36,11 +36,9 @@ class _ProfileViewState extends State<ProfileView> {
         .doc(userController.userModel.value.uid)
         .get();
     UserModel currentUser =
-    UserModel.fromMap(snapshot.data() as Map<String, dynamic>);
+        UserModel.fromMap(snapshot.data() as Map<String, dynamic>);
     userd = currentUser;
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   @override
@@ -98,7 +96,7 @@ class _ProfileViewState extends State<ProfileView> {
                       ],
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         userController.userModel.value.profile == null
                             ? SizedBox()
@@ -129,7 +127,6 @@ class _ProfileViewState extends State<ProfileView> {
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Container(
-                                  width: 220,
                                   child: Text(
                                     overflow: TextOverflow.ellipsis,
                                     userd.fullName ?? "",
@@ -139,7 +136,6 @@ class _ProfileViewState extends State<ProfileView> {
                                       color: const Color(0xff000000),
                                       letterSpacing: 0.3,
                                     ),
-                                    softWrap: false,
                                   ),
                                 ),
                               ),

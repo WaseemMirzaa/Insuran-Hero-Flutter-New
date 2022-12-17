@@ -62,10 +62,7 @@ class _QuestionViewState extends State<QuestionView>
     }
 
     if (_questionIndex > 0) {
-  
-    } else {
-  
-    }
+    } else {}
   }
 
   int inComplete = 0;
@@ -83,7 +80,8 @@ class _QuestionViewState extends State<QuestionView>
         .collection("papers")
         .doc(widget.paper.paperId)
         .update({
-      "attemptedUsers": FieldValue.arrayUnion([userController.userModel.value.uid])
+      "attemptedUsers":
+          FieldValue.arrayUnion([userController.userModel.value.uid])
     });
   }
 
@@ -136,7 +134,7 @@ class _QuestionViewState extends State<QuestionView>
         backgroundColor: Colors.white,
         leading: IconButton(
           onPressed: () {
-            pushNewScreen(context, screen: HomeView(),withNavBar: false);
+            pushNewScreen(context, screen: HomeView(), withNavBar: false);
           },
           icon: Image.asset(
             'assets/images/back-arrow.png',
@@ -208,47 +206,43 @@ class _QuestionViewState extends State<QuestionView>
                     Align(
                       alignment: Alignment.center,
                       child: CircularCountDownTimer(
-                        onComplete: () {
-                          QuizHistoryModel quizHistoryModel = QuizHistoryModel(
-                              level: widget.paper.lessonNo.toString(),
-                              totalQuestions:
-                                  widget.paper.questions!.length.toString(),
-                              correctAns: _totalScore.toString(),
-                              type: widget.paper.title,
-                              day: DateFormat.EEEE().format(DateTime.now()),
-                              time: DateFormat.j().format(DateTime.now()),
-                              uid: userController.userModel.value.uid,
-                              img:
-                                  "https://firebasestorage.googleapis.com/v0/b/insurance-hero.appspot.com/o/col-maths.png?alt=media&token=7da512f0-76fc-43c8-814a-6385895fe06a");
-                          addQuizzInHistort(quizHistoryModel);
-                          Navigator.pop(context);
-                        },
-                        duration: widget.paper.time ?? 0,
-                        initialDuration: 0,
-                        controller: _controller,
-                        isReverse: true,
-                        width: MediaQuery.of(context).size.width / 3,
-                        height: MediaQuery.of(context).size.height / 3,
-                        ringColor: lightGrey,
-                        ringGradient: null,
-                        fillColor: lightGreenColor,
-                        backgroundColor: Colors.white,
-                        backgroundGradient: null,
-                        strokeWidth: 10.0,
-                        strokeCap: StrokeCap.round,
-                        textStyle: TextStyle(
-                          fontSize: 33.0,
-                          color: lightGreenColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textFormat: CountdownTextFormat.S,
-                        isReverseAnimation: true,
-                        isTimerTextShown: true,
-                        autoStart: true
-                      ),
-                    ),
-                    SizedBox(
-                      height: 15,
+                          onComplete: () {
+                            QuizHistoryModel quizHistoryModel = QuizHistoryModel(
+                                level: widget.paper.lessonNo.toString(),
+                                totalQuestions:
+                                    widget.paper.questions!.length.toString(),
+                                correctAns: _totalScore.toString(),
+                                type: widget.paper.title,
+                                day: DateFormat.EEEE().format(DateTime.now()),
+                                time: DateFormat.j().format(DateTime.now()),
+                                uid: userController.userModel.value.uid,
+                                img:
+                                    "https://firebasestorage.googleapis.com/v0/b/insurance-hero.appspot.com/o/col-maths.png?alt=media&token=7da512f0-76fc-43c8-814a-6385895fe06a");
+                            addQuizzInHistort(quizHistoryModel);
+                            Navigator.pop(context);
+                          },
+                          duration: widget.paper.time ?? 0,
+                          initialDuration: 0,
+                          controller: _controller,
+                          isReverse: true,
+                          width: MediaQuery.of(context).size.width / 3,
+                          height: MediaQuery.of(context).size.height / 4,
+                          ringColor: lightGrey,
+                          ringGradient: null,
+                          fillColor: lightGreenColor,
+                          backgroundColor: Colors.white,
+                          backgroundGradient: null,
+                          strokeWidth: 10.0,
+                          strokeCap: StrokeCap.round,
+                          textStyle: TextStyle(
+                            fontSize: 33.0,
+                            color: lightGreenColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textFormat: CountdownTextFormat.S,
+                          isReverseAnimation: true,
+                          isTimerTextShown: true,
+                          autoStart: true),
                     ),
                     ListView.builder(
                         shrinkWrap: true,
@@ -316,23 +310,15 @@ class _QuestionViewState extends State<QuestionView>
                       ),
                       child: TextButton(
                         onPressed: () {
-                        if(isSelected != -1){
-                          if (selectedAns == correctAns) {
-                            _totalScore++;
+                          if (isSelected != -1) {
+                            inComplete--;
+                            complete++;
+                            isSelected = -1;
+                            _nextQuestion();
+                            setState(() {});
+                          } else {
+                            toastMessage("Please select Answer");
                           }
-                          inComplete--;
-                          complete++;
-                          isSelected = -1;
-                          _nextQuestion();
-                          setState(() {
-
-                          });
-                        }else{
-                          toastMessage("Please select Answer");
-                        }
-
-
-
                         },
                         child: Center(
                           child: Text(
@@ -369,7 +355,7 @@ class _QuestionViewState extends State<QuestionView>
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              height: 135,
+              height: 160,
               decoration: BoxDecoration(
                 color: Color(0xffF6F6F6),
                 border: Border.all(
@@ -395,7 +381,7 @@ class _QuestionViewState extends State<QuestionView>
                     height: 5,
                   ),
                   Text(
-                    "Quizz Completed Successfully!",
+                    "Quiz Completed Successfully!",
                     style: TextStyle(
                         fontFamily: 'Calibri',
                         fontSize: 18,
