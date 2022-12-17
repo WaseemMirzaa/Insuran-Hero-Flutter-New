@@ -29,6 +29,10 @@ apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
+flutter.minSdkVersion=21
+flutter.targetSdkVersion=32
+flutter.compileSdkVersion=33
+
 android {
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
