@@ -36,7 +36,6 @@ class _SettingsViewState extends State<SettingsView> {
 
   UserModel user = UserModel();
 
-
   getUser() async {
     DocumentSnapshot snapshot = await firebaseFirestore
         .collection("users")
@@ -45,16 +44,16 @@ class _SettingsViewState extends State<SettingsView> {
     UserModel currentUser =
         UserModel.fromMap(snapshot.data() as Map<String, dynamic>);
     user = currentUser;
-    setState(() {
-
-    });
+    name.text = user?.fullName ?? "";
+    phone.text = user?.phone ?? "";
+    setState(() {});
   }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-   // setInitialValues();
+    // setInitialValues();
     getUser();
   }
 
@@ -134,78 +133,69 @@ class _SettingsViewState extends State<SettingsView> {
                 ),
                 softWrap: false,
               ),
-                verticalGap(35),
-                 StreamBuilder(
-                  stream: firebaseFirestore.collection("users").doc(userController.userModel.value.uid).snapshots(),
-                  builder: (context,snap){
-                    name.text = snap.data?["fullName"] ?? "";
-                    phone.text = snap.data?["phone"] ?? "";
-                    return  Column(
+              verticalGap(35),
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      buildIconBox("Icon awesome-user-alt"),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      customsTextField("User Name", name, TextInputType.name)
+                    ],
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 20, bottom: 15),
+                    child: divider(),
+                  ),
+                  Row(
+                    children: [
+                      buildIconBox("mail"),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              children: [
-                                buildIconBox("Icon awesome-user-alt"),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                customsTextField("User Name",name
-                                )],
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 20, bottom: 15),
-                              child: divider(),
-                            ),
-                            Row(
-                              children: [
-                                buildIconBox("mail"),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Email",
-                                      style: TextStyle(
-                                        fontFamily: 'Calibri',
-                                        fontSize: 12,
-                                        color: Color(0xffd5d5d5),
-                                      ),
-                                    ),
-                                    Text(snap.data?["email"] ?? "",
-                                        style: TextStyle(
-                                          fontFamily: 'Simply Rounded',
-                                          fontSize: 18,
-                                          color: Colors.black,
-                                        )),
-                                  ],
-                                )
-                              ],
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 20, bottom: 15),
-                              child: divider(),
-                            ),
-                            Offstage(
-                              offstage: user.isSocialUser ?? false,
-                              child: Row(
-                                children: [
-                                  buildIconBox("phone"),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  customsTextField("Phone",phone
-
-                                  ),
-                                ],
+                            Text(
+                              "Email",
+                              style: TextStyle(
+                                fontFamily: 'Calibri',
+                                fontSize: 12,
+                                color: Color(0xffd5d5d5),
                               ),
                             ),
+                            Text(user.email ?? "",
+                                style: TextStyle(
+                                  fontFamily: 'Simply Rounded',
+                                  fontSize: 18,
+                                  color: Colors.black,
+                                )),
                           ],
-                        );
-                  },
+                        ),
+                      )
+                    ],
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 20, bottom: 15),
+                    child: divider(),
+                  ),
+                  Offstage(
+                    offstage: user.isSocialUser ?? false,
+                    child: Row(
+                      children: [
+                        buildIconBox("phone"),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        customsTextField("Phone", phone, TextInputType.phone),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-
-
               Offstage(
                   offstage: user.isSocialUser ?? false,
                   child: Padding(
@@ -228,6 +218,8 @@ class _SettingsViewState extends State<SettingsView> {
                           content: Text("Updated Successfully"),
                           duration: Duration(milliseconds: 300),
                         ));
+                        user.fullName = name.text;
+                        user.phone = phone.text;
                         index = 0;
                         setState(() {});
                       } catch (e) {
@@ -250,13 +242,12 @@ class _SettingsViewState extends State<SettingsView> {
     );
   }
 
-  Expanded customsTextField(
-      String text,TextEditingController controller) {
+  Expanded customsTextField(String text, TextEditingController controller, TextInputType textInputType) {
     return Expanded(
       child: TextFormField(
         enabled: index == 1 ? true : false,
         controller: controller,
-        keyboardType: TextInputType.name,
+        keyboardType: textInputType,
         style: TextStyle(
           fontFamily: 'Simply Rounded',
           fontSize: 18,
