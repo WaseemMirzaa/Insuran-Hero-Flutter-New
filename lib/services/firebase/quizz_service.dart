@@ -12,7 +12,7 @@ class QuizService {
     List<QuizHistoryModel> myList = snap.docs
         .map((e) => QuizHistoryModel.fromMap(e.data() as Map<String, dynamic>))
         .toList();
-    print(myList.length.toString() + "my quizz numbers are");
+    print(myList.length.toString() + "my Quiz numbers are");
     return myList;
 
     // questions = _data;
@@ -53,5 +53,5 @@ addQuizzInHistort(QuizHistoryModel quizHistoryModel) {
   firebaseFirestore
       .collection("history")
       .add(quizHistoryModel.toMap())
-      .then((value) => print("Quizz added to the history"));
+      .then((value) => print("Quiz added to the history"));
 }

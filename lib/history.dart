@@ -83,7 +83,7 @@ class _HistoryViewState extends State<HistoryView> {
                   });
             } else{
               return Center(
-                child: Text("Your Quizz history will appear here."),
+                child: Text("Your Quiz history will appear here."),
               );
             }
 
@@ -91,7 +91,7 @@ class _HistoryViewState extends State<HistoryView> {
           ),
 
         ) : Center(
-          child: Text("Your Quizz history will appear here"),
+          child: Text("Your Quiz history will appear here"),
         )) ;
   }
 

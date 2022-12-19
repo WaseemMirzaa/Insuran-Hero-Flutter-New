@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
@@ -270,29 +271,33 @@ class _SignupViewState extends State<SignupView> {
                                     onTap: () {
                                       Validate(email);
                                       if (_formKey.currentState!.validate() &&
-                                          _image != null &&
-                                          Validate(email)) {
-                                        loadingController.isLoading.value =
-                                            true;
-                                        setState(() {});
-                                        performSignUp(
-                                                box: boxs,
-                                                context: context,
-                                                email: email,
-                                                password: password,
-                                                firstName: firstName,
-                                                lastName: lastName,
-                                                phone: phone,
-                                                img: _image)
-                                            .whenComplete(() =>
-                                                loadingController
-                                                    .isLoading.value = false);
-                                        //     .onError((error, stackTrace) {
-                                        //   loadingController.isLoading.value =
-                                        //       false;
-                                        //   setState(() {});
-                                        // });
 
+                                          Validate(email)) {
+                                        if (_image == null || _image == "") {
+                                          Fluttertoast.showToast(msg: "Please select profile picture.");
+                                        } else {
+                                          loadingController.isLoading.value =
+                                          true;
+                                          setState(() {});
+                                          performSignUp(
+                                              box: boxs,
+                                              context: context,
+                                              email: email,
+                                              password: password,
+                                              firstName: firstName,
+                                              lastName: lastName,
+                                              phone: phone,
+                                              img: _image)
+                                              .whenComplete(() =>
+                                          loadingController
+                                              .isLoading.value = false);
+                                          //     .onError((error, stackTrace) {
+                                          //   loadingController.isLoading.value =
+                                          //       false;
+                                          //   setState(() {});
+                                          // });
+
+                                        }
                                       }
                                     }),
                             SizedBox(
