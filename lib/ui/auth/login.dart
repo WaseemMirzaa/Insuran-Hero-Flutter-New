@@ -176,9 +176,10 @@ class _LoginViewState extends State<LoginView> {
                                       password: password,
                                       email: userName,
                                       context: context,
-                                    ).onError((error, stackTrace) =>
-                                        loadingController.isLoading.value =
-                                            false);
+                                    ).whenComplete(() =>
+                                    loadingController
+                                        .isLoading.value = false
+                                    );
                                   } else {
                                     toastMessage(
                                         "Incorrect Username or Password");
