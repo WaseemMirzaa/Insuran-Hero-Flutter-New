@@ -15,7 +15,6 @@ import 'package:insurancehero/widgets/full_width_button.dart';
 import '../../services/firebase/auth_service.dart';
 import '../../utils/email_validate.dart';
 import '../terms.dart';
-import 'gfhdfg.dart';
 
 class SignupView extends StatefulWidget {
   const SignupView({super.key});

@@ -154,8 +154,9 @@ class _HistoryViewState extends State<HistoryView> {
                   child: Text(
                     '$title Quiz',
                     style: const TextStyle(
+                      overflow: TextOverflow.ellipsis,
                       fontFamily: 'Calibri',
-                      fontSize: 28,
+                      fontSize: 26,
                       color: Color(0xff000000),
                       fontWeight: FontWeight.w700,
                     ),

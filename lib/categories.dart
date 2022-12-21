@@ -114,11 +114,12 @@ class _CategoriesViewState extends State<CategoriesView> {
                   i = false;
                   for (int i = 0; i < categoryList.length; i++) {
                     categoryList[i].isChecked = false;
-                    categories.remove(categoryList[i].subjectName);
                   }
+                  categories = [];
                   setState(() {});
                 } else {
                   i = true;
+                  categories = [];
                   for (int i = 0; i < categoryList.length; i++) {
                     categoryList[i].isChecked = true;
                     categories.add(categoryList[i].subjectName);
@@ -235,10 +236,8 @@ class _CategoriesViewState extends State<CategoriesView> {
                     buttonColor: Color(0xff89e100),
                     shadowColor: Color(0xff7ccc00),
                     onTap: () {
-                      categories.isNotEmpty
-                          ? updateCategories(
-                              categories: categories, context: context)
-                          : Navigator.pop(context);
+                      updateCategories(
+                              categories: categories, context: context);
                       print(categories);
                     }))
           ],

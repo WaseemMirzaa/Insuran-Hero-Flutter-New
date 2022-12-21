@@ -33,7 +33,6 @@ class _StartViewState extends State<StartView> {
                         color: const Color(0xff000000),
                         fontWeight: FontWeight.w600,
                         height: 1,
-
                       ),
                       textHeightBehavior:
                           const TextHeightBehavior(applyHeightToFirstAscent: false),

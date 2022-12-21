@@ -147,7 +147,7 @@ class _QuestionViewState extends State<QuestionView>
           child: Row(
             children: [
               Expanded(
-                flex: complete,
+                      flex: complete,
                 child: Container(
                   height: 5,
                   decoration: BoxDecoration(
@@ -179,166 +179,164 @@ class _QuestionViewState extends State<QuestionView>
         height: double.infinity,
         width: double.infinity,
         decoration: const BoxDecoration(color: Color(0xffffffff)),
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: Gaps.horizontalPadding,
-                vertical: Gaps.verticalPadding),
-            child: SingleChildScrollView(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      QuestionModel.fromMap(
-                                  widget.paper.questions![_questionIndex])
-                              .question ??
-                          "",
-                      textAlign: TextAlign.start,
-                      style: const TextStyle(
-                          fontFamily: 'Calibri',
-                          fontSize: 20,
-                          color: Color(0xff000000),
-                          letterSpacing: 0.25,
-                          fontWeight: FontWeight.w500),
-                      softWrap: true,
-                    ),
-                    Align(
-                      alignment: Alignment.center,
-                      child: CircularCountDownTimer(
-                          onComplete: () {
-                            QuizHistoryModel quizHistoryModel = QuizHistoryModel(
-                                level: widget.paper.lessonNo.toString(),
-                                totalQuestions:
-                                    widget.paper.questions!.length.toString(),
-                                correctAns: _totalScore.toString(),
-                                type: widget.paper.title,
-                                day: DateFormat.EEEE().format(DateTime.now()),
-                                time: DateFormat.j().format(DateTime.now()),
-                                uid: userController.userModel.value.uid,
-                                img:
-                                    "https://firebasestorage.googleapis.com/v0/b/insurance-hero.appspot.com/o/col-maths.png?alt=media&token=7da512f0-76fc-43c8-814a-6385895fe06a");
-                            addQuizzInHistort(quizHistoryModel);
-                            Navigator.pop(context);
-                          },
-                          duration: widget.paper.time ?? 0,
-                          initialDuration: 0,
-                          controller: _controller,
-                          isReverse: true,
-                          width: MediaQuery.of(context).size.width / 3,
-                          height: MediaQuery.of(context).size.height / 4,
-                          ringColor: lightGrey,
-                          ringGradient: null,
-                          fillColor: lightGreenColor,
-                          backgroundColor: Colors.white,
-                          backgroundGradient: null,
-                          strokeWidth: 10.0,
-                          strokeCap: StrokeCap.round,
-                          textStyle: TextStyle(
-                            fontSize: 33.0,
-                            color: lightGreenColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textFormat: CountdownTextFormat.S,
-                          isReverseAnimation: true,
-                          isTimerTextShown: true,
-                          autoStart: true),
-                    ),
-                    ListView.builder(
-                        shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: 4,
-                        itemBuilder: ((context, index) {
-                          List<String> answers = [];
-                          answers.add(QuestionModel.fromMap(
-                                      widget.paper.questions![_questionIndex])
-                                  .A ??
-                              "");
-                          answers.add(QuestionModel.fromMap(
-                                      widget.paper.questions![_questionIndex])
-                                  .B ??
-                              "");
-                          answers.add(QuestionModel.fromMap(
-                                      widget.paper.questions![_questionIndex])
-                                  .C ??
-                              "");
-                          answers.add(QuestionModel.fromMap(
-                                      widget.paper.questions![_questionIndex])
-                                  .D ??
-                              "");
-                          correctAns = QuestionModel.fromMap(
-                                      widget.paper.questions![_questionIndex])
-                                  .correctAns ??
-                              "";
-                          return Answer(
-                              answerText: answers[index],
-                              answerColor: isSelected != null
-                                  //set condition like this. voila! if isSelected and list index matches it will colored as white else orange.
-                                  ? isSelected == index
-                                      ? Color(0xff6bb500)
-                                      : lightGrey
-                                  : lightGrey,
-                              answerTap: () {
-                                _isSelecte(index);
-
-                                setState(() {
-                                  selectedAns = answers[index];
-                                  isSelected = index;
-                                });
-                                print(selectedAns + "<<<selected Answer is");
-                                print(correctAns + "<<<correct Answer is");
-                                print(_totalScore.toString() +
-                                    "total scores are");
-                              });
-                        })),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Container(
-                      height: 50,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        color: const Color(0xff77c801),
-                        borderRadius: BorderRadius.circular(15.0),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Color(0xff6bb500),
-                            offset: Offset(0, 3),
-                            blurRadius: 0,
-                          ),
-                        ],
-                      ),
-                      child: TextButton(
-                        onPressed: () {
-                          if (isSelected != -1) {
-                            inComplete--;
-                            complete++;
-                            isSelected = -1;
-                            _nextQuestion();
-                            setState(() {});
-                          } else {
-                            toastMessage("Please select Answer");
-                          }
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: Gaps.horizontalPadding,
+              vertical: Gaps.verticalPadding),
+          child: SingleChildScrollView(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    QuestionModel.fromMap(
+                                widget.paper.questions![_questionIndex])
+                            .question ??
+                        "",
+                    textAlign: TextAlign.start,
+                    style: const TextStyle(
+                        fontFamily: 'Calibri',
+                        fontSize: 20,
+                        color: Color(0xff000000),
+                        letterSpacing: 0.25,
+                        fontWeight: FontWeight.w500),
+                    softWrap: true,
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: CircularCountDownTimer(
+                        onComplete: () {
+                          QuizHistoryModel quizHistoryModel = QuizHistoryModel(
+                              level: widget.paper.lessonNo.toString(),
+                              totalQuestions:
+                                  widget.paper.questions!.length.toString(),
+                              correctAns: _totalScore.toString(),
+                              type: widget.paper.title,
+                              day: DateFormat.EEEE().format(DateTime.now()),
+                              time: DateFormat.j().format(DateTime.now()),
+                              uid: userController.userModel.value.uid,
+                              img:
+                                  "https://firebasestorage.googleapis.com/v0/b/insurance-hero.appspot.com/o/col-maths.png?alt=media&token=7da512f0-76fc-43c8-814a-6385895fe06a");
+                          addQuizzInHistort(quizHistoryModel);
+                          Navigator.pop(context);
                         },
-                        child: Center(
-                          child: Text(
-                            endOfQuiz ? 'Done!' : 'Next Question',
-                            style: const TextStyle(
-                              fontFamily: 'Calibri',
-                              fontSize: 18,
-                              color: Color(0xffffffff),
-                              letterSpacing: 0.18,
-                            ),
-                            textHeightBehavior: const TextHeightBehavior(
-                                applyHeightToFirstAscent: false),
-                            textAlign: TextAlign.center,
-                            softWrap: false,
+                        duration: widget.paper.time ?? 0,
+                        initialDuration: 0,
+                        controller: _controller,
+                        isReverse: true,
+                        width: MediaQuery.of(context).size.width / 3,
+                        height: MediaQuery.of(context).size.height / 4,
+                        ringColor: lightGrey,
+                        ringGradient: null,
+                        fillColor: lightGreenColor,
+                        backgroundColor: Colors.white,
+                        backgroundGradient: null,
+                        strokeWidth: 10.0,
+                        strokeCap: StrokeCap.round,
+                        textStyle: TextStyle(
+                          fontSize: 33.0,
+                          color: lightGreenColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textFormat: CountdownTextFormat.S,
+                        isReverseAnimation: true,
+                        isTimerTextShown: true,
+                        autoStart: true),
+                  ),
+                  ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: 4,
+                      itemBuilder: ((context, index) {
+                        List<String> answers = [];
+                        answers.add(QuestionModel.fromMap(
+                                    widget.paper.questions![_questionIndex])
+                                .A ??
+                            "");
+                        answers.add(QuestionModel.fromMap(
+                                    widget.paper.questions![_questionIndex])
+                                .B ??
+                            "");
+                        answers.add(QuestionModel.fromMap(
+                                    widget.paper.questions![_questionIndex])
+                                .C ??
+                            "");
+                        answers.add(QuestionModel.fromMap(
+                                    widget.paper.questions![_questionIndex])
+                                .D ??
+                            "");
+                        correctAns = QuestionModel.fromMap(
+                                    widget.paper.questions![_questionIndex])
+                                .correctAns ??
+                            "";
+                        return Answer(
+                            answerText: answers[index],
+                            answerColor: isSelected != null
+                                //set condition like this. voila! if isSelected and list index matches it will colored as white else orange.
+                                ? isSelected == index
+                                    ? Color(0xff6bb500)
+                                    : lightGrey
+                                : lightGrey,
+                            answerTap: () {
+                              _isSelecte(index);
+
+                              setState(() {
+                                selectedAns = answers[index];
+                                isSelected = index;
+                              });
+                              print(selectedAns + "<<<selected Answer is");
+                              print(correctAns + "<<<correct Answer is");
+                              print(_totalScore.toString() +
+                                  "total scores are");
+                            });
+                      })),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Container(
+                    height: 50,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      color: const Color(0xff77c801),
+                      borderRadius: BorderRadius.circular(15.0),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Color(0xff6bb500),
+                          offset: Offset(0, 3),
+                          blurRadius: 0,
+                        ),
+                      ],
+                    ),
+                    child: TextButton(
+                      onPressed: () {
+                        if (isSelected != -1) {
+                          inComplete--;
+                          complete++;
+                          isSelected = -1;
+                          _nextQuestion();
+                          setState(() {});
+                        } else {
+                          toastMessage("Please select Answer");
+                        }
+                      },
+                      child: Center(
+                        child: Text(
+                          endOfQuiz ? 'Done!' : 'Next Question',
+                          style: const TextStyle(
+                            fontFamily: 'Calibri',
+                            fontSize: 18,
+                            color: Color(0xffffffff),
+                            letterSpacing: 0.18,
                           ),
+                          textHeightBehavior: const TextHeightBehavior(
+                              applyHeightToFirstAscent: false),
+                          textAlign: TextAlign.center,
+                          softWrap: false,
                         ),
                       ),
                     ),
-                  ]),
-            ),
+                  ),
+                ]),
           ),
         ),
       ),
