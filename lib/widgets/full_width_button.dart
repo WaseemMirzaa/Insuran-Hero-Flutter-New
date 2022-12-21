@@ -11,6 +11,7 @@ Container fullWidthButton({
     required Color shadowColor,
     required VoidCallback onTap,
   }) {
+  double width = MediaQuery.of(context).size.width;
     return Container(
       height: 50,
       width: MediaQuery.of(context).size.width,
@@ -36,9 +37,9 @@ Container fullWidthButton({
           child: Center(
             child: Text(
               title,
-              style: const TextStyle(
+              style:  TextStyle(
                 fontFamily: 'Calibri',
-                fontSize: 18,
+                fontSize: width * 0.05,
                 color: Color(0xffffffff),
                 letterSpacing: 0.18,
               ),

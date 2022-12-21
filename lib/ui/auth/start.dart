@@ -15,6 +15,7 @@ class StartView extends StatefulWidget {
 class _StartViewState extends State<StartView> {
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
@@ -28,12 +29,12 @@ class _StartViewState extends State<StartView> {
                   Center(
                     child: Text(
                       'Welcome to\nInsurance Hero',
+                      maxLines: 2,
                       style: GoogleFonts.roboto(
-                        fontSize: 40,
+                        fontSize: width * 0.12,
                         color: const Color(0xff000000),
                         fontWeight: FontWeight.w600,
-                        height: 1,
-
+                        height: 1
                       ),
                       textHeightBehavior:
                           const TextHeightBehavior(applyHeightToFirstAscent: false),
@@ -42,11 +43,11 @@ class _StartViewState extends State<StartView> {
                     ),
                   ),
                   verticalGap(10),
-                  const Text(
+                   Text(
                     'Learn different languages at your\nown pace in an interactive way.',
                     style: TextStyle(
                       fontFamily: 'Calibri',
-                      fontSize: 22,
+                      fontSize: width * 0.05,
                       color: Color(0xffb4b4b4),
                       letterSpacing: 0.21,
                       height: 1.2857142857142858,

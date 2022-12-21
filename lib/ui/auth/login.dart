@@ -78,6 +78,7 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -341,16 +342,16 @@ class _LoginViewState extends State<LoginView> {
                             )),
                       ],
                     ),
-                    verticalGap(100),
+                    verticalGap(70),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
+                         Text(
                           'By signing in to Insurance Hero, You agree to our',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: 'Calibri',
-                            fontSize: 14,
+                            fontSize: width * 0.035,
                             color: Color(0xffb4b4b4),
                             height: 1.411764705882353,
                           ),
@@ -364,33 +365,35 @@ class _LoginViewState extends State<LoginView> {
                             onTap: () {
                               Get.to(TermsConditionsView());
                             },
-                            child: const Text(
+                            child:  Text(
                               'Terms & Conditions',
+                              maxLines: 2,
                               style: TextStyle(
                                 decoration: TextDecoration.underline,
                                 color: Color(0xff000000),
                                 fontWeight: FontWeight.w700,
                                 fontFamily: 'Calibri',
-                                fontSize: 15,
+                                fontSize: width * 0.048,
                               ),
                             )),
-                        const Text(' and ',
+                         Text(' and ',
                             style: TextStyle(
                                 fontFamily: 'Calibri',
-                                fontSize: 14,
+                                fontSize: width * 0.048,
                                 color: Color(0xffb4b4b4))),
                         GestureDetector(
                             onTap: () {
                               Get.to(PrivacyPolicyView());
                             },
-                            child: const Text(
+                            child:  Text(
+
                               'Privacy Policy',
                               style: TextStyle(
                                 decoration: TextDecoration.underline,
                                 color: Color(0xff000000),
                                 fontWeight: FontWeight.w700,
                                 fontFamily: 'Calibri',
-                                fontSize: 15,
+                                fontSize: width * 0.048,
                               ),
                             )),
                       ],

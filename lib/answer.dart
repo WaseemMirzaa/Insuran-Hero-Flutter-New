@@ -34,15 +34,13 @@ class Answer extends StatelessWidget {
         child: Center(
           child: Padding(
             padding: const EdgeInsets.fromLTRB(8, 10, 8, 10),
-            child: Expanded(
-              child: Text(
-                answerText,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'Calibri',
-                  fontSize: 17,
-                  color: Colors.black,
-                ),
+            child: Text(
+              answerText,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: 'Calibri',
+                fontSize: 17,
+                color: Colors.black,
               ),
             ),
           ),
