@@ -10,7 +10,6 @@ import 'models/quiz_history_model.dart';
 
 class HistoryView extends StatefulWidget {
   const HistoryView({super.key});
-
   @override
   State<HistoryView> createState() => _HistoryViewState();
 }
@@ -64,7 +63,7 @@ class _HistoryViewState extends State<HistoryView> {
               return ListView.builder(
                   shrinkWrap: true,
                   padding:
-                      EdgeInsets.symmetric(horizontal: Gaps.horizontalPadding),
+                      EdgeInsets.only(left: Gaps.horizontalPadding,right: Gaps.horizontalPadding,bottom: 20),
                   itemCount: list.length,
                   itemBuilder: (context, i) {
                     return Padding(
@@ -104,6 +103,8 @@ class _HistoryViewState extends State<HistoryView> {
       required String totalQuestions,
       required int right,
       required int wrong}) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Row(
       children: [
         Container(
@@ -153,10 +154,11 @@ class _HistoryViewState extends State<HistoryView> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     '$title Quiz',
+                    maxLines: 2,
                     style: const TextStyle(
                       overflow: TextOverflow.ellipsis,
                       fontFamily: 'Calibri',
-                      fontSize: 26,
+                      fontSize: 20,
                       color: Color(0xff000000),
                       fontWeight: FontWeight.w700,
                     ),
@@ -167,8 +169,8 @@ class _HistoryViewState extends State<HistoryView> {
                   child: Row(
                     children: [
                       Container(
-                        width: 20,
-                        height: 20,
+                        width: width * 0.06,
+                        height: height*0.05,
                         decoration: BoxDecoration(
                           color: const Color(0xffffffff),
                           borderRadius: BorderRadius.circular(6.0),
@@ -192,9 +194,9 @@ class _HistoryViewState extends State<HistoryView> {
                       ),
                       Text(
                         '${day}, ${time}',
-                        style: const TextStyle(
+                        style:  TextStyle(
                           fontFamily: 'Calibri',
-                          fontSize: 14,
+                          fontSize: width*0.03,
                           color: Color(0xff7a7a7a),
                           letterSpacing: 0.14,
                         ),

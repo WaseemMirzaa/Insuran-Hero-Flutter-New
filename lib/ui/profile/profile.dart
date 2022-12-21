@@ -50,6 +50,8 @@ class _ProfileViewState extends State<ProfileView> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -81,7 +83,7 @@ class _ProfileViewState extends State<ProfileView> {
                     height: 15,
                   ),
                   Container(
-                    height: 130,
+                    height: height * 0.20,
                     decoration: BoxDecoration(
                       color: const Color(0xffffffff),
                       borderRadius: BorderRadius.circular(15),
@@ -102,8 +104,8 @@ class _ProfileViewState extends State<ProfileView> {
                             ? SizedBox()
                             : Container(
                                 margin: EdgeInsets.only(left: 10),
-                                height: 81,
-                                width: 90,
+                                height: width*0.25,
+                                width: width*0.25,
                                 decoration: BoxDecoration(
                                     border:
                                         Border.all(width: 2, color: lightGrey),
@@ -119,7 +121,7 @@ class _ProfileViewState extends State<ProfileView> {
                               ),
                         Container(
                           margin: EdgeInsets.only(left: 10),
-                          height: 91,
+                          height: height * 0.20,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -132,7 +134,7 @@ class _ProfileViewState extends State<ProfileView> {
                                     userd.fullName ?? "",
                                     style: TextStyle(
                                       fontFamily: 'Simply Rounded',
-                                      fontSize: 30,
+                                      fontSize: width*0.05,
                                       color: const Color(0xff000000),
                                       letterSpacing: 0.3,
                                     ),
@@ -145,7 +147,7 @@ class _ProfileViewState extends State<ProfileView> {
                                   'Joined ${userController.userModel.value.joinedDate}',
                                   style: TextStyle(
                                     fontFamily: 'Calibri',
-                                    fontSize: 12,
+                                    fontSize: width*0.03,
                                     color: Color(0xffb4b4b4),
                                   ),
                                   softWrap: false,

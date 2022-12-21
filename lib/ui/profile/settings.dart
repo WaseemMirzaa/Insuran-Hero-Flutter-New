@@ -60,6 +60,9 @@ class _SettingsViewState extends State<SettingsView> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -138,71 +141,75 @@ class _SettingsViewState extends State<SettingsView> {
                  StreamBuilder(
                   stream: firebaseFirestore.collection("users").doc(userController.userModel.value.uid).snapshots(),
                   builder: (context,snap){
-                    name.text = snap.data?["fullName"] ?? "";
-                    phone.text = snap.data?["phone"] ?? "";
-                    return  Column(
-                          children: [
-                            Row(
-                              children: [
-                                buildIconBox("Icon awesome-user-alt"),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                customsTextField("User Name",name
-                                )],
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 20, bottom: 15),
-                              child: divider(),
-                            ),
-                            Row(
-                              children: [
-                                buildIconBox("mail"),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Email",
-                                      style: TextStyle(
-                                        fontFamily: 'Calibri',
-                                        fontSize: 12,
-                                        color: Color(0xffd5d5d5),
-                                      ),
+                    if(snap.hasData ) {
+                      name.text = snap.data?["fullName"] ?? "";
+                      phone.text = snap.data?["phone"] ?? "";
+                      return Column(
+                        children: [
+                          Row(
+                            children: [
+                              buildIconBox("Icon awesome-user-alt"),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              customsTextField("User Name", name, width
+                              )
+                            ],
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 20, bottom: 15),
+                            child: divider(),
+                          ),
+                          Row(
+                            children: [
+                              buildIconBox("mail"),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Email",
+                                    style: TextStyle(
+                                      fontFamily: 'Calibri',
+                                      fontSize: 12,
+                                      color: Color(0xffd5d5d5),
                                     ),
-                                    Text(snap.data?["email"] ?? "",
-                                        style: TextStyle(
-                                          fontFamily: 'Simply Rounded',
-                                          fontSize: 18,
-                                          color: Colors.black,
-                                        )),
-                                  ],
-                                )
+                                  ),
+                                  Text(snap.data?["email"] ?? "",
+                                      style: TextStyle(
+                                        fontFamily: 'Simply Rounded',
+                                        fontSize: width * 0.06,
+                                        color: Colors.black,
+                                      )),
+                                ],
+                              )
+                            ],
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 20, bottom: 15),
+                            child: divider(),
+                          ),
+                          Offstage(
+                            offstage: user.isSocialUser ?? false,
+                            child: Row(
+                              children: [
+                                buildIconBox("phone"),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                customsTextField("Phone", phone, width
+
+                                ),
                               ],
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 20, bottom: 15),
-                              child: divider(),
-                            ),
-                            Offstage(
-                              offstage: user.isSocialUser ?? false,
-                              child: Row(
-                                children: [
-                                  buildIconBox("phone"),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  customsTextField("Phone",phone
-
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        );
-                  },
+                          ),
+                        ],
+                      );
+                    }else {
+                      return Center(child: Text("Please login "),);
+                    } },
               ),
 
 
@@ -251,7 +258,7 @@ class _SettingsViewState extends State<SettingsView> {
   }
 
   Expanded customsTextField(
-      String text,TextEditingController controller) {
+      String text,TextEditingController controller,double width) {
     return Expanded(
       child: TextFormField(
         enabled: index == 1 ? true : false,
@@ -259,7 +266,7 @@ class _SettingsViewState extends State<SettingsView> {
         keyboardType: TextInputType.name,
         style: TextStyle(
           fontFamily: 'Simply Rounded',
-          fontSize: 18,
+          fontSize: width*0.06,
           color: Colors.black,
         ),
         decoration: InputDecoration(
