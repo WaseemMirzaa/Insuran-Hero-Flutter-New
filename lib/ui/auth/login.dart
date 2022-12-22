@@ -373,13 +373,13 @@ class _LoginViewState extends State<LoginView> {
                                 color: Color(0xff000000),
                                 fontWeight: FontWeight.w700,
                                 fontFamily: 'Calibri',
-                                fontSize: width * 0.048,
+                                fontSize: width * 0.04,
                               ),
                             )),
                          Text(' and ',
                             style: TextStyle(
                                 fontFamily: 'Calibri',
-                                fontSize: width * 0.048,
+                                fontSize: width * 0.04,
                                 color: Color(0xffb4b4b4))),
                         GestureDetector(
                             onTap: () {
@@ -393,7 +393,7 @@ class _LoginViewState extends State<LoginView> {
                                 color: Color(0xff000000),
                                 fontWeight: FontWeight.w700,
                                 fontFamily: 'Calibri',
-                                fontSize: width * 0.048,
+                                fontSize: width * 0.04,
                               ),
                             )),
                       ],
