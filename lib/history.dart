@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_brace_in_string_interps
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:insurancehero/constants/gaps.dart';
 import 'package:insurancehero/services/firebase/quizz_service.dart';
@@ -129,7 +130,11 @@ class _HistoryViewState extends State<HistoryView> {
                 img,
                 scale: 3,
               ),
-              Text(
+              AutoSizeText(
+                minFontSize: 5,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+
                 'Lesson $level',
                 style: const TextStyle(
                   fontFamily: 'Calibri',
@@ -152,15 +157,18 @@ class _HistoryViewState extends State<HistoryView> {
               children: [
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(
-                    '$title Quiz',
+                  child: AutoSizeText(
+                    '$title',
                     maxLines: 2,
+                    minFontSize: 10,
+                    overflow: TextOverflow.ellipsis,
+
                     style: const TextStyle(
-                      overflow: TextOverflow.ellipsis,
+
                       fontFamily: 'Calibri',
                       fontSize: 20,
                       color: Color(0xff000000),
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w500,
                     ),
                     softWrap: false,
                   ),
