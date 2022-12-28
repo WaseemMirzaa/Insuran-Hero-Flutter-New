@@ -162,7 +162,6 @@ class _HistoryViewState extends State<HistoryView> {
                     maxLines: 2,
                     minFontSize: 10,
                     overflow: TextOverflow.ellipsis,
-
                     style: const TextStyle(
 
                       fontFamily: 'Calibri',
@@ -204,7 +203,7 @@ class _HistoryViewState extends State<HistoryView> {
                         '${day}, ${time}',
                         style:  TextStyle(
                           fontFamily: 'Calibri',
-                          fontSize: width*0.035,
+                          fontSize: 14,
                           color: Color(0xff7a7a7a),
                           letterSpacing: 0.14,
                         ),

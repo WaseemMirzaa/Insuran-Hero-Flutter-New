@@ -173,14 +173,14 @@ class _SettingsViewState extends State<SettingsView> {
                                     "Email",
                                     style: TextStyle(
                                       fontFamily: 'Calibri',
-                                      fontSize: 12,
+                                      fontSize: 14,
                                       color: Color(0xffd5d5d5),
                                     ),
                                   ),
                                   Text(snap.data?["email"] ?? "",
                                       style: TextStyle(
                                         fontFamily: 'Simply Rounded',
-                                        fontSize: width * 0.06,
+                                        fontSize: 18,
                                         color: Colors.black,
                                       )),
                                 ],
@@ -273,7 +273,7 @@ class _SettingsViewState extends State<SettingsView> {
           labelText: text,
           labelStyle: TextStyle(
             fontFamily: 'Calibri',
-            fontSize: 12,
+            fontSize: 14,
             color: Color(0xffd5d5d5),
           ),
           border: InputBorder.none,

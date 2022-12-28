@@ -105,307 +105,264 @@ class _LoginViewState extends State<LoginView> {
         elevation: 0,
       ),
       body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: double.infinity,
+        // height: MediaQuery.of(context).size.height,
+        // width: double.infinity,
         decoration: const BoxDecoration(color: Color(0xffffffff)),
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: Gaps.horizontalPadding),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Obx(
-                  () => Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        verticalGap(Gaps.verticalPadding),
-                        Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: const Color(0xfff6f6f6),
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(
-                                width: 2.0, color: const Color(0xffe9e9e9)),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              customTextField(
-                                  validator: (v) {
-                                    if (v == null ||
-                                        v.isEmpty ||
-                                        v.length < 6 ||
-                                        !Validate(userName)) {
-                                      return 'Please enter Valid Email Address';
-                                    }
-                                  },
-                                  keyBoardType: TextInputType.emailAddress,
-                                  hintText: "Email",
-                                  onChanged: (val) {
-                                    setState(() {
-                                      userName = val;
-                                    });
-                                  }),
-                              Container(
-                                height: 1,
-                                color: Colors.grey[300],
-                              ),
-                              passwordField(
-                                  hintText: "Password",
-                                  onChanged: (v) {
-                                    setState(() {
-                                      password = v;
-                                    });
-                                  })
-                            ],
-                          ),
-                        ),
-                        verticalGap(25),
-                        loadingController.isLoading.value
-                            ? loadingWidget(context)
-                            : fullWidthButton(
-                                context: context,
-                                title: "Log In",
-                                buttonColor: const Color(0xff89e100),
-                                shadowColor: const Color(0xff7ccc00),
-                                onTap: () {
-                                  loadingController.isLoading.value = true;
-                                  if (password != "" && userName != "") {
-                                    loadingController.isLoading.value = true;
-                                    performSigIn(
-                                      boxs: box,
-                                      password: password,
-                                      email: userName,
-                                      context: context,
-                                    ).whenComplete(() =>
-                                    loadingController
-                                        .isLoading.value = false
-                                    );
-                                  } else {
-                                    toastMessage(
-                                        "Incorrect Username or Password");
-                                  }
-                                }),
-                        verticalGap(15),
-                        GestureDetector(
-                          onTap: () {
-                            Get.to(ForgetPassword());
-                          },
-                          child: const Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              "FORGET PASSWORD?",
-                              textAlign: TextAlign.end,
-                              style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                color: Colors.black,
-                                fontSize: 15,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ]),
-                ),
-                verticalGap(20),
-                Column(
-                  children: [
-                    Row(
+            child:
+            Column(
+                children: [
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.65,
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Expanded(
-                          child: Container(
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: const Color(0xff32599c),
-                              borderRadius: BorderRadius.circular(17.0),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Color(0xff2c4f8b),
-                                  offset: Offset(0, 3),
-                                  blurRadius: 0,
+
+
+                        Obx(
+                              () => Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                verticalGap(Gaps.verticalPadding),
+                                Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xfff6f6f6),
+                                    borderRadius: BorderRadius.circular(20),
+                                    border: Border.all(
+                                        width: 2.0, color: const Color(0xffe9e9e9)),
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      customTextField(
+                                          validator: (v) {
+                                            if (v == null ||
+                                                v.isEmpty ||
+                                                v.length < 6 ||
+                                                !Validate(userName)) {
+                                              return 'Please enter Valid Email Address';
+                                            }
+                                          },
+                                          keyBoardType: TextInputType.emailAddress,
+                                          hintText: "Email",
+                                          onChanged: (val) {
+                                            setState(() {
+                                              userName = val;
+                                            });
+                                          }),
+                                      Container(
+                                        height: 1,
+                                        color: Colors.grey[300],
+                                      ),
+                                      passwordField(
+                                          hintText: "Password",
+                                          onChanged: (v) {
+                                            setState(() {
+                                              password = v;
+                                            });
+                                          })
+                                    ],
+                                  ),
                                 ),
-                              ],
-                            ),
-                            child: TextButton.icon(
-                              onPressed: () async {
-                                //   signInWithFacebook().
-                                //    whenComplete(() => addSocialUserData()).then((value) => toHive(box, context));
-                              },
-                              icon: Image.asset(
-                                'assets/images/facebook.png',
-                                scale: 3,
-                              ),
-                              label: const Text(
-                                'FACEBOOK',
-                                style: TextStyle(
-                                  fontFamily: 'Calibri',
-                                  fontSize: 16,
-                                  color: Color(0xffffffff),
-                                  letterSpacing: 0.16,
+                                verticalGap(25),
+                                loadingController.isLoading.value
+                                    ? loadingWidget(context)
+                                    : fullWidthButton(
+                                    context: context,
+                                    title: "Log In",
+                                    buttonColor: const Color(0xff89e100),
+                                    shadowColor: const Color(0xff7ccc00),
+                                    onTap: () {
+                                      loadingController.isLoading.value = true;
+                                      if (password != "" && userName != "") {
+                                        loadingController.isLoading.value = true;
+                                        performSigIn(
+                                          boxs: box,
+                                          password: password,
+                                          email: userName,
+                                          context: context,
+                                        ).whenComplete(() =>
+                                        loadingController
+                                            .isLoading.value = false
+                                        );
+                                      } else {
+                                        toastMessage(
+                                            "Incorrect Username or Password");
+                                      }
+                                    }),
+                                verticalGap(15),
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.to(ForgetPassword());
+                                  },
+                                  child: const Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      "FORGET PASSWORD?",
+                                      textAlign: TextAlign.end,
+                                      style: TextStyle(
+                                        decoration: TextDecoration.underline,
+                                        color: Colors.black,
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                                textAlign: TextAlign.center,
-                                softWrap: false,
-                              ),
-                            ),
-                          ),
+                              ]),
                         ),
-                        horizontalGap(10),
-                        Expanded(
-                          child: Container(
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: const Color(0xfffa2c26),
-                              borderRadius: BorderRadius.circular(17.0),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Color(0xffdf2621),
-                                  offset: Offset(0, 3),
-                                  blurRadius: 0,
-                                ),
-                              ],
-                            ),
-                            child: TextButton.icon(
-                              onPressed: () async {
-                                await signInWithGoogle();
-                                if (auth.currentUser?.uid != null) {
-                                  await addSocialUserData();
-                                  await toHive(box, context);
-                                }
-                              },
-                              icon: Image.asset(
-                                'assets/images/google.png',
-                                scale: 3,
-                              ),
-                              label: const Text(
-                                'GOOGLE',
-                                style: TextStyle(
-                                  fontFamily: 'Calibri',
-                                  fontSize: 16,
-                                  color: Color(0xffffffff),
-                                  letterSpacing: 0.16,
-                                ),
-                                textAlign: TextAlign.center,
-                                softWrap: false,
-                              ),
-                            ),
-                          ),
-                        ),
+
                       ],
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Offstage(
-                      offstage: !Platform.isIOS,
-                      child: SignInWithAppleButton(
-                        height: 50,
-                        onPressed: () async {
-                          // final appleProvider = AppleAuthProvider();
-                          // // await FirebaseAuth.instance.signInWithProvider(appleProvider);
-                          // final AuthorizationResult result = await TheAppleSignIn.performRequests([
-                          //   AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
-                          // ]).onError((error, stackTrace) => toastMessage("error occured"));
-                          // print(result.status);
+                  ),
 
-                          final user = await AuthService().signInWithApple(
-                              scopes: [Scope.email, Scope.fullName]);
-                          print('uid: ${user.uid}');
-                          //   appleProvider signInWithApple();
-                          //   print(auth.currentUser?.uid ?? "");
-                        },
+                  Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Container(
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: const Color(0xff32599c),
+                                borderRadius: BorderRadius.circular(17.0),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Color(0xff2c4f8b),
+                                    offset: Offset(0, 3),
+                                    blurRadius: 0,
+                                  ),
+                                ],
+                              ),
+                              child: TextButton.icon(
+                                onPressed: () async {
+                                  //   signInWithFacebook().
+                                  //    whenComplete(() => addSocialUserData()).then((value) => toHive(box, context));
+                                },
+                                icon: Image.asset(
+                                  'assets/images/facebook.png',
+                                  scale: 3,
+                                ),
+                                label: const Text(
+                                  'FACEBOOK',
+                                  style: TextStyle(
+                                    fontFamily: 'Calibri',
+                                    fontSize: 16,
+                                    color: Color(0xffffffff),
+                                    letterSpacing: 0.16,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                  softWrap: false,
+                                ),
+                              ),
+                            ),
+                          ),
+                          horizontalGap(10),
+                          Expanded(
+                            child: Container(
+                              height: 50,
+                              decoration: BoxDecoration(
+                                color: const Color(0xfffa2c26),
+                                borderRadius: BorderRadius.circular(17.0),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Color(0xffdf2621),
+                                    offset: Offset(0, 3),
+                                    blurRadius: 0,
+                                  ),
+                                ],
+                              ),
+                              child: TextButton.icon(
+                                onPressed: () async {
+                                  await signInWithGoogle();
+                                  if (auth.currentUser?.uid != null) {
+                                    await addSocialUserData();
+                                    await toHive(box, context);
+                                  }
+                                },
+                                icon: Image.asset(
+                                  'assets/images/google.png',
+                                  scale: 3,
+                                ),
+                                label: const Text(
+                                  'GOOGLE',
+                                  style: TextStyle(
+                                    fontFamily: 'Calibri',
+                                    fontSize: 16,
+                                    color: Color(0xffffffff),
+                                    letterSpacing: 0.16,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                  softWrap: false,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text("Don't have an account? ",
-                            style: TextStyle(
-                                fontFamily: 'Calibri',
-                                fontSize: 15,
-                                color: Color(0xffb4b4b4))),
-                        GestureDetector(
-                            onTap: () {
-                              Get.to(SignupView());
-                            },
-                            child: const Text(
-                              'Register',
-                              style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                color: Color(0xff000000),
-                                fontWeight: FontWeight.w700,
-                                fontFamily: 'Calibri',
-                                fontSize: 15,
-                              ),
-                            )),
-                      ],
-                    ),
-                    verticalGap(70),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                         Text(
-                          'By signing in to Insurance Hero, You agree to our',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontFamily: 'Calibri',
-                            fontSize: width * 0.035,
-                            color: Color(0xffb4b4b4),
-                            height: 1.411764705882353,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                            onTap: () {
-                              Get.to(TermsConditionsView());
-                            },
-                            child:  Text(
-                              'Terms & Conditions',
-                              maxLines: 2,
-                              style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                color: Color(0xff000000),
-                                fontWeight: FontWeight.w700,
-                                fontFamily: 'Calibri',
-                                fontSize: width * 0.04,
-                              ),
-                            )),
-                         Text(' and ',
-                            style: TextStyle(
-                                fontFamily: 'Calibri',
-                                fontSize: width * 0.04,
-                                color: Color(0xffb4b4b4))),
-                        GestureDetector(
-                            onTap: () {
-                              Get.to(PrivacyPolicyView());
-                            },
-                            child:  Text(
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Offstage(
+                        offstage: !Platform.isIOS,
+                        child: SignInWithAppleButton(
+                          height: 50,
+                          onPressed: () async {
+                            // final appleProvider = AppleAuthProvider();
+                            // // await FirebaseAuth.instance.signInWithProvider(appleProvider);
+                            // final AuthorizationResult result = await TheAppleSignIn.performRequests([
+                            //   AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
+                            // ]).onError((error, stackTrace) => toastMessage("error occured"));
+                            // print(result.status);
 
-                              'Privacy Policy',
+                            final user = await AuthService().signInWithApple(
+                                scopes: [Scope.email, Scope.fullName]);
+                            print('uid: ${user.uid}');
+                            //   appleProvider signInWithApple();
+                            //   print(auth.currentUser?.uid ?? "");
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text("Don't have an account? ",
                               style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                color: Color(0xff000000),
-                                fontWeight: FontWeight.w700,
-                                fontFamily: 'Calibri',
-                                fontSize: width * 0.04,
-                              ),
-                            )),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
+                                  fontFamily: 'Calibri',
+                                  fontSize: 15,
+                                  color: Color(0xffb4b4b4))),
+                          GestureDetector(
+                              onTap: () {
+                                Get.to(SignupView());
+                              },
+                              child: const Text(
+                                'Register',
+                                style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  color: Color(0xff000000),
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: 'Calibri',
+                                  fontSize: 15,
+                                ),
+                              )),
+                        ],
+                      ),
+                      verticalGap(70),
+
+                    ],
+                  ),
+
+
+]          ),
         ),
       ),
-    );
+    ),);
   }
 
   Widget passwordField(

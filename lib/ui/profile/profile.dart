@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:flutter/material.dart';
@@ -83,7 +84,7 @@ class _ProfileViewState extends State<ProfileView> {
                     height: 15,
                   ),
                   Container(
-                    height: height * 0.20,
+                    height: 100,
                     decoration: BoxDecoration(
                       color: const Color(0xffffffff),
                       borderRadius: BorderRadius.circular(15),
@@ -104,8 +105,8 @@ class _ProfileViewState extends State<ProfileView> {
                             ? SizedBox()
                             : Container(
                                 margin: EdgeInsets.only(left: 10),
-                                height: width*0.25,
-                                width: width*0.25,
+                                height: 75,
+                                width: 75,
                                 decoration: BoxDecoration(
                                     border:
                                         Border.all(width: 2, color: lightGrey),
@@ -121,7 +122,7 @@ class _ProfileViewState extends State<ProfileView> {
                               ),
                         Container(
                           margin: EdgeInsets.only(left: 10),
-                          height: height * 0.20,
+                          height: 70,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -129,12 +130,16 @@ class _ProfileViewState extends State<ProfileView> {
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Container(
-                                  child: Text(
+                                  child: AutoSizeText(
+                                    minFontSize: 12,
+                                    maxFontSize: 24,
+                                    maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     userd.fullName ?? "",
                                     style: TextStyle(
                                       fontFamily: 'Simply Rounded',
-                                      fontSize: width*0.05,
+                                      fontSize: 24,
+
                                       color: const Color(0xff000000),
                                       letterSpacing: 0.3,
                                     ),
@@ -143,11 +148,14 @@ class _ProfileViewState extends State<ProfileView> {
                               ),
                               Align(
                                 alignment: Alignment.centerLeft,
-                                child: Text(
+                                child: AutoSizeText(
+                                  minFontSize: 10,
+                                  maxFontSize: 15,
+                                  maxLines: 1,
                                   'Joined ${userController.userModel.value.joinedDate}',
                                   style: TextStyle(
                                     fontFamily: 'Calibri',
-                                    fontSize: width*0.03,
+                                    fontSize: 15,
                                     color: Color(0xffb4b4b4),
                                   ),
                                   softWrap: false,

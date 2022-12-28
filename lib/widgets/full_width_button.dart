@@ -15,7 +15,7 @@ Container fullWidthButton({
     width: MediaQuery.of(context).size.width,
     decoration: BoxDecoration(
       color: buttonColor,
-      borderRadius: BorderRadius.circular(20),
+      borderRadius: BorderRadius.circular(15),
       boxShadow: [
         BoxShadow(
           color: shadowColor,
