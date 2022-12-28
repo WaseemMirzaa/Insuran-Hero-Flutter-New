@@ -357,7 +357,7 @@ class _QuestionViewState extends State<QuestionView>
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              height: 160,
+              height: 130,
               decoration: BoxDecoration(
                 color: Color(0xffF6F6F6),
                 border: Border.all(
@@ -375,7 +375,7 @@ class _QuestionViewState extends State<QuestionView>
                     maxLines: 1,
                     minFontSize: 10,
                     maxFontSize: 24,
-                    "Congratulations :",
+                    "Congratulations",
                     style: TextStyle(
                         fontFamily: 'Calibri',
                         fontSize: 24,

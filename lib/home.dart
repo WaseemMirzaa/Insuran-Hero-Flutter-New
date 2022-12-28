@@ -87,7 +87,7 @@ class _HomeState extends State<Home> {
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
                             gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-                               childAspectRatio: MediaQuery.of(context).size.height > 300 ?  1 : 0.9,
+                               childAspectRatio: MediaQuery.of(context).size.height > 300 ?  0.9 : 0.9,
                               crossAxisCount: 2,
                             ),
                             itemBuilder: (context, i) {
