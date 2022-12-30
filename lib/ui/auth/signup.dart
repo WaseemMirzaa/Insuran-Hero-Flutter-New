@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -237,7 +239,7 @@ class _SignupViewState extends State<SignupView> {
                                   if (v == null ||
                                       v.isEmpty ||
                                       v.length < 1) {
-                                    return 'Phone number must be 11 digits long';
+                                    return 'Invalid Phone Number';
                                   }
                                   return null;
                                 },
@@ -263,61 +265,64 @@ class _SignupViewState extends State<SignupView> {
                         ),
                       ),
                       verticalGap(30),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'By signing up to Insurance Hero, You agree to our',
-                            style: TextStyle(
-                              fontFamily: 'Calibri',
-                              fontSize: 15,
-                              color: Color(0xffb4b4b4),
-                              height: 1.411764705882353,
-                            ),
-                          ),
-                        ],
-                      ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: [
+                      //     Column(children: [
+                      //       AutoSizeText(
+                      //         maxLines: 3,
+                      //         'By signing up to Insurance  asd asd as dasd asd asd asd as dHero, You agree to our',
+                      //         style: TextStyle(
+                      //           fontFamily: 'Calibri',
+                      //           fontSize: 15,
+                      //           color: Color(0xffb4b4b4),
+                      //         ),
+                      //       ),
+                      //     ],),
+                      //
+                      //   ],
+                      // ),
 
                       verticalGap(10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                              onTap: () {
-                                Get.to(TermsConditionsView());
-                              },
-                              child:  Text(
-                                'Terms & Conditions',
-                                style: TextStyle(
-                                  decoration: TextDecoration.underline,
-                                  color: Color(0xff000000),
-                                  fontWeight: FontWeight.w700,
-                                  fontFamily: 'Calibri',
-                                  fontSize: 15,
-                                ),
-                              )),
-                          Text(' and ',
-                              style: TextStyle(
-                                  fontFamily: 'Calibri',
-                                  fontSize: 15,
-                                  color: Color(0xffb4b4b4))),
-                          GestureDetector(
-                              onTap: () {
-                                Get.to(PrivacyPolicyView());
-                              },
-                              child:  Text(
-                                'Privacy Policy',
-                                style: TextStyle(
-                                  decoration: TextDecoration.underline,
-                                  color: Color(0xff000000),
-                                  fontWeight: FontWeight.w700,
-                                  fontFamily: 'Calibri',
-                                  fontSize: 15,
-                                ),
-                              )),
-                        ],
-                      ),
-
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: [
+                      //     GestureDetector(
+                      //         onTap: () {
+                      //           Get.to(TermsConditionsView());
+                      //         },
+                      //         child:  Text(
+                      //           'Terms & Conditions',
+                      //           style: TextStyle(
+                      //             decoration: TextDecoration.underline,
+                      //             color: Color(0xff000000),
+                      //             fontWeight: FontWeight.w700,
+                      //             fontFamily: 'Calibri',
+                      //             fontSize: 15,
+                      //           ),
+                      //         )),
+                      //     Text(' and ',
+                      //         style: TextStyle(
+                      //             fontFamily: 'Calibri',
+                      //             fontSize: 15,
+                      //             color: Color(0xffb4b4b4))),
+                      //     GestureDetector(
+                      //         onTap: () {
+                      //           Get.to(PrivacyPolicyView());
+                      //         },
+                      //         child:  Text(
+                      //           'Privacy Policy',
+                      //           style: TextStyle(
+                      //             decoration: TextDecoration.underline,
+                      //             color: Color(0xff000000),
+                      //             fontWeight: FontWeight.w700,
+                      //             fontFamily: 'Calibri',
+                      //             fontSize: 15,
+                      //           ),
+                      //         )),
+                      //   ],
+                      // ),
+                      privacyPolicyLinkAndTermsOfService(),
                       verticalGap(30),
 
                       loadingController.isLoading.value
@@ -425,6 +430,59 @@ class _SignupViewState extends State<SignupView> {
         });
   }
 
+
+  Widget privacyPolicyLinkAndTermsOfService() {
+    return Container(
+      alignment: Alignment.center,
+      padding: EdgeInsets.all(10),
+      child: Center(
+          child: Text.rich(
+              TextSpan(
+                  text: 'By continuing, you agree to our ', style: TextStyle(
+                  fontSize: 14, color: Colors.black
+              ),
+                  children: <TextSpan>[
+                    TextSpan(
+                        text: 'Terms of Service', style: TextStyle(
+                      fontSize: 14, color: const Color(0xff89e100),
+                      decoration: TextDecoration.underline,
+                    ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                                      Get.to(TermsConditionsView());
+
+                            // code to open / launch terms of service link here
+                          }
+                    ),
+                    TextSpan(
+                        text: ' and ', style: TextStyle(
+                        fontSize: 14, color: Colors.black
+                    ),
+                        children: <TextSpan>[
+                          TextSpan(
+                              text: 'Privacy Policy', style: TextStyle(
+                              fontSize: 14, color: const Color(0xff89e100),
+                              decoration: TextDecoration.underline
+                          ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Get.to(PrivacyPolicyView());
+                                  // code to open / launch privacy policy link here
+                                }
+                          ),  TextSpan(
+                              text: '.', style: TextStyle(
+                              fontSize: 14, color: Colors.black
+                          ),),
+                        ]
+                    )
+                  ]
+              )
+          )
+      ),
+    );
+  }
+
+
   Widget passwordField(
       {required String hintText,
       required ValueChanged<String>? onChanged,
@@ -451,7 +509,7 @@ class _SignupViewState extends State<SignupView> {
             hintText: hintText,
             hintStyle: const TextStyle(
               fontFamily: 'Calibri',
-              fontSize: 16,
+              fontSize: 14,
               color: Color(0xff808080),
             ),
             border: InputBorder.none,
