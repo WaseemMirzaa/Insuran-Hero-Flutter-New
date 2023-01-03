@@ -1,6 +1,7 @@
 import 'dart:core';
 import 'dart:math';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -356,7 +357,7 @@ class _QuestionViewState extends State<QuestionView>
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              height: 160,
+              height: 130,
               decoration: BoxDecoration(
                 color: Color(0xffF6F6F6),
                 border: Border.all(
@@ -370,18 +371,25 @@ class _QuestionViewState extends State<QuestionView>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "Congragulations :",
+                  AutoSizeText(
+                    maxLines: 1,
+                    minFontSize: 10,
+                    maxFontSize: 24,
+                    "Congratulations",
                     style: TextStyle(
                         fontFamily: 'Calibri',
                         fontSize: 24,
                         color: greenColor,
+
                         fontWeight: FontWeight.w600),
                   ),
                   SizedBox(
                     height: 5,
                   ),
-                  Text(
+                  AutoSizeText(
+                    maxLines: 1,
+                    minFontSize: 10,
+                    maxFontSize: 18,
                     "Quiz Completed Successfully!",
                     style: TextStyle(
                         fontFamily: 'Calibri',

@@ -17,7 +17,7 @@ TextFormField customTextField(
       hintText: hintText,
       hintStyle: const TextStyle(
         fontFamily: 'Calibri',
-        fontSize: 16,
+        fontSize: 14,
         color: Color(0xff808080),
       ),
       border: InputBorder.none,

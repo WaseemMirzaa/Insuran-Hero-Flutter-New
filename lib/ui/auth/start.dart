@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:insurancehero/constants/gaps.dart';
@@ -27,36 +28,43 @@ class _StartViewState extends State<StartView> {
                 children: [
                   verticalGap(170),
                   Center(
-                    child: Text(
-                      'Welcome to\nInsurance Hero',
-                      maxLines: 2,
-                      style: GoogleFonts.roboto(
-                        fontSize: width * 0.12,
-                        color: const Color(0xff000000),
-                        fontWeight: FontWeight.w600,
-                        height: 1
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 15.0, right: 15),
+                      child: AutoSizeText(
+                        'Welcome to\nInsurance Hero',
+                        maxLines: 2,
+                        minFontSize: 12,
+                        maxFontSize: 100,
+                        style: GoogleFonts.roboto(
+                          fontSize: 100,
+                          color: const Color(0xff000000),
+                          fontWeight: FontWeight.w600,
+                          height: 1
+                        ),
+                          textAlign: TextAlign.center,
+                        softWrap: false,
                       ),
-                      textHeightBehavior:
-                          const TextHeightBehavior(applyHeightToFirstAscent: false),
-                      textAlign: TextAlign.center,
-                      softWrap: false,
                     ),
                   ),
                   verticalGap(10),
-                   Text(
-                    'Learn different languages at your\nown pace in an interactive way.',
-                    style: TextStyle(
-                      fontFamily: 'Calibri',
-                      fontSize: width * 0.05,
-                      color: Color(0xffb4b4b4),
-                      letterSpacing: 0.21,
-                      height: 1.2857142857142858,
-                    ),
-                    textHeightBehavior:
-                        TextHeightBehavior(applyHeightToFirstAscent: false),
-                    textAlign: TextAlign.center,
-                    softWrap: false,
+                   Padding(
+                     padding: const EdgeInsets.only(left: 15.0, right: 15),
+                     child: AutoSizeText(
+                       maxLines: 2,
+                       minFontSize: 12,
+                       maxFontSize: 35,
+                      'Learn different languages at your\nown pace in an interactive way.',
+                      style: TextStyle(
+                        fontFamily: 'Calibri',
+                        fontSize: 35,
+                        color: Color(0xffb4b4b4),
+
+                        letterSpacing: 0.21,
+                      ),
+                      textAlign: TextAlign.center,
+                      softWrap: false,
                   ),
+                   ),
                 ],
               ),
               Column(

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:insurancehero/constants/gaps.dart';
 import 'package:insurancehero/history.dart';
@@ -86,7 +87,7 @@ class _HomeState extends State<Home> {
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
                             gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-                               childAspectRatio: MediaQuery.of(context).size.height > 300 ?  0.9 : 0.8,
+                               childAspectRatio: MediaQuery.of(context).size.height > 300 ?  0.9 : 0.9,
                               crossAxisCount: 2,
                             ),
                             itemBuilder: (context, i) {
@@ -279,7 +280,6 @@ class _HomeState extends State<Home> {
     return SizedBox(
       child: Column(
         children: [
-          verticalGap(10),
           InkWell(
             onTap: onTap,
             child: Container(
@@ -307,17 +307,19 @@ class _HomeState extends State<Home> {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 8),
-            child: Text(
-              title,
+            child: AutoSizeText(
+              maxLines: 3,
+              minFontSize: 5,
+              '$title',
               overflow: TextOverflow.ellipsis,
               style:  TextStyle(
                 fontFamily: 'Calibri',
-                fontSize: width*0.04,
+                fontSize: 18,
                 color: Color(0xff000000),
                 letterSpacing: 0.18,
               ),
-              textHeightBehavior:
-                  const TextHeightBehavior(applyHeightToFirstAscent: false),
+              // textHeightBehavior:
+              //     const TextHeightBehavior(applyHeightToFirstAscent: false),
               textAlign: TextAlign.center,
             ),
           ),

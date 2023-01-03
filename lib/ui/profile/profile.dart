@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:flutter/material.dart';
@@ -83,7 +84,6 @@ class _ProfileViewState extends State<ProfileView> {
                     height: 15,
                   ),
                   Container(
-                    height: height * 0.20,
                     decoration: BoxDecoration(
                       color: const Color(0xffffffff),
                       borderRadius: BorderRadius.circular(15),
@@ -97,66 +97,64 @@ class _ProfileViewState extends State<ProfileView> {
                         ),
                       ],
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        userController.userModel.value.profile == null
-                            ? SizedBox()
-                            : Container(
-                                margin: EdgeInsets.only(left: 10),
-                                height: width*0.25,
-                                width: width*0.25,
-                                decoration: BoxDecoration(
-                                    border:
-                                        Border.all(width: 2, color: lightGrey),
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(9),
-                                  child: Image.network(
-                                    userController.userModel.value.profile ??
-                                        "",
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                              ),
-                        Container(
-                          margin: EdgeInsets.only(left: 10),
-                          height: height * 0.20,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: Container(
-                                  child: Text(
-                                    overflow: TextOverflow.ellipsis,
-                                    userd.fullName ?? "",
-                                    style: TextStyle(
-                                      fontFamily: 'Simply Rounded',
-                                      fontSize: width*0.05,
-                                      color: const Color(0xff000000),
-                                      letterSpacing: 0.3,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          userController.userModel.value.profile == null
+                              ? SizedBox()
+                              : Container(
+                                  height: 75,
+                                  width: 75,
+                                  decoration: BoxDecoration(
+                                      border:
+                                          Border.all(width: 2, color: lightGrey),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(9),
+                                    child: Image.network(
+                                      userController.userModel.value.profile ??
+                                          "",
+                                      fit: BoxFit.fill,
                                     ),
                                   ),
                                 ),
+                          SizedBox(width: 10,),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              AutoSizeText(
+                                minFontSize: 15,
+                                maxFontSize: 24,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                '${userd.fullName}'?? "",
+                                style: TextStyle(
+                                  fontFamily: 'Simply Rounded',
+                                  fontSize: 24,
+
+                                  color: const Color(0xff000000),
+                                  letterSpacing: 0.3,
+                                ),
                               ),
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  'Joined ${userController.userModel.value.joinedDate}',
-                                  style: TextStyle(
-                                    fontFamily: 'Calibri',
-                                    fontSize: width*0.03,
-                                    color: Color(0xffb4b4b4),
-                                  ),
-                                  softWrap: false,
+                              SizedBox(height: 10,),
+                              AutoSizeText(
+                                minFontSize: 10,
+                                maxFontSize: 15,
+                                maxLines: 1,
+                                'Joined ${userController.userModel.value.joinedDate}',
+                                style: TextStyle(
+                                  fontFamily: 'Calibri',
+                                  fontSize: 15,
+                                  color: Color(0xffb4b4b4),
                                 ),
                               ),
                             ],
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   SizedBox(

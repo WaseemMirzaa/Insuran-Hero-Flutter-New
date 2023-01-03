@@ -1,6 +1,9 @@
 import 'dart:io';
 
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
@@ -111,273 +114,289 @@ class _SignupViewState extends State<SignupView> {
                 () => Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Form(
-                        key: _formKey,
+                      Container(height: MediaQuery.of(context).size.height*0.80,
+              child: Column(children: [
+                Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _image == null
+                          ? Padding(
+                        padding:
+                        EdgeInsets.only(top: 20, bottom: 20),
+                        child: Container(
+                          height: 97,
+                          width: 97,
+                          decoration: BoxDecoration(
+                            color: const Color(0xfff6f6f6),
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
+                                width: 2.0,
+                                color: const Color(0xffe9e9e9)),
+                          ),
+                          child: TextButton(
+                              onPressed: () {
+                                _showPicker(context);
+                              },
+                              child: Image.asset(
+                                'assets/images/user.png',
+                                scale: 3.5,
+                              )),
+                        ),
+                      )
+                          : Padding(
+                        padding:
+                        EdgeInsets.only(top: 20, bottom: 20),
+                        child: Container(
+                          height: 97,
+                          width: 97,
+                          decoration: BoxDecoration(
+                            color: const Color(0xfff6f6f6),
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
+                                width: 2.0,
+                                color: const Color(0xffe9e9e9)),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Image.file(
+                              _image!,
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: const Color(0xfff6f6f6),
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                              width: 2.0, color: const Color(0xffe9e9e9)),
+                        ),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceEvenly,
                           children: [
-                            _image == null
-                                ? Padding(
-                                    padding:
-                                        EdgeInsets.only(top: 20, bottom: 20),
-                                    child: Container(
-                                      height: 97,
-                                      width: 97,
-                                      decoration: BoxDecoration(
-                                        color: const Color(0xfff6f6f6),
-                                        borderRadius: BorderRadius.circular(20),
-                                        border: Border.all(
-                                            width: 2.0,
-                                            color: const Color(0xffe9e9e9)),
-                                      ),
-                                      child: TextButton(
-                                          onPressed: () {
-                                            _showPicker(context);
-                                          },
-                                          child: Image.asset(
-                                            'assets/images/user.png',
-                                            scale: 3.5,
-                                          )),
-                                    ),
-                                  )
-                                : Padding(
-                                    padding:
-                                        EdgeInsets.only(top: 20, bottom: 20),
-                                    child: Container(
-                                      height: 97,
-                                      width: 97,
-                                      decoration: BoxDecoration(
-                                        color: const Color(0xfff6f6f6),
-                                        borderRadius: BorderRadius.circular(20),
-                                        border: Border.all(
-                                            width: 2.0,
-                                            color: const Color(0xffe9e9e9)),
-                                      ),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(20),
-                                        child: Image.file(
-                                          _image!,
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                            customTextField(
+                                validator: (v) {
+                                  if (v == null || v.isEmpty) {
+                                    return 'Please enter your first name';
+                                  }
+                                  return null;
+                                },
+                                hintText: "First Name",
+                                onChanged: (val) {
+                                  setState(() {
+                                    firstName = val;
+                                  });
+                                }),
                             Container(
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: const Color(0xfff6f6f6),
-                                borderRadius: BorderRadius.circular(20),
-                                border: Border.all(
-                                    width: 2.0, color: const Color(0xffe9e9e9)),
-                              ),
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  customTextField(
-                                      validator: (v) {
-                                        if (v == null || v.isEmpty) {
-                                          return 'Please enter your first name';
-                                        }
-                                        return null;
-                                      },
-                                      hintText: "First Name",
-                                      onChanged: (val) {
-                                        setState(() {
-                                          firstName = val;
-                                        });
-                                      }),
-                                  Container(
-                                    height: 1,
-                                    color: Colors.grey[300],
-                                  ),
-                                  customTextField(
-                                      validator: (v) {
-                                        if (v == null || v.isEmpty) {
-                                          return 'Please enter your last name';
-                                        }
-                                        return null;
-                                      },
-                                      hintText: "Last Name",
-                                      onChanged: (val) {
-                                        setState(() {
-                                          lastName = val;
-                                        });
-                                      }),
-                                  Container(
-                                    height: 1,
-                                    color: Colors.grey[300],
-                                  ),
-                                  customTextField(
-                                      validator: (v) {
-                                        if (v == null ||
-                                            v.isEmpty ||
-                                            !Validate(email)) {
-                                          return 'Please enter Valid Email address';
-                                        }
-                                        return null;
-                                      },
-                                      keyBoardType: TextInputType.emailAddress,
-                                      hintText: "Email Address",
-                                      onChanged: (val) {
-                                        setState(() {
-                                          email = val.trim();
-                                        });
-                                        Validate(email);
-                                      }),
-                                  Container(
-                                    height: 1,
-                                    color: Colors.grey[300],
-                                  ),
-                                  customTextField(
-                                      validator: (v) {
-                                        if (v == null ||
-                                            v.isEmpty ||
-                                            v.length < 1) {
-                                          return 'Phone number must be 11 digits long';
-                                        }
-                                        return null;
-                                      },
-                                      keyBoardType: TextInputType.phone,
-                                      hintText: "Phone Number",
-                                      onChanged: (val) {
-                                        setState(() {
-                                          phone = val;
-                                        });
-                                      }),
-                                  Container(
-                                    height: 1,
-                                    color: Colors.grey[300],
-                                  ),
-                                  passwordField(
-                                      hintText: "Password",
-                                      onChanged: (v) {
-                                        setState(() {
-                                          password = v;
-                                        });
-                                      })
-                                ],
-                              ),
+                              height: 1,
+                              color: Colors.grey[300],
                             ),
-                            verticalGap(25),
-                            loadingController.isLoading.value
-                                ? loadingWidget()
-                                : fullWidthButton(
-                                    context: context,
-                                    title: "Sign Up",
-                                    buttonColor: const Color(0xff89e100),
-                                    shadowColor: const Color(0xff7ccc00),
-                                    onTap: () {
-                                      Validate(email);
-                                      if (_formKey.currentState!.validate() &&
-                                          _image != null &&
-                                          Validate(email)) {
-                                        loadingController.isLoading.value =
-                                            true;
-                                        setState(() {});
-                                        performSignUp(
-                                                box: boxs,
-                                                context: context,
-                                                email: email,
-                                                password: password,
-                                                firstName: firstName,
-                                                lastName: lastName,
-                                                phone: phone,
-                                                img: _image)
-                                            .whenComplete(() =>
-                                                loadingController
-                                                    .isLoading.value = false);
-                                        //     .onError((error, stackTrace) {
-                                        //   loadingController.isLoading.value =
-                                        //       false;
-                                        //   setState(() {});
-                                        // });
-
-                                      }
-                                    }),
-                            SizedBox(
-                              height: 15,
+                            customTextField(
+                                validator: (v) {
+                                  if (v == null || v.isEmpty) {
+                                    return 'Please enter your last name';
+                                  }
+                                  return null;
+                                },
+                                hintText: "Last Name",
+                                onChanged: (val) {
+                                  setState(() {
+                                    lastName = val;
+                                  });
+                                }),
+                            Container(
+                              height: 1,
+                              color: Colors.grey[300],
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                 Text("Already have an account? ",
-                                    style: TextStyle(
-                                        fontFamily: 'Calibri',
-                                        fontSize: width * 0.048,
-                                        color: Color(0xffb4b4b4))),
-                                GestureDetector(
-                                    onTap: () {
-                                      Get.to(LoginView());
-                                    },
-                                    child:  Text(
-                                      'Log In',
-                                      style: TextStyle(
-                                        decoration: TextDecoration.underline,
-                                        color: Color(0xff000000),
-                                        fontWeight: FontWeight.w700,
-                                        fontFamily: 'Calibri',
-                                        fontSize: width * 0.048,
-                                      ),
-                                    )),
-                              ],
+                            customTextField(
+                                validator: (v) {
+                                  if (v == null ||
+                                      v.isEmpty ||
+                                      !Validate(email)) {
+                                    return 'Please enter Valid Email address';
+                                  }
+                                  return null;
+                                },
+                                keyBoardType: TextInputType.emailAddress,
+                                hintText: "Email Address",
+                                onChanged: (val) {
+                                  setState(() {
+                                    email = val.trim();
+                                  });
+                                  Validate(email);
+                                }),
+                            Container(
+                              height: 1,
+                              color: Colors.grey[300],
                             ),
-                            verticalGap(10),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                 Text(
-                                  'By signing in to Insurance Hero, You agree to our',
-                                  style: TextStyle(
-                                    fontFamily: 'Calibri',
-                                    fontSize: width * 0.035,
-                                    color: Color(0xffb4b4b4),
-                                    height: 1.411764705882353,
-                                  ),
-                                ),
-                              ],
+                            customTextField(
+                                validator: (v) {
+                                  if (v == null ||
+                                      v.isEmpty ||
+                                      v.length < 1) {
+                                    return 'Invalid Phone Number';
+                                  }
+                                  return null;
+                                },
+                                keyBoardType: TextInputType.phone,
+                                hintText: "Phone Number",
+                                onChanged: (val) {
+                                  setState(() {
+                                    phone = val;
+                                  });
+                                }),
+                            Container(
+                              height: 1,
+                              color: Colors.grey[300],
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                GestureDetector(
-                                    onTap: () {
-                                      Get.to(TermsConditionsView());
-                                    },
-                                    child:  Text(
-                                      'Terms & Conditions',
-                                      style: TextStyle(
-                                        decoration: TextDecoration.underline,
-                                        color: Color(0xff000000),
-                                        fontWeight: FontWeight.w700,
-                                        fontFamily: 'Calibri',
-                                        fontSize: width * 0.048,
-                                      ),
-                                    )),
-                                 Text(' and ',
-                                    style: TextStyle(
-                                        fontFamily: 'Calibri',
-                                        fontSize: width * 0.048,
-                                        color: Color(0xffb4b4b4))),
-                                GestureDetector(
-                                    onTap: () {
-                                      Get.to(PrivacyPolicyView());
-                                    },
-                                    child:  Text(
-                                      'Privacy Policy',
-                                      style: TextStyle(
-                                        decoration: TextDecoration.underline,
-                                        color: Color(0xff000000),
-                                        fontWeight: FontWeight.w700,
-                                        fontFamily: 'Calibri',
-                                        fontSize: width * 0.048,
-                                      ),
-                                    )),
-                              ],
-                            ),
+                            passwordField(
+                                hintText: "Password",
+                                onChanged: (v) {
+                                  setState(() {
+                                    password = v;
+                                  });
+                                })
                           ],
                         ),
                       ),
+                      verticalGap(30),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: [
+                      //     Column(children: [
+                      //       AutoSizeText(
+                      //         maxLines: 3,
+                      //         'By signing up to Insurance  asd asd as dasd asd asd asd as dHero, You agree to our',
+                      //         style: TextStyle(
+                      //           fontFamily: 'Calibri',
+                      //           fontSize: 15,
+                      //           color: Color(0xffb4b4b4),
+                      //         ),
+                      //       ),
+                      //     ],),
+                      //
+                      //   ],
+                      // ),
+
+                      verticalGap(10),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: [
+                      //     GestureDetector(
+                      //         onTap: () {
+                      //           Get.to(TermsConditionsView());
+                      //         },
+                      //         child:  Text(
+                      //           'Terms & Conditions',
+                      //           style: TextStyle(
+                      //             decoration: TextDecoration.underline,
+                      //             color: Color(0xff000000),
+                      //             fontWeight: FontWeight.w700,
+                      //             fontFamily: 'Calibri',
+                      //             fontSize: 15,
+                      //           ),
+                      //         )),
+                      //     Text(' and ',
+                      //         style: TextStyle(
+                      //             fontFamily: 'Calibri',
+                      //             fontSize: 15,
+                      //             color: Color(0xffb4b4b4))),
+                      //     GestureDetector(
+                      //         onTap: () {
+                      //           Get.to(PrivacyPolicyView());
+                      //         },
+                      //         child:  Text(
+                      //           'Privacy Policy',
+                      //           style: TextStyle(
+                      //             decoration: TextDecoration.underline,
+                      //             color: Color(0xff000000),
+                      //             fontWeight: FontWeight.w700,
+                      //             fontFamily: 'Calibri',
+                      //             fontSize: 15,
+                      //           ),
+                      //         )),
+                      //   ],
+                      // ),
+                      privacyPolicyLinkAndTermsOfService(),
+                      verticalGap(30),
+
+                      loadingController.isLoading.value
+                          ? loadingWidget()
+                          : fullWidthButton(
+                          context: context,
+                          title: "Sign Up",
+                          buttonColor: const Color(0xff89e100),
+                          shadowColor: const Color(0xff7ccc00),
+                          onTap: () {
+                            Validate(email);
+                            if (_formKey.currentState!.validate() &&
+
+                                Validate(email)) {
+                              if (_image == null || _image == "") {
+                                Fluttertoast.showToast(msg: "Please select profile picture.");
+                              } else {
+                                loadingController.isLoading.value =
+                                true;
+                                setState(() {});
+                                performSignUp(
+                                    box: boxs,
+                                    context: context,
+                                    email: email,
+                                    password: password,
+                                    firstName: firstName,
+                                    lastName: lastName,
+                                    phone: phone,
+                                    img: _image)
+                                    .whenComplete(() =>
+                                loadingController
+                                    .isLoading.value = false);
+                                //     .onError((error, stackTrace) {
+                                //   loadingController.isLoading.value =
+                                //       false;
+                                //   setState(() {});
+                                // });
+
+                              }
+                            }
+                          }),
+                      SizedBox(
+                        height: 50,
+                      ),
+                      verticalGap(10),
+
+                    ],
+                  ),
+                )
+              ],),),
+                      Column(children: [ Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Already have an account? ",
+                              style: TextStyle(
+                                  fontFamily: 'Calibri',
+                                  fontSize: 15,
+                                  color: Color(0xffb4b4b4))),
+                          GestureDetector(
+                              onTap: () {
+                                Get.to(LoginView());
+                              },
+                              child:  Text(
+                                'Log In',
+                                style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  color: Color(0xff000000),
+                                  fontWeight: FontWeight.w700,
+                                  fontFamily: 'Calibri',
+                                  fontSize: 15,
+                                ),
+                              )),
+                        ],
+                      ),],),
                     ]),
               ),
             ))));
@@ -411,6 +430,59 @@ class _SignupViewState extends State<SignupView> {
         });
   }
 
+
+  Widget privacyPolicyLinkAndTermsOfService() {
+    return Container(
+      alignment: Alignment.center,
+      padding: EdgeInsets.all(10),
+      child: Center(
+          child: Text.rich(
+              TextSpan(
+                  text: 'By continuing, you agree to our ', style: TextStyle(
+                  fontSize: 14, color: Colors.black
+              ),
+                  children: <TextSpan>[
+                    TextSpan(
+                        text: 'Terms of Service', style: TextStyle(
+                      fontSize: 14, color: const Color(0xff89e100),
+                      decoration: TextDecoration.underline,
+                    ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                                      Get.to(TermsConditionsView());
+
+                            // code to open / launch terms of service link here
+                          }
+                    ),
+                    TextSpan(
+                        text: ' and ', style: TextStyle(
+                        fontSize: 14, color: Colors.black
+                    ),
+                        children: <TextSpan>[
+                          TextSpan(
+                              text: 'Privacy Policy', style: TextStyle(
+                              fontSize: 14, color: const Color(0xff89e100),
+                              decoration: TextDecoration.underline
+                          ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Get.to(PrivacyPolicyView());
+                                  // code to open / launch privacy policy link here
+                                }
+                          ),  TextSpan(
+                              text: '.', style: TextStyle(
+                              fontSize: 14, color: Colors.black
+                          ),),
+                        ]
+                    )
+                  ]
+              )
+          )
+      ),
+    );
+  }
+
+
   Widget passwordField(
       {required String hintText,
       required ValueChanged<String>? onChanged,
@@ -437,7 +509,7 @@ class _SignupViewState extends State<SignupView> {
             hintText: hintText,
             hintStyle: const TextStyle(
               fontFamily: 'Calibri',
-              fontSize: 16,
+              fontSize: 14,
               color: Color(0xff808080),
             ),
             border: InputBorder.none,
@@ -459,7 +531,7 @@ class _SignupViewState extends State<SignupView> {
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         color: const Color(0xff89e100),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
             color: const Color(0xff7ccc00),
