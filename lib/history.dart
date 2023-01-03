@@ -169,8 +169,8 @@ class _HistoryViewState extends State<HistoryView> {
                   child: Row(
                     children: [
                       Container(
-                        width: width * 0.06,
-                        height: height*0.05,
+                        width: 20,
+                        height: 20,
                         decoration: BoxDecoration(
                           color: const Color(0xffffffff),
                           borderRadius: BorderRadius.circular(6.0),
@@ -196,7 +196,7 @@ class _HistoryViewState extends State<HistoryView> {
                         '${day}, ${time}',
                         style:  TextStyle(
                           fontFamily: 'Calibri',
-                          fontSize: width*0.03,
+                          fontSize: width*0.035,
                           color: Color(0xff7a7a7a),
                           letterSpacing: 0.14,
                         ),
