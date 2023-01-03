@@ -46,6 +46,8 @@ class _QuestionViewState extends State<QuestionView>
   String selectedAns = "";
   Color ansColor = lightGrey;
 
+  List<Map<String,dynamic>> quizzQuestions = [];
+
   void _nextQuestion() {
     setState(() {
       _questionIndex <= widget.paper.questions!.length
@@ -72,7 +74,6 @@ class _QuestionViewState extends State<QuestionView>
   List<List<QuestionModel>> subjects = [];
   List<String> ids = [];
 
-  // List<QuestionModel> _questions = [];
 
   updatePaper() async {
     await firebaseFirestore
@@ -88,7 +89,9 @@ class _QuestionViewState extends State<QuestionView>
 
   void _resetQuiz() {
     print(DateFormat.EEEE().format(DateTime.now()));
+    print(quizzQuestions.length.toString() + "this is lenght of questions before uploading");
     QuizHistoryModel quizHistoryModel = QuizHistoryModel(
+        questions: quizzQuestions,
         totalQuestions: widget.paper.questions!.length.toString(),
         correctAns: _totalScore.toString(),
         type: widget.paper.title,
@@ -97,7 +100,8 @@ class _QuestionViewState extends State<QuestionView>
         uid: userController.userModel.value.uid,
         level: widget.paper.lessonNo.toString(),
         img:
-            "https://firebasestorage.googleapis.com/v0/b/insurance-hero.appspot.com/o/col-maths.png?alt=media&token=7da512f0-76fc-43c8-814a-6385895fe06a");
+            "https://firebasestorage.googleapis.com/v0/b/insurance-hero.appspot.com/o/col-maths.png?alt=media&token=7da512f0-76fc-43c8-814a-6385895fe06a"
+    );
     addQuizzInHistort(quizHistoryModel);
     setState(() {
       _questionIndex = 0;
@@ -185,7 +189,8 @@ class _QuestionViewState extends State<QuestionView>
               horizontal: Gaps.horizontalPadding,
               vertical: Gaps.verticalPadding),
           child: SingleChildScrollView(
-            child: Column(
+            child:
+            Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -203,12 +208,23 @@ class _QuestionViewState extends State<QuestionView>
                         fontWeight: FontWeight.w500),
                     softWrap: true,
                   ),
+                  verticalGap(5),
+                  QuestionModel.fromMap(widget.paper.questions![_questionIndex]).hint != null ?
+                  Text("Hint : ${QuestionModel.fromMap(widget.paper.questions![_questionIndex]).hint}",
+                    style: TextStyle(
+                        fontFamily: 'Calibri',
+                        fontSize: 20,
+                        color: Color(0xffB4B4B4),
+                        letterSpacing: 0.25,
+                        fontWeight: FontWeight.w500
+                    ),) : Container(),
                   verticalGap(15),
                   Align(
                     alignment: Alignment.center,
                     child: CircularCountDownTimer(
                         onComplete: () {
                           QuizHistoryModel quizHistoryModel = QuizHistoryModel(
+                            questions: quizzQuestions,
                               level: widget.paper.lessonNo.toString(),
                               totalQuestions:
                                   widget.paper.questions!.length.toString(),
@@ -282,7 +298,6 @@ class _QuestionViewState extends State<QuestionView>
                                 : lightGrey,
                             answerTap: () {
                               _isSelecte(index);
-
                               setState(() {
                                 selectedAns = answers[index];
                                 isSelected = index;
@@ -316,6 +331,16 @@ class _QuestionViewState extends State<QuestionView>
                           inComplete--;
                           complete++;
                           isSelected = -1;
+                          QuestionModel question = QuestionModel(
+                              A: QuestionModel.fromMap(widget.paper.questions![_questionIndex]).A,
+                              B: QuestionModel.fromMap(widget.paper.questions![_questionIndex]).B,
+                              C: QuestionModel.fromMap(widget.paper.questions![_questionIndex]).C,
+                              D: QuestionModel.fromMap(widget.paper.questions![_questionIndex]).D,
+                              correctAns: QuestionModel.fromMap(widget.paper.questions![_questionIndex]).correctAns,
+                              selectedAns: selectedAns,
+                              question: QuestionModel.fromMap(widget.paper.questions![_questionIndex]).question
+                          );
+                          quizzQuestions.add(question.toMap());
                           _nextQuestion();
                           setState(() {});
                         } else {
@@ -357,7 +382,7 @@ class _QuestionViewState extends State<QuestionView>
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              height: 130,
+              height: 140,
               decoration: BoxDecoration(
                 color: Color(0xffF6F6F6),
                 border: Border.all(
