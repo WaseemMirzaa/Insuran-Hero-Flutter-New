@@ -20,7 +20,7 @@ class PrivacyPolicyView extends StatelessWidget {
         body: Builder(builder: (BuildContext context) {
           return WebView(
             initialUrl:
-                "https://www.termsfeed.com/live/b0183daf-5af8-4f64-baaf-3989221cb18b",
+                "https://htmlpreview.github.io/?https://github.com/codetivelab/privacy-policy/blob/main/insurancehero_privacy-policy.html",
             javascriptMode: JavascriptMode.unrestricted,
             onWebViewCreated: (WebViewController webViewController) {
               _controller.complete(webViewController);

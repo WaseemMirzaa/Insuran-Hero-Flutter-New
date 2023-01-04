@@ -50,18 +50,29 @@ class _PaperDetailsState extends State<PaperDetails> {
           itemCount: widget.questions.length,
           itemBuilder: (c,i){
             return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   (i+1).toString()+") " + widget.questions[i]["question"],
                   textAlign: TextAlign.start,
                   style: const TextStyle(
                       fontFamily: 'Calibri',
-                      fontSize: 20,
+                      fontSize: 16,
                       color: Color(0xff000000),
                       letterSpacing: 0.25,
-                      fontWeight: FontWeight.w500),
+                      fontWeight: FontWeight.normal),
                   softWrap: true,
                 ),
+                widget.questions[i]["hint"] != null ?
+                Text("Hint : ${widget.questions[i]["hint"]}",
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                      fontFamily: 'Calibri',
+                      fontSize: 12,
+                      color: Color(0xffB4B4B4),
+                      letterSpacing: 0.25,
+                      fontWeight: FontWeight.w500
+                  ),) : Container(),
                 verticalGap(10),
                 ListView.builder(
                     shrinkWrap: true,
@@ -76,6 +87,7 @@ class _PaperDetailsState extends State<PaperDetails> {
 
                       correctAns =  widget.questions[i]["correctAns"] ?? "" ?? "";
                       return Answer(
+                          isPaperDetails: true,
                           answerText: answers[index],
                           answerColor: widget.questions[i]["correctAns"]  == answers[index] || widget.questions[i]["selectedAns"]  == answers[index] ?
                           widget.questions[i]["correctAns"]  == answers[index] ? Color(0xff7CCC00) :Color(0xffE10034)

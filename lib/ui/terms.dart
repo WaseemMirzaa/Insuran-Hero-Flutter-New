@@ -20,7 +20,7 @@ class TermsConditionsView extends StatelessWidget {
         body: Builder(builder: (BuildContext context) {
           return WebView(
             initialUrl:
-                "https://www.freeprivacypolicy.com/live/b4758391-b804-479e-a9fb-2a5b9dee98eb",
+                "https://htmlpreview.github.io/?https://github.com/codetivelab/privacy-policy/blob/main/insurancehero_terms%26conditions.html",
             javascriptMode: JavascriptMode.unrestricted,
             onWebViewCreated: (WebViewController webViewController) {
               _controller.complete(webViewController);

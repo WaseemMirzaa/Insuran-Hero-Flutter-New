@@ -289,6 +289,7 @@ class _QuestionViewState extends State<QuestionView>
                                 .correctAns ??
                             "";
                         return Answer(
+                            isPaperDetails: false,
                             answerText: answers[index],
                             answerColor: isSelected != null
                                 //set condition like this. voila! if isSelected and list index matches it will colored as white else orange.
@@ -332,6 +333,7 @@ class _QuestionViewState extends State<QuestionView>
                           complete++;
                           isSelected = -1;
                           QuestionModel question = QuestionModel(
+                             hint: QuestionModel.fromMap(widget.paper.questions![_questionIndex]).hint,
                               A: QuestionModel.fromMap(widget.paper.questions![_questionIndex]).A,
                               B: QuestionModel.fromMap(widget.paper.questions![_questionIndex]).B,
                               C: QuestionModel.fromMap(widget.paper.questions![_questionIndex]).C,
