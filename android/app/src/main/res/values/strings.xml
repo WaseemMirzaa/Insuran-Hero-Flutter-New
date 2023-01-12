@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="facebook_app_id">678318220557810</string>
-    <string name="facebook_client_token">c0ee870b8bd1cfbd6b83a15396e39558</string>
-    <string name="fb_login_protocol_scheme">fb678318220557810</string>
+    <string name="facebook_app_id">713969236758394</string>
+    <string name="facebook_client_token">9cbcf4431cd540bacaea8b7263768998</string>
+    <string name="fb_login_protocol_scheme">fb713969236758394</string>
     <string name="app_name">"Insurance Hero"</string>
 </resources>
