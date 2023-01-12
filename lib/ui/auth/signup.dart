@@ -104,302 +104,304 @@ class _SignupViewState extends State<SignupView> {
             ),
           ),
         ),
-        body: Container(
-            width: double.infinity,
-            decoration: const BoxDecoration(color: Color(0xffffffff)),
-            child: SingleChildScrollView(
-                child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: Gaps.horizontalPadding),
-              child: Obx(
-                () => Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(height: MediaQuery.of(context).size.height*0.80,
-              child: Column(children: [
-                Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      _image == null
-                          ? Padding(
-                        padding:
-                        EdgeInsets.only(top: 20, bottom: 20),
-                        child: Container(
-                          height: 97,
-                          width: 97,
-                          decoration: BoxDecoration(
-                            color: const Color(0xfff6f6f6),
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(
-                                width: 2.0,
-                                color: const Color(0xffe9e9e9)),
-                          ),
-                          child: TextButton(
-                              onPressed: () {
-                                _showPicker(context);
-                              },
-                              child: Image.asset(
-                                'assets/images/user.png',
-                                scale: 3.5,
-                              )),
-                        ),
-                      )
-                          : Padding(
-                        padding:
-                        EdgeInsets.only(top: 20, bottom: 20),
-                        child: Container(
-                          height: 97,
-                          width: 97,
-                          decoration: BoxDecoration(
-                            color: const Color(0xfff6f6f6),
-                            borderRadius: BorderRadius.circular(20),
-                            border: Border.all(
-                                width: 2.0,
-                                color: const Color(0xffe9e9e9)),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Image.file(
-                              _image!,
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: double.infinity,
+        body: SingleChildScrollView(
+          child: Container(
+              width: double.infinity,
+              decoration: const BoxDecoration(color: Color(0xffffffff)),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: Gaps.horizontalPadding),
+                child: Obx(
+              () => Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      // height: MediaQuery.of(context).size.height*0.80,
+                     child: Column(children: [
+              Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _image == null
+                        ? Padding(
+                      padding:
+                      EdgeInsets.only(top: 20, bottom: 20),
+                      child: Container(
+                        height: 97,
+                        width: 97,
                         decoration: BoxDecoration(
                           color: const Color(0xfff6f6f6),
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(
-                              width: 2.0, color: const Color(0xffe9e9e9)),
+                              width: 2.0,
+                              color: const Color(0xffe9e9e9)),
                         ),
-                        child: Column(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceEvenly,
-                          children: [
-                            customTextField(
-                                validator: (v) {
-                                  if (v == null || v.isEmpty) {
-                                    return 'Please enter your first name';
-                                  }
-                                  return null;
-                                },
-                                hintText: "First Name",
-                                onChanged: (val) {
-                                  setState(() {
-                                    firstName = val;
-                                  });
-                                }),
-                            Container(
-                              height: 1,
-                              color: Colors.grey[300],
-                            ),
-                            customTextField(
-                                validator: (v) {
-                                  if (v == null || v.isEmpty) {
-                                    return 'Please enter your last name';
-                                  }
-                                  return null;
-                                },
-                                hintText: "Last Name",
-                                onChanged: (val) {
-                                  setState(() {
-                                    lastName = val;
-                                  });
-                                }),
-                            Container(
-                              height: 1,
-                              color: Colors.grey[300],
-                            ),
-                            customTextField(
-                                validator: (v) {
-                                  if (v == null ||
-                                      v.isEmpty ||
-                                      !Validate(email)) {
-                                    return 'Please enter Valid Email address';
-                                  }
-                                  return null;
-                                },
-                                keyBoardType: TextInputType.emailAddress,
-                                hintText: "Email Address",
-                                onChanged: (val) {
-                                  setState(() {
-                                    email = val.trim();
-                                  });
-                                  Validate(email);
-                                }),
-                            Container(
-                              height: 1,
-                              color: Colors.grey[300],
-                            ),
-                            customTextField(
-                                validator: (v) {
-                                  if (v == null ||
-                                      v.isEmpty ||
-                                      v.length < 1) {
-                                    return 'Invalid Phone Number';
-                                  }
-                                  return null;
-                                },
-                                keyBoardType: TextInputType.phone,
-                                hintText: "Phone Number",
-                                onChanged: (val) {
-                                  setState(() {
-                                    phone = val;
-                                  });
-                                }),
-                            Container(
-                              height: 1,
-                              color: Colors.grey[300],
-                            ),
-                            passwordField(
-                                hintText: "Password",
-                                onChanged: (v) {
-                                  setState(() {
-                                    password = v;
-                                  });
-                                })
-                          ],
+                        child: TextButton(
+                            onPressed: () {
+                              _showPicker(context);
+                            },
+                            child: Image.asset(
+                              'assets/images/user.png',
+                              scale: 3.5,
+                            )),
+                      ),
+                    )
+                        : Padding(
+                      padding:
+                      EdgeInsets.only(top: 20, bottom: 20),
+                      child: Container(
+                        height: 97,
+                        width: 97,
+                        decoration: BoxDecoration(
+                          color: const Color(0xfff6f6f6),
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                              width: 2.0,
+                              color: const Color(0xffe9e9e9)),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.file(
+                            _image!,
+                            fit: BoxFit.fill,
+                          ),
                         ),
                       ),
-                      verticalGap(30),
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.center,
-                      //   children: [
-                      //     Column(children: [
-                      //       AutoSizeText(
-                      //         maxLines: 3,
-                      //         'By signing up to Insurance  asd asd as dasd asd asd asd as dHero, You agree to our',
-                      //         style: TextStyle(
-                      //           fontFamily: 'Calibri',
-                      //           fontSize: 15,
-                      //           color: Color(0xffb4b4b4),
-                      //         ),
-                      //       ),
-                      //     ],),
-                      //
-                      //   ],
-                      // ),
-
-                      verticalGap(10),
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.center,
-                      //   children: [
-                      //     GestureDetector(
-                      //         onTap: () {
-                      //           Get.to(TermsConditionsView());
-                      //         },
-                      //         child:  Text(
-                      //           'Terms & Conditions',
-                      //           style: TextStyle(
-                      //             decoration: TextDecoration.underline,
-                      //             color: Color(0xff000000),
-                      //             fontWeight: FontWeight.w700,
-                      //             fontFamily: 'Calibri',
-                      //             fontSize: 15,
-                      //           ),
-                      //         )),
-                      //     Text(' and ',
-                      //         style: TextStyle(
-                      //             fontFamily: 'Calibri',
-                      //             fontSize: 15,
-                      //             color: Color(0xffb4b4b4))),
-                      //     GestureDetector(
-                      //         onTap: () {
-                      //           Get.to(PrivacyPolicyView());
-                      //         },
-                      //         child:  Text(
-                      //           'Privacy Policy',
-                      //           style: TextStyle(
-                      //             decoration: TextDecoration.underline,
-                      //             color: Color(0xff000000),
-                      //             fontWeight: FontWeight.w700,
-                      //             fontFamily: 'Calibri',
-                      //             fontSize: 15,
-                      //           ),
-                      //         )),
-                      //   ],
-                      // ),
-                      privacyPolicyLinkAndTermsOfService(),
-                      verticalGap(30),
-
-                      loadingController.isLoading.value
-                          ? loadingWidget()
-                          : fullWidthButton(
-                          context: context,
-                          title: "Sign Up",
-                          buttonColor: const Color(0xff89e100),
-                          shadowColor: const Color(0xff7ccc00),
-                          onTap: () {
-                            Validate(email);
-                            if (_formKey.currentState!.validate() &&
-
-                                Validate(email)) {
-                              if (_image == null || _image == "") {
-                                Fluttertoast.showToast(msg: "Please select profile picture.");
-                              } else {
-                                loadingController.isLoading.value =
-                                true;
-                                setState(() {});
-                                performSignUp(
-                                    box: boxs,
-                                    context: context,
-                                    email: email,
-                                    password: password,
-                                    firstName: firstName,
-                                    lastName: lastName,
-                                    phone: phone,
-                                    img: _image)
-                                    .whenComplete(() =>
-                                loadingController
-                                    .isLoading.value = false);
-                                //     .onError((error, stackTrace) {
-                                //   loadingController.isLoading.value =
-                                //       false;
-                                //   setState(() {});
-                                // });
-
-                              }
-                            }
-                          }),
-                      SizedBox(
-                        height: 50,
+                    ),
+                    Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: const Color(0xfff6f6f6),
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(
+                            width: 2.0, color: const Color(0xffe9e9e9)),
                       ),
-                      verticalGap(10),
-
-                    ],
-                  ),
-                )
-              ],),),
-                      Column(children: [ Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      child: Column(
+                        mainAxisAlignment:
+                        MainAxisAlignment.spaceEvenly,
                         children: [
-                          Text("Already have an account? ",
-                              style: TextStyle(
-                                  fontFamily: 'Calibri',
-                                  fontSize: 15,
-                                  color: Color(0xffb4b4b4))),
-                          GestureDetector(
-                              onTap: () {
-                                Get.to(LoginView());
+                          customTextField(
+                              validator: (v) {
+                                if (v == null || v.isEmpty) {
+                                  return 'Please enter your first name';
+                                }
+                                return null;
                               },
-                              child:  Text(
-                                'Log In',
-                                style: TextStyle(
-                                  decoration: TextDecoration.underline,
-                                  color: Color(0xff000000),
-                                  fontWeight: FontWeight.w700,
-                                  fontFamily: 'Calibri',
-                                  fontSize: 15,
-                                ),
-                              )),
+                              hintText: "First Name",
+                              onChanged: (val) {
+                                setState(() {
+                                  firstName = val;
+                                });
+                              }),
+                          Container(
+                            height: 1,
+                            color: Colors.grey[300],
+                          ),
+                          customTextField(
+                              validator: (v) {
+                                if (v == null || v.isEmpty) {
+                                  return 'Please enter your last name';
+                                }
+                                return null;
+                              },
+                              hintText: "Last Name",
+                              onChanged: (val) {
+                                setState(() {
+                                  lastName = val;
+                                });
+                              }),
+                          Container(
+                            height: 1,
+                            color: Colors.grey[300],
+                          ),
+                          customTextField(
+                              validator: (v) {
+                                if (v == null ||
+                                    v.isEmpty ||
+                                    !Validate(email)) {
+                                  return 'Please enter Valid Email address';
+                                }
+                                return null;
+                              },
+                              keyBoardType: TextInputType.emailAddress,
+                              hintText: "Email Address",
+                              onChanged: (val) {
+                                setState(() {
+                                  email = val.trim();
+                                });
+                                Validate(email);
+                              }),
+                          Container(
+                            height: 1,
+                            color: Colors.grey[300],
+                          ),
+                          customTextField(
+                              validator: (v) {
+                                if (v == null ||
+                                    v.isEmpty ||
+                                    v.length < 1) {
+                                  return 'Invalid Phone Number';
+                                }
+                                return null;
+                              },
+                              keyBoardType: TextInputType.phone,
+                              hintText: "Phone Number",
+                              onChanged: (val) {
+                                setState(() {
+                                  phone = val;
+                                });
+                              }),
+                          Container(
+                            height: 1,
+                            color: Colors.grey[300],
+                          ),
+                          passwordField(
+                              hintText: "Password",
+                              onChanged: (v) {
+                                setState(() {
+                                  password = v;
+                                });
+                              })
                         ],
-                      ),],),
-                    ]),
-              ),
-            ))));
+                      ),
+                    ),
+                    verticalGap(30),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     Column(children: [
+                    //       AutoSizeText(
+                    //         maxLines: 3,
+                    //         'By signing up to Insurance  asd asd as dasd asd asd asd as dHero, You agree to our',
+                    //         style: TextStyle(
+                    //           fontFamily: 'Calibri',
+                    //           fontSize: 15,
+                    //           color: Color(0xffb4b4b4),
+                    //         ),
+                    //       ),
+                    //     ],),
+                    //
+                    //   ],
+                    // ),
+
+                    verticalGap(10),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     GestureDetector(
+                    //         onTap: () {
+                    //           Get.to(TermsConditionsView());
+                    //         },
+                    //         child:  Text(
+                    //           'Terms & Conditions',
+                    //           style: TextStyle(
+                    //             decoration: TextDecoration.underline,
+                    //             color: Color(0xff000000),
+                    //             fontWeight: FontWeight.w700,
+                    //             fontFamily: 'Calibri',
+                    //             fontSize: 15,
+                    //           ),
+                    //         )),
+                    //     Text(' and ',
+                    //         style: TextStyle(
+                    //             fontFamily: 'Calibri',
+                    //             fontSize: 15,
+                    //             color: Color(0xffb4b4b4))),
+                    //     GestureDetector(
+                    //         onTap: () {
+                    //           Get.to(PrivacyPolicyView());
+                    //         },
+                    //         child:  Text(
+                    //           'Privacy Policy',
+                    //           style: TextStyle(
+                    //             decoration: TextDecoration.underline,
+                    //             color: Color(0xff000000),
+                    //             fontWeight: FontWeight.w700,
+                    //             fontFamily: 'Calibri',
+                    //             fontSize: 15,
+                    //           ),
+                    //         )),
+                    //   ],
+                    // ),
+                    privacyPolicyLinkAndTermsOfService(),
+                    verticalGap(30),
+
+                    loadingController.isLoading.value
+                        ? loadingWidget()
+                        : fullWidthButton(
+                        context: context,
+                        title: "Sign Up",
+                        buttonColor: const Color(0xff89e100),
+                        shadowColor: const Color(0xff7ccc00),
+                        onTap: () {
+                          Validate(email);
+                          if (_formKey.currentState!.validate() &&
+
+                              Validate(email)) {
+                            if (_image == null || _image == "") {
+                              Fluttertoast.showToast(msg: "Please select profile picture.");
+                            } else {
+                              loadingController.isLoading.value =
+                              true;
+                              setState(() {});
+                              performSignUp(
+                                  box: boxs,
+                                  context: context,
+                                  email: email,
+                                  password: password,
+                                  firstName: firstName,
+                                  lastName: lastName,
+                                  phone: phone,
+                                  img: _image)
+                                  .whenComplete(() =>
+                              loadingController
+                                  .isLoading.value = false);
+                              //     .onError((error, stackTrace) {
+                              //   loadingController.isLoading.value =
+                              //       false;
+                              //   setState(() {});
+                              // });
+
+                            }
+                          }
+                        }),
+                    SizedBox(
+                      height: 50,
+                    ),
+                    verticalGap(10),
+
+                  ],
+                ),
+              )
+                ],),),
+                    Column(children: [ Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Already have an account? ",
+                            style: TextStyle(
+                                fontFamily: 'Calibri',
+                                fontSize: 15,
+                                color: Color(0xffb4b4b4))),
+                        GestureDetector(
+                            onTap: () {
+                              Get.to(LoginView());
+                            },
+                            child:  Text(
+                              'Log In',
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                color: Color(0xff000000),
+                                fontWeight: FontWeight.w700,
+                                fontFamily: 'Calibri',
+                                fontSize: 15,
+                              ),
+                            )),
+                      ],
+                    ),],),
+                  ]),
+                ),
+              )),
+        ));
   }
 
   void _showPicker(context) {

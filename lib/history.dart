@@ -110,6 +110,9 @@ class _HistoryViewState extends State<HistoryView> {
       required String totalQuestions,
       required int right,
       required int wrong}) {
+    int percentage = 0;
+    int questoions = int.parse(totalQuestions);
+    percentage = (right/questoions * 100).toInt();
 
     return GestureDetector(
       onTap: (){
@@ -233,18 +236,28 @@ class _HistoryViewState extends State<HistoryView> {
                   const SizedBox(
                     height: 5,
                   ),
-
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Total Questions: ${totalQuestions}',
-                      style: const TextStyle(
-                        fontFamily: 'Calibri',
-                        fontSize: 12,
-                        color: Color(0xffb4b4b4),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Total Questions: ${totalQuestions}',
+                        style: const TextStyle(
+                          fontFamily: 'Calibri',
+                          fontSize: 12,
+                          color: Color(0xffb4b4b4),
+                        ),
+                        softWrap: false,
                       ),
-                      softWrap: false,
-                    ),
+                      Text(
+                        'Percentage: ${percentage}%',
+                        style: const TextStyle(
+                          fontFamily: 'Calibri',
+                          fontSize: 12,
+                          color: Color(0xffb4b4b4),
+                        ),
+                        softWrap: false,
+                      ),
+                    ],
                   ),
                   const SizedBox(
                     height: 5,

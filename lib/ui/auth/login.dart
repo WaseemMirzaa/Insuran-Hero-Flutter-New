@@ -10,9 +10,7 @@ import 'package:insurancehero/models/user_model.dart';
 import 'package:insurancehero/services/firebase/auth_service.dart';
 import 'package:insurancehero/ui/auth/forget_password.dart';
 import 'package:insurancehero/ui/auth/signup.dart';
-import 'package:insurancehero/ui/terms.dart';
 import 'package:insurancehero/utils/email_validate.dart';
-import 'package:insurancehero/utils/loading_indicator.dart';
 import 'package:insurancehero/utils/toast_message.dart';
 import 'package:insurancehero/widgets/custom_text_field.dart';
 import 'package:insurancehero/widgets/full_width_button.dart';
@@ -25,7 +23,6 @@ import '../../main.dart';
 import '../../services/firebase/user_services.dart';
 import '../../utils/firebase_instances.dart';
 import '../bottom_nav.dart';
-import '../privacy_policy.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -239,8 +236,8 @@ class _LoginViewState extends State<LoginView> {
                               ),
                               child: TextButton.icon(
                                 onPressed: () async {
-                                  //   signInWithFacebook().
-                                  //    whenComplete(() => addSocialUserData()).then((value) => toHive(box, context));
+                                     signInWithFaceboook().
+                                     whenComplete(() => addSocialUserData()).then((value) => toHive(box, context));
                                 },
                                 icon: Image.asset(
                                   'assets/images/facebook.png',
@@ -400,36 +397,6 @@ class _LoginViewState extends State<LoginView> {
       ],
     );
   }
-
-  // void logIn() async {
-  //   final AuthorizationResult result = await TheAppleSignIn.performRequests([
-  //     AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
-  //   ]);
-  //
-  //   switch (result.status) {
-  //     case AuthorizationStatus.authorized:
-  //
-  //     // Store user ID
-  //       await FlutterSecureStorage()
-  //           .write(key: "userId", value: result.credential.user);
-  //
-  //       // Navigate to secret page (shhh!)
-  //       Navigator.of(context).pushReplacement(MaterialPageRoute(
-  //           builder: (_) => AfterLoginPage(credential: result.credential)));
-  //       break;
-  //
-  //     case AuthorizationStatus.error:
-  //       print("Sign in failed: ${result.error.localizedDescription}");
-  //       setState(() {
-  //         errorMessage = "Sign in failed";
-  //       });
-  //       break;
-  //
-  //     case AuthorizationStatus.cancelled:
-  //       print('User cancelled');
-  //       break;
-  //   }
-  // }
 }
 
 class AuthService {

@@ -42,7 +42,7 @@ class Answer extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: 'Calibri',
-                fontSize: this.isPaperDetails ? 12 : 17,
+                fontSize: this.isPaperDetails ? 12 : 14,
                 color: this.isPaperDetails ?   Color(0xffB4B4B4) :  Colors.black,
               ),
             ),
