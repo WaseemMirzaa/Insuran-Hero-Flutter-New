@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'dart:io' show Platform;
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
@@ -44,6 +45,34 @@ class _LoginViewState extends State<LoginView> {
     }
     setState(() {});
     print(index);
+  }
+
+  Map<String, dynamic>? _userData;
+  AccessToken? _accessToken;
+  bool? _checking = true;
+
+    signInWithFacebook() async {
+      print("1stage");
+    final LoginResult loginResult = await FacebookAuth.instance.login();
+      print("2stage");
+    if (loginResult.status == LoginStatus.success) {
+      final AccessToken accessToken = loginResult.accessToken!;
+      print("3stage");
+      final OAuthCredential credential =
+      FacebookAuthProvider.credential(accessToken.token);
+      print("4stage");
+      try {
+        toastMessage("Success");
+        return await FirebaseAuth.instance.signInWithCredential(credential);
+
+      } on FirebaseAuthException catch (e) {
+       toastMessage(e.code.toString());
+      } catch (e) {
+        // manage other exceptions
+      }
+    } else {
+      // login was not successful, for example user cancelled the process
+    }
   }
 
   addToHive() async {
@@ -236,8 +265,7 @@ class _LoginViewState extends State<LoginView> {
                               ),
                               child: TextButton.icon(
                                 onPressed: () async {
-                                     signInWithFacebook();
-                                     // whenComplete(() => addSocialUserData()).then((value) => toHive(box, context));
+                                  signInWithFacebook();
                                 },
                                 icon: Image.asset(
                                   'assets/images/facebook.png',

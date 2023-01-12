@@ -193,6 +193,7 @@ class _QuestionViewState extends State<QuestionView>
         elevation: 1.5,
       ),
       body: Container(
+        height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(color: Color(0xffffffff)),
         child: Padding(
           padding: EdgeInsets.symmetric(

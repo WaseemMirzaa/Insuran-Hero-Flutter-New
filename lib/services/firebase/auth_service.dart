@@ -118,51 +118,20 @@ Future<UserCredential> signInWithGoogle() async {
   return await FirebaseAuth.instance.signInWithCredential(credential);
 }
 
-// Future<UserCredential> signInWithFacebook() async {
-//   // Trigger the sign-in flow
-//   final LoginResult loginResult = await FacebookAuth.instance.login();
-//
-//   // Create a credential from the access token
-//   final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken.token);
-//
-//   // Once signed in, return the UserCredential
-//   return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
-// }
-//
-// Future<UserCredential> signInWithFacebook() async {
-//
-//   final LoginResult loginResult = await FacebookAuth.instance.login();
-//
-//   // Create a credential from the access token
-//   final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
-//
-//   // Once signed in, return the UserCredential
-//   return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
-// }
-//
-//
-
-
-Future<UserCredential> signInWithFacebook() async {
+ signInWithFacebook() async {
   // Trigger the sign-in flow
   final LoginResult loginResult = await FacebookAuth.instance.login();
 
+  if(loginResult.accessToken != null){
+    final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
+    return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+  }
+
   // Create a credential from the access token
-  final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken?.token  ?? "");
 
   // Once signed in, return the UserCredential
-  return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
 }
 
-// Future<UserCredential> signInWithGoogle() async {
-//   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-//   final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
-//   final credential = GoogleAuthProvider.credential(
-//     accessToken: googleAuth?.accessToken,
-//     idToken: googleAuth?.idToken,
-//   );
-//   return await FirebaseAuth.instance.signInWithCredential(credential);
-// }
 
 performSignOut() {
   userController.userModel.value = UserModel();
