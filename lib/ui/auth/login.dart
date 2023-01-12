@@ -236,8 +236,8 @@ class _LoginViewState extends State<LoginView> {
                               ),
                               child: TextButton.icon(
                                 onPressed: () async {
-                                     signInWithFaceboook().
-                                     whenComplete(() => addSocialUserData()).then((value) => toHive(box, context));
+                                     signInWithFacebook();
+                                     // whenComplete(() => addSocialUserData()).then((value) => toHive(box, context));
                                 },
                                 icon: Image.asset(
                                   'assets/images/facebook.png',
