@@ -447,10 +447,7 @@ class _ProfileViewState extends State<ProfileView> {
                         ),
                         child: TextButton(
                           onPressed: () async{
-                            deleteAccount();
-                            user = await Hive.openBox("users");
-                            user.delete("users");
-                            pushNewScreen(context, screen: StartView(),withNavBar: false);
+                          await showExitPopup();
                           },
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -551,5 +548,53 @@ class _ProfileViewState extends State<ProfileView> {
         ),
       ),
     );
+  }
+
+  Future<bool> showExitPopup() async {
+    return await showDialog(
+      //show confirm dialogue
+      //the return value will be from "Yes" or "No" options
+      context: context,
+      builder: (context) => Container(
+        height: 180,
+        child: AlertDialog(
+          title: Text('Delete Account'),
+          content: Text('Are you sure you want to delete your account? Deleting your account will delete all the data associated with this account.'),
+          actions: [
+            Padding(
+              padding:  EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ElevatedButton(
+                    onPressed: () => Navigator.of(context).pop(false),
+                    //return false when click on "NO"
+                    child: Text('Cancel'),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Color(0xff89e100))
+                    ),
+                  ),
+                  ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.red)
+                    ),
+                    onPressed: () async{
+                      deleteAccount();
+                      user = await Hive.openBox("users");
+                      user.delete("users");
+                      pushNewScreen(context, screen: StartView(),withNavBar: false);
+                    },
+                    //return true when click on "Yes"
+                    child: Text('Yes',),
+                  ),
+                ],
+              ),
+            ),
+
+          ],
+        ),
+      ),
+    ) ??
+        false; //if showDialouge had returned null, then return false
   }
 }
