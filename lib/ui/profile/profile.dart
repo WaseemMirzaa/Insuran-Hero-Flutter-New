@@ -13,6 +13,7 @@ import 'package:insurancehero/utils/colors.dart';
 
 import 'package:get/get.dart';
 import 'package:insurancehero/controller/user_controller.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
 import '../../../categories.dart';
 import '../../main.dart';
@@ -126,15 +127,13 @@ class _ProfileViewState extends State<ProfileView> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               AutoSizeText(
-                                minFontSize: 15,
+                                minFontSize: 10,
                                 maxFontSize: 24,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 '${userd.fullName}'?? "",
                                 style: TextStyle(
                                   fontFamily: 'Simply Rounded',
-                                  fontSize: 24,
-
                                   color: const Color(0xff000000),
                                   letterSpacing: 0.3,
                                 ),
@@ -422,6 +421,59 @@ class _ProfileViewState extends State<ProfileView> {
                                   ),
                                   child: Image.asset(
                                     'assets/images/right-arrow.png',
+                                    scale: 3,
+                                  ),
+                                ),
+                              ]),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Container(
+                        height: 52,
+                        decoration: BoxDecoration(
+                          color: const Color(0xffffffff),
+                          borderRadius: BorderRadius.circular(15.0),
+                          border: Border.all(
+                              width: 2.0, color:  Colors.red),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.red,
+                              offset: Offset(0, 3),
+                              blurRadius: 0,
+                            ),
+                          ],
+                        ),
+                        child: TextButton(
+                          onPressed: () async{
+                            deleteAccount();
+                            user = await Hive.openBox("users");
+                            user.delete("users");
+                            pushNewScreen(context, screen: StartView(),withNavBar: false);
+                          },
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Delete Account',
+                                  style: TextStyle(
+                                    fontFamily: 'Calibri',
+                                    fontSize: 16,
+                                    color: Colors.red,
+                                  ),
+                                  softWrap: false,
+                                ),
+                                Container(
+                                  height: 20,
+                                  width: 20,
+                                  decoration: BoxDecoration(
+                                    color:  Colors.red,
+                                    borderRadius: BorderRadius.circular(7.0),
+                                  ),
+                                  child: Image.asset(
+                                    'assets/images/right-arrow.png',
+                                    color: Colors.white,
                                     scale: 3,
                                   ),
                                 ),

@@ -215,8 +215,6 @@ class _SettingsViewState extends State<SettingsView> {
                       return Center(child: Text("Please login "),);
                     } },
               ),
-
-
               Offstage(
                   offstage: user.isSocialUser ?? false,
                   child: Padding(

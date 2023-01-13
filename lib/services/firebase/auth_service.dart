@@ -138,6 +138,11 @@ performSignOut() {
   auth.signOut().then((value) => Get.to(StartView()));
 }
 
+deleteAccount() {
+  auth.currentUser!.delete();
+  userController.userModel.value = UserModel();
+}
+
  signInWithApple() async {
   final appleProvider = AppleAuthProvider();
   if (kIsWeb) {
