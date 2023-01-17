@@ -612,14 +612,14 @@ PODS:
     - Firebase/Firestore (= 9.6.0)
     - firebase_core
     - Flutter
-  - FBAEMKit (14.1.0):
-    - FBSDKCoreKit_Basics (= 14.1.0)
-  - FBSDKCoreKit (14.1.0):
-    - FBAEMKit (= 14.1.0)
-    - FBSDKCoreKit_Basics (= 14.1.0)
-  - FBSDKCoreKit_Basics (14.1.0)
-  - FBSDKLoginKit (14.1.0):
-    - FBSDKCoreKit (= 14.1.0)
+  - FBAEMKit (15.1.0):
+    - FBSDKCoreKit_Basics (= 15.1.0)
+  - FBSDKCoreKit (15.1.0):
+    - FBAEMKit (= 15.1.0)
+    - FBSDKCoreKit_Basics (= 15.1.0)
+  - FBSDKCoreKit_Basics (15.1.0)
+  - FBSDKLoginKit (15.1.0):
+    - FBSDKCoreKit (= 15.1.0)
   - Firebase/Auth (9.6.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 9.6.0)
@@ -705,8 +705,8 @@ PODS:
     - FirebaseCore (~> 9.0)
     - GTMSessionFetcher/Core (< 3.0, >= 1.7)
   - Flutter (1.0.0)
-  - flutter_login_facebook (1.6.0):
-    - FBSDKLoginKit (= 14.1.0)
+  - flutter_login_facebook (1.7.0):
+    - FBSDKLoginKit (= 15.1.0)
     - Flutter
   - fluttertoast (0.0.2):
     - Flutter
@@ -905,10 +905,10 @@ SPEC CHECKSUMS:
   AppAuth: 8fca6b5563a5baef2c04bee27538025e4ceb2add
   BoringSSL-GRPC: 3175b25143e648463a56daeaaa499c6cb86dad33
   cloud_firestore: 49d69be2b924677f2974d8b38acc705c9908c09b
-  FBAEMKit: a899515e45476027f73aef377b5cffadcd56ca3a
-  FBSDKCoreKit: 24f8bc8d3b5b2a8c5c656a1329492a12e8efa792
-  FBSDKCoreKit_Basics: 6e578c9bdc7aa1365dbbbde633c9ebb536bcaa98
-  FBSDKLoginKit: 787de205d524c3a4b17d527916f1d066e4361660
+  FBAEMKit: c7f82b5145d446bcbbcd50485c032689032fc6a2
+  FBSDKCoreKit: 7542746fc63a2a38dd6a865eeb54268341f37b83
+  FBSDKCoreKit_Basics: 92d6b26c0bed30ab09bbdd96dccaa26e6c9978d1
+  FBSDKLoginKit: 4e275d30cf90e92bdf3a7c82857a8642abf23037
   Firebase: 5ae8b7cf8efce559a653aef0ad95bab3f427c351
   firebase_auth: 07a4db69cfa447ac42cb7faa560fc100708b707c
   firebase_core: 7c28ecc1e5dd74e03829ac3e9ff5ba3314e737a9
@@ -927,7 +927,7 @@ SPEC CHECKSUMS:
   FirebaseStorage: 1fead543a1f441c3b434c1c9f12560dd82f8b568
   FirebaseStorageInternal: 81d8a597324ccd06c41a43c5700bc1185a2fc328
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  flutter_login_facebook: 46257cf21db57af5a3b8e938c4564e133e98a64e
+  flutter_login_facebook: eafd8b1aadbb3b0ccb5afd3e1ac57350bafe9d0a
   fluttertoast: 74526702fea2c060ea55dde75895b7e1bde1c86b
   google_sign_in_ios: 4f85eb9f937450765c8573bb85fd8cd6a5af675c
   GoogleDataTransport: 1c8145da7117bd68bbbed00cf304edb6a24de00f
