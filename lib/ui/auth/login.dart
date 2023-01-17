@@ -21,6 +21,7 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:the_apple_sign_in/the_apple_sign_in.dart';
 
 import '../../controller/user_controller.dart';
+import '../../home.dart';
 import '../../main.dart';
 import '../../services/firebase/user_services.dart';
 import '../../utils/firebase_instances.dart';
@@ -239,8 +240,8 @@ class _LoginViewState extends State<LoginView> {
                               ),
                               child: TextButton.icon(
                                 onPressed: () async {
-                                  //   signInWithFacebook().
-                                  //    whenComplete(() => addSocialUserData()).then((value) => toHive(box, context));
+                                    // signInWithFacebook().
+                                    //  whenComplete(() => addSocialUserData()).then((value) => toHive(box, context));
                                 },
                                 icon: Image.asset(
                                   'assets/images/facebook.png',
@@ -311,16 +312,20 @@ class _LoginViewState extends State<LoginView> {
                         child: SignInWithAppleButton(
                           height: 50,
                           onPressed: () async {
-                            // final appleProvider = AppleAuthProvider();
-                            // // await FirebaseAuth.instance.signInWithProvider(appleProvider);
-                            // final AuthorizationResult result = await TheAppleSignIn.performRequests([
-                            //   AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
-                            // ]).onError((error, stackTrace) => toastMessage("error occured"));
-                            // print(result.status);
 
-                            final user = await AuthService().signInWithApple(
+                            final users = await AuthService().signInWithApple(
                                 scopes: [Scope.email, Scope.fullName]);
-                            print('uid: ${user.uid}');
+                            print('uid: ${users.uid}');
+                            if (auth.currentUser?.uid != null) {
+                              print(users.displayName);
+                              print(users.photoURL);
+                              await addSocialUserData();
+                              await toHive(box, context);
+                              pushNewScreen(context, screen: Home(),withNavBar: false);
+                            }
+                          //  await  toHive(box, context);
+
+
                             //   appleProvider signInWithApple();
                             //   print(auth.currentUser?.uid ?? "");
                           },

@@ -46,7 +46,6 @@ dependencies:
   persistent_bottom_nav_bar_v2:
   google_sign_in:
   webview_flutter: ^2.8.0
-#  flutter_facebook_auth:
   fluttertoast:
   firebase_storage:
   image_picker:
@@ -55,6 +54,7 @@ dependencies:
   intl:
   progress_border:
   hive:
+  flutter_login_facebook: ^1.7.0
   hive_flutter:
   circular_countdown_timer:
   sign_in_with_apple:
