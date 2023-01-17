@@ -239,7 +239,7 @@ class _LoginViewState extends State<LoginView> {
                               child: TextButton.icon(
                                 onPressed: () async {
                                   FacebookLogin facebookSignIn = FacebookLogin();
-                                  final FacebookLoginResult result = await facebookSignIn.logIn();
+                                  final FacebookLoginResult result = await facebookSignIn.logIn(permissions: [FacebookPermission.publicProfile]);
                                   print(result.status.toString() + "this is result of facebook sign in");
                                    addSocialUserData().then((value) => toHive(box, context));
                                 },

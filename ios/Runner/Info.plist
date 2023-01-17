@@ -2,29 +2,15 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    
     <key>LSApplicationQueriesSchemes</key>
     <array>
       <string>fbapi</string>
       <string>fb-messenger-share-api</string>
     </array>
-	
-    <key>CFBundleURLTypes</key>
-    <array>
-      <dict>
-      <key>CFBundleURLSchemes</key>
-      <array>
-        <string>fb713969236758394</string>
-      </array>
-      </dict>
-    </array>
-    <key>FacebookAppID</key>
-    <string>713969236758394</string>
-    <key>FacebookClientToken</key>
-    <string>9cbcf4431cd540bacaea8b7263768998</string>
     <key>FacebookDisplayName</key>
     <string>InsuranceHero</string>
-	<key>FacebookAdvertiserIDCollectionEnabled</key>
-	<false/>
+
 	<key>FacebookAutoLogAppEventsEnabled</key>
 	<false/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
@@ -63,21 +49,13 @@
 	<true/>
 	<key>FacebookAppID</key>
 	<string>713969236758394</string>
-	<key>FacebookAutoLogAppEventsEnabled</key>
-	<true/>
+	
 	<key>FacebookClientToken</key>
 	<string>9cbcf4431cd540bacaea8b7263768998</string>
-	<key>FacebookDisplayName</key>
-	<string>Insurance Hero</string>
+
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.education</string>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>fbapi</string>
-		<string>fb-messenger-share-api</string>
-		<string>fbauth2</string>
-		<string>fbshareextension</string>
-	</array>
+	
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
