@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'dart:io' show Platform;
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
@@ -240,8 +241,10 @@ class _LoginViewState extends State<LoginView> {
                               ),
                               child: TextButton.icon(
                                 onPressed: () async {
-                                    // signInWithFacebook().
-                                    //  whenComplete(() => addSocialUserData()).then((value) => toHive(box, context));
+                                  FacebookLogin facebookSignIn = FacebookLogin();
+                                  final FacebookLoginResult result = await facebookSignIn.logIn();
+                                  print(result.status.toString() + "this is result of facebook sign in");
+                                   addSocialUserData().then((value) => toHive(box, context));
                                 },
                                 icon: Image.asset(
                                   'assets/images/facebook.png',
@@ -278,6 +281,7 @@ class _LoginViewState extends State<LoginView> {
                               ),
                               child: TextButton.icon(
                                 onPressed: () async {
+                                  print("this is google sign in");
                                   await signInWithGoogle();
                                   if (auth.currentUser?.uid != null) {
                                     await addSocialUserData();

@@ -28,16 +28,30 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.googleusercontent.apps.790957298562-35g9hoe4ehihlfd8p3qev8si334mfmvm</string>
+				<string>fb713969236758394</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>FacebookAdvertiserIDCollectionEnabled</key>
+	<true/>
+	<key>FacebookAppID</key>
+	<string>713969236758394</string>
+	<key>FacebookAutoLogAppEventsEnabled</key>
+	<true/>
+	<key>FacebookClientToken</key>
+	<string>9cbcf4431cd540bacaea8b7263768998</string>
+	<key>FacebookDisplayName</key>
+	<string>Insurance Hero</string>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.education</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>com.googleusercontent.apps.{your-app-specific-url}</string>
 		<string>fbapi</string>
 		<string>fb-messenger-share-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -66,27 +80,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>CFBundleURLTypes</key>
-    <array>
-      <dict>
-        <key>CFBundleURLSchemes</key>
-        <array>
-          <string>fb713969236758394</string>
-        </array>
-      </dict>
-    </array>
-    <key>FacebookAppID</key>
-    <string>713969236758394</string>
-    <key>FacebookClientToken</key>
-    <string>9cbcf4431cd540bacaea8b7263768998</string>
-    <key>FacebookDisplayName</key>
-    <string>Insurance Hero</string>
-    <key>LSApplicationQueriesSchemes</key>
-    <array>
-        <string>fbapi</string>
-        <string>fb-messenger-share-api</string>
-        <string>fbauth2</string>
-        <string>fbshareextension</string>
-    </array>
 </dict>
 </plist>

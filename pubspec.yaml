@@ -54,7 +54,7 @@ dependencies:
   intl:
   progress_border:
   hive:
-  flutter_login_facebook: ^1.7.0
+  flutter_login_facebook: 1.6.2
   hive_flutter:
   circular_countdown_timer:
   sign_in_with_apple:
