@@ -4,10 +4,10 @@ class Assets {
 
   static const String fontsSimplyRounded = 'assets/fonts/SimplyRounded.ttf';
   static const String images4964022 = 'assets/images/4964022.png';
- // static const String imagesBack-arrow = 'assets/images/back-arrow.png';
+  static const String imagesBackarrow = 'assets/images/back-arrow.png';
   static const String imagesClock = 'assets/images/clock.png';
- // static const String imagesCol-maths = 'assets/images/col-maths.png';
-//  static const String imagesCol-science = 'assets/images/col-science.png';
+  static const String imagesColmaths = 'assets/images/col-maths.png';
+  static const String imagesColscience = 'assets/images/col-science.png';
   static const String imagesEdit = 'assets/images/edit.png';
   static const String imagesEng = 'assets/images/eng.png';
   static const String imagesEnglish = 'assets/images/english.png';
@@ -22,7 +22,7 @@ class Assets {
   static const String imagesHome = 'assets/images/home.png';
  // static const String imagesIcon awesome-user-alt = 'assets/images/Icon awesome-user-alt.png';
   static const String imagesImage = 'assets/images/Image.png';
- // static const String imagesImage-2 = 'assets/images/Image-2.png';
+//  static const String imagesImage-2 = 'assets/images/Image-2.png';
   static const String imagesLauncher = 'assets/images/launcher.png';
   static const String imagesLock = 'assets/images/lock.png';
   static const String imagesMail = 'assets/images/mail.png';

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_login_facebook/flutter_login_facebook.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'dart:io' show Platform;
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
@@ -11,9 +11,7 @@ import 'package:insurancehero/models/user_model.dart';
 import 'package:insurancehero/services/firebase/auth_service.dart';
 import 'package:insurancehero/ui/auth/forget_password.dart';
 import 'package:insurancehero/ui/auth/signup.dart';
-import 'package:insurancehero/ui/terms.dart';
 import 'package:insurancehero/utils/email_validate.dart';
-import 'package:insurancehero/utils/loading_indicator.dart';
 import 'package:insurancehero/utils/toast_message.dart';
 import 'package:insurancehero/widgets/custom_text_field.dart';
 import 'package:insurancehero/widgets/full_width_button.dart';
@@ -22,12 +20,10 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:the_apple_sign_in/the_apple_sign_in.dart';
 
 import '../../controller/user_controller.dart';
-import '../../home.dart';
 import '../../main.dart';
 import '../../services/firebase/user_services.dart';
 import '../../utils/firebase_instances.dart';
 import '../bottom_nav.dart';
-import '../privacy_policy.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -49,6 +45,34 @@ class _LoginViewState extends State<LoginView> {
     }
     setState(() {});
     print(index);
+  }
+
+  Map<String, dynamic>? _userData;
+  AccessToken? _accessToken;
+  bool? _checking = true;
+
+    signInWithFacebook() async {
+      print("1stage");
+    final LoginResult loginResult = await FacebookAuth.instance.login();
+      print("2stage");
+    if (loginResult.status == LoginStatus.success) {
+      final AccessToken accessToken = loginResult.accessToken!;
+      print("3stage");
+      final OAuthCredential credential =
+      FacebookAuthProvider.credential(accessToken.token);
+      print("4stage");
+      try {
+        toastMessage("Success");
+        return await FirebaseAuth.instance.signInWithCredential(credential);
+
+      } on FirebaseAuthException catch (e) {
+       toastMessage(e.code.toString());
+      } catch (e) {
+        // manage other exceptions
+      }
+    } else {
+      // login was not successful, for example user cancelled the process
+    }
   }
 
   addToHive() async {
@@ -241,10 +265,7 @@ class _LoginViewState extends State<LoginView> {
                               ),
                               child: TextButton.icon(
                                 onPressed: () async {
-                                  FacebookLogin facebookSignIn = FacebookLogin();
-                                  final FacebookLoginResult result = await facebookSignIn.logIn();
-                                  print(result.status.toString() + "this is result of facebook sign in");
-                                   addSocialUserData().then((value) => toHive(box, context));
+                                  signInWithFacebook();
                                 },
                                 icon: Image.asset(
                                   'assets/images/facebook.png',
@@ -281,7 +302,6 @@ class _LoginViewState extends State<LoginView> {
                               ),
                               child: TextButton.icon(
                                 onPressed: () async {
-                                  print("this is google sign in");
                                   await signInWithGoogle();
                                   if (auth.currentUser?.uid != null) {
                                     await addSocialUserData();
@@ -316,20 +336,16 @@ class _LoginViewState extends State<LoginView> {
                         child: SignInWithAppleButton(
                           height: 50,
                           onPressed: () async {
+                            // final appleProvider = AppleAuthProvider();
+                            // // await FirebaseAuth.instance.signInWithProvider(appleProvider);
+                            // final AuthorizationResult result = await TheAppleSignIn.performRequests([
+                            //   AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
+                            // ]).onError((error, stackTrace) => toastMessage("error occured"));
+                            // print(result.status);
 
-                            final users = await AuthService().signInWithApple(
+                            final user = await AuthService().signInWithApple(
                                 scopes: [Scope.email, Scope.fullName]);
-                            print('uid: ${users.uid}');
-                            if (auth.currentUser?.uid != null) {
-                              print(users.displayName);
-                              print(users.photoURL);
-                              await addSocialUserData();
-                              await toHive(box, context);
-                              pushNewScreen(context, screen: Home(),withNavBar: false);
-                            }
-                          //  await  toHive(box, context);
-
-
+                            print('uid: ${user.uid}');
                             //   appleProvider signInWithApple();
                             //   print(auth.currentUser?.uid ?? "");
                           },
@@ -409,36 +425,6 @@ class _LoginViewState extends State<LoginView> {
       ],
     );
   }
-
-  // void logIn() async {
-  //   final AuthorizationResult result = await TheAppleSignIn.performRequests([
-  //     AppleIdRequest(requestedScopes: [Scope.email, Scope.fullName])
-  //   ]);
-  //
-  //   switch (result.status) {
-  //     case AuthorizationStatus.authorized:
-  //
-  //     // Store user ID
-  //       await FlutterSecureStorage()
-  //           .write(key: "userId", value: result.credential.user);
-  //
-  //       // Navigate to secret page (shhh!)
-  //       Navigator.of(context).pushReplacement(MaterialPageRoute(
-  //           builder: (_) => AfterLoginPage(credential: result.credential)));
-  //       break;
-  //
-  //     case AuthorizationStatus.error:
-  //       print("Sign in failed: ${result.error.localizedDescription}");
-  //       setState(() {
-  //         errorMessage = "Sign in failed";
-  //       });
-  //       break;
-  //
-  //     case AuthorizationStatus.cancelled:
-  //       print('User cancelled');
-  //       break;
-  //   }
-  // }
 }
 
 class AuthService {

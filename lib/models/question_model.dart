@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class QuestionModel {
   String? A;
@@ -7,9 +6,13 @@ class QuestionModel {
   String? D;
   String? correctAns;
   String? question;
+  String? hint;
+  String? selectedAns;
 
   QuestionModel(
       {
+        this.selectedAns,
+        this.hint,
         this.question,
       this.correctAns,
       this.A,
@@ -25,20 +28,21 @@ class QuestionModel {
       D: map['D'] ?? "",
       correctAns: map['correctAns']  ?? "",
       question: map['question'] ?? "",
+      hint: map['hint'],
+      selectedAns: map['selectedAns'] ?? "",
     );
   }
 
-// factory QuestionModel.fromFirestore(
-//     DocumentSnapshot<Map<String, dynamic>> snapshot,
-//     SnapshotOptions? options) {
-//   final data = snapshot.data();
-//   return QuestionModel(
-//       A: data?['A'] ?? "",
-//       B: data?['B'] ?? "",
-//       C: data?['C'] ?? "",
-//       D: data?['D'] ?? "",
-//       correctAns: data?['correctAns'],
-//       question: data?['question'],
-//   );
-// }
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'A': A,
+      'B': B,
+      'C': C,
+      'D': D,
+      'hint': hint,
+      'correctAns': correctAns,
+      'question': question,
+      'selectedAns': selectedAns,
+    };
+  }
 }
