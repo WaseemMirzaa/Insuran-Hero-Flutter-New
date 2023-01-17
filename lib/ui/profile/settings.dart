@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:insurancehero/constants/gaps.dart';
@@ -177,12 +178,15 @@ class _SettingsViewState extends State<SettingsView> {
                                       color: Color(0xffd5d5d5),
                                     ),
                                   ),
-                                  Text(snap.data?["email"] ?? "",
+                                  AutoSizeText(
+                                      snap.data?["email"] ?? "",
                                       style: TextStyle(
                                         fontFamily: 'Simply Rounded',
-                                        fontSize: 18,
                                         color: Colors.black,
-                                      )),
+                                      ),
+                                    minFontSize: 16,
+                                    maxFontSize: 18,
+                                  ),
                                 ],
                               )
                             ],
@@ -211,8 +215,6 @@ class _SettingsViewState extends State<SettingsView> {
                       return Center(child: Text("Please login "),);
                     } },
               ),
-
-
               Offstage(
                   offstage: user.isSocialUser ?? false,
                   child: Padding(

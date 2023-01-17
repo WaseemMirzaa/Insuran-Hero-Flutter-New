@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:get/get.dart';
@@ -116,57 +117,29 @@ Future<UserCredential> signInWithGoogle() async {
   return await FirebaseAuth.instance.signInWithCredential(credential);
 }
 
-// Future<UserCredential> signInWithFacebook() async {
-//   // Trigger the sign-in flow
-//   final LoginResult loginResult = await FacebookAuth.instance.login();
-//
-//   // Create a credential from the access token
-//   final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken.token);
-//
-//   // Once signed in, return the UserCredential
-//   return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
-// }
-//
-// Future<UserCredential> signInWithFacebook() async {
-//
-//   final LoginResult loginResult = await FacebookAuth.instance.login();
-//
-//   // Create a credential from the access token
-//   final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
-//
-//   // Once signed in, return the UserCredential
-//   return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
-// }
-//
-//
-// Future<UserCredential> signInWithFaceboook() async {
-//   // Trigger the sign-in flow
-//   final LoginResult loginResult = await FacebookAuth.instance.login();
-//
-//   // Create a credential from the access token
-//   final OAuthCredential facebookAuthCredential =
-//       FacebookAuthProvider.credential(loginResult.accessToken!.token);
-//
-//   addSocialUserData();
-//   // Once signed in, return the UserCredential
-//   return FirebaseAuth.instance
-//       .signInWithCredential(facebookAuthCredential)
-//       .then((value) => toastMessage("msg"));
-// }
+ signInWithFacebook() async {
+  // Trigger the sign-in flow
+  final LoginResult loginResult = await FacebookAuth.instance.login();
 
-// Future<UserCredential> signInWithGoogle() async {
-//   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-//   final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
-//   final credential = GoogleAuthProvider.credential(
-//     accessToken: googleAuth?.accessToken,
-//     idToken: googleAuth?.idToken,
-//   );
-//   return await FirebaseAuth.instance.signInWithCredential(credential);
-// }
+  if(loginResult.accessToken != null){
+    final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
+    return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+  }
+
+  // Create a credential from the access token
+
+  // Once signed in, return the UserCredential
+}
+
 
 performSignOut() {
   userController.userModel.value = UserModel();
   auth.signOut().then((value) => Get.to(StartView()));
+}
+
+deleteAccount() {
+  auth.currentUser!.delete();
+  userController.userModel.value = UserModel();
 }
 
  signInWithApple() async {

@@ -13,6 +13,7 @@ import 'package:insurancehero/utils/colors.dart';
 
 import 'package:get/get.dart';
 import 'package:insurancehero/controller/user_controller.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
 import '../../../categories.dart';
 import '../../main.dart';
@@ -126,15 +127,13 @@ class _ProfileViewState extends State<ProfileView> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               AutoSizeText(
-                                minFontSize: 15,
+                                minFontSize: 10,
                                 maxFontSize: 24,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 '${userd.fullName}'?? "",
                                 style: TextStyle(
                                   fontFamily: 'Simply Rounded',
-                                  fontSize: 24,
-
                                   color: const Color(0xff000000),
                                   letterSpacing: 0.3,
                                 ),
@@ -437,6 +436,56 @@ class _ProfileViewState extends State<ProfileView> {
                           color: const Color(0xffffffff),
                           borderRadius: BorderRadius.circular(15.0),
                           border: Border.all(
+                              width: 2.0, color:  Colors.red),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.red,
+                              offset: Offset(0, 3),
+                              blurRadius: 0,
+                            ),
+                          ],
+                        ),
+                        child: TextButton(
+                          onPressed: () async{
+                          await showExitPopup();
+                          },
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Delete Account',
+                                  style: TextStyle(
+                                    fontFamily: 'Calibri',
+                                    fontSize: 16,
+                                    color: Colors.red,
+                                  ),
+                                  softWrap: false,
+                                ),
+                                Container(
+                                  height: 20,
+                                  width: 20,
+                                  decoration: BoxDecoration(
+                                    color:  Colors.red,
+                                    borderRadius: BorderRadius.circular(7.0),
+                                  ),
+                                  child: Image.asset(
+                                    'assets/images/right-arrow.png',
+                                    color: Colors.white,
+                                    scale: 3,
+                                  ),
+                                ),
+                              ]),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Container(
+                        height: 52,
+                        decoration: BoxDecoration(
+                          color: const Color(0xffffffff),
+                          borderRadius: BorderRadius.circular(15.0),
+                          border: Border.all(
                               width: 2.0, color: const Color(0xff89e100)),
                           boxShadow: const [
                             BoxShadow(
@@ -499,5 +548,53 @@ class _ProfileViewState extends State<ProfileView> {
         ),
       ),
     );
+  }
+
+  Future<bool> showExitPopup() async {
+    return await showDialog(
+      //show confirm dialogue
+      //the return value will be from "Yes" or "No" options
+      context: context,
+      builder: (context) => Container(
+        height: 180,
+        child: AlertDialog(
+          title: Text('Delete Account'),
+          content: Text('Are you sure you want to delete your account? Deleting your account will delete all the data associated with this account.'),
+          actions: [
+            Padding(
+              padding:  EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ElevatedButton(
+                    onPressed: () => Navigator.of(context).pop(false),
+                    //return false when click on "NO"
+                    child: Text('Cancel'),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Color(0xff89e100))
+                    ),
+                  ),
+                  ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.red)
+                    ),
+                    onPressed: () async{
+                      deleteAccount();
+                      user = await Hive.openBox("users");
+                      user.delete("users");
+                      pushNewScreen(context, screen: StartView(),withNavBar: false);
+                    },
+                    //return true when click on "Yes"
+                    child: Text('Yes',),
+                  ),
+                ],
+              ),
+            ),
+
+          ],
+        ),
+      ),
+    ) ??
+        false; //if showDialouge had returned null, then return false
   }
 }

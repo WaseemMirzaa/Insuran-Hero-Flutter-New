@@ -61,6 +61,11 @@ dependencies:
   email_validator:
   firebase_crashlytics:
   the_apple_sign_in: ^1.1.1
+  percent_indicator: ^4.2.2
+  flutter_facebook_auth: ^5.0.7
+
+
+
 
 
 
