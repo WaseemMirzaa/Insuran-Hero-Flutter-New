@@ -113,20 +113,40 @@ class _SettingsViewState extends State<SettingsView> {
                 vertical: Gaps.verticalPadding),
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Container(
-                height: 81,
-                width: 90,
-                decoration: BoxDecoration(
-                    border: Border.all(width: 2, color: lightGrey),
-                    borderRadius: BorderRadius.circular(10)),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(9),
-                  child: Image.network(
-                    userController.userModel.value.profile ?? "",
-                    fit: BoxFit.fill,
+                  (userController.userModel.value.profile == null || userController.userModel.value.profile?.isEmpty == true)
+                      ? Container(
+                       height: 75,
+                         width: 75,
+                    decoration: BoxDecoration(
+                        border:
+                        Border.all(width: 2, color: lightGrey),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(9),
+                      child: Image.asset(
+                        "assets/images/user.png",
+                        fit: BoxFit.fill,
+                        height: 45,
+                        width: 45,
+                      ),
+                    ),
+                  )
+                      : Container(
+                    height: 75,
+                    width: 75,
+                    decoration: BoxDecoration(
+                        border:
+                        Border.all(width: 2, color: lightGrey),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(9),
+                      child: Image.network(
+                        userController.userModel.value.profile ??
+                            "",
+                        fit: BoxFit.fill,
+                      ),
+                    ),
                   ),
-                ),
-              ),
               verticalGap(5),
               Text(
                 user.fullName ?? "",
