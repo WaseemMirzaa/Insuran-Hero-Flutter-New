@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_login_facebook/flutter_login_facebook.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'dart:io' show Platform;
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
@@ -238,10 +238,22 @@ class _LoginViewState extends State<LoginView> {
                               ),
                               child: TextButton.icon(
                                 onPressed: () async {
-                                  FacebookLogin facebookSignIn = FacebookLogin();
-                                  final FacebookLoginResult result = await facebookSignIn.logIn(permissions: [FacebookPermission.publicProfile]);
-                                  print(result.status.toString() + "this is result of facebook sign in");
-                                   addSocialUserData().then((value) => toHive(box, context));
+
+
+                                  final LoginResult loginResult = await FacebookAuth.instance.login(permissions: ["email", "public_profile"]);
+
+                                  if(loginResult.accessToken?.token != null) {
+                                    // Create a credential from the access token
+                                    final OAuthCredential facebookAuthCredential =  await FacebookAuthProvider
+                                        .credential(
+                                        loginResult.accessToken!.token);
+
+                                   await FirebaseAuth.instance.signInWithCredential(
+                                        facebookAuthCredential);
+
+                                    addSocialUserData().then((value) =>
+                                        toHive(box, context));
+                                  }
                                 },
                                 icon: Image.asset(
                                   'assets/images/facebook.png',

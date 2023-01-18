@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:insurancehero/constants/routes.dart';
@@ -40,6 +41,12 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  await FacebookAuth.instance.webAndDesktopInitialize(
+    appId: "713969236758394",
+    cookie: true,
+    xfbml: true,
+    version: "v15.0",
+  );
   user = await Hive.openBox("users");
   userController.userModel.value = user.get("users", defaultValue: UserModel());
 

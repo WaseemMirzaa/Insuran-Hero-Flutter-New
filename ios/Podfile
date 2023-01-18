@@ -1,4 +1,3 @@
-install! 'cocoapods', :disable_input_output_paths => true
 
 # Uncomment this line to define a global platform for your project
 platform :ios, '13.0'
