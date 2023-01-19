@@ -240,7 +240,7 @@ class _HistoryViewState extends State<HistoryView> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Total Questions: ${totalQuestions}',
+                        'Total Questions Correct ${percentage}%',
                         style: const TextStyle(
                           fontFamily: 'Calibri',
                           fontSize: 12,
@@ -248,15 +248,7 @@ class _HistoryViewState extends State<HistoryView> {
                         ),
                         softWrap: false,
                       ),
-                      Text(
-                        'Percentage: ${percentage}%',
-                        style: const TextStyle(
-                          fontFamily: 'Calibri',
-                          fontSize: 12,
-                          color: Color(0xffb4b4b4),
-                        ),
-                        softWrap: false,
-                      ),
+
                     ],
                   ),
                   const SizedBox(

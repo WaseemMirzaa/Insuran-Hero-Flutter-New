@@ -301,13 +301,22 @@ class _QuestionViewState extends State<QuestionView>
                                   scnds = "0" + seconds.toString();
                                 }
                                 return Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 5),
-                                    child: Text('$minutes:$scnds',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Color(0xff6bb500),
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 30)));
+                                    padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                                    child:   AutoSizeText(
+                                      '$minutes:$scnds', maxLines: 1,
+                                      minFontSize: 10,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                        fontFamily: 'Calibri',
+                                        fontSize: 30,
+                                        color:Color(0xff6bb500),
+                                          fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+
+
+
+                                   );
                               }),
                           progressColor: Color(0xff6bb500),
                         ),
