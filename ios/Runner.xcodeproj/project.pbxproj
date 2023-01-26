@@ -16,15 +16,11 @@
 		AE149EA7734FDA61E08D3384 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2C641F064E7ACB1D8ACCACB /* Pods_Runner.framework */; };
 		CE12386F293E45EF008B7E6D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE12386E293E45EF008B7E6D /* GoogleService-Info.plist */; };
 		CE6FF67A29770C62001003D0 /* FBAEMKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE6FF67929770C62001003D0 /* FBAEMKit.xcframework */; };
-		CE6FF67B29770C62001003D0 /* FBAEMKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE6FF67929770C62001003D0 /* FBAEMKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CE6FF67C29770C6A001003D0 /* FBAEMKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE6FF67929770C62001003D0 /* FBAEMKit.xcframework */; };
 		CE6FF67E29770C71001003D0 /* FBSDKCoreKit_Basics.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE6FF67D29770C71001003D0 /* FBSDKCoreKit_Basics.xcframework */; };
-		CE6FF67F29770C71001003D0 /* FBSDKCoreKit_Basics.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE6FF67D29770C71001003D0 /* FBSDKCoreKit_Basics.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CE6FF68029770C88001003D0 /* FBAEMKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE6FF67929770C62001003D0 /* FBAEMKit.xcframework */; };
 		CE6FF68229770C95001003D0 /* FBSDKLoginKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE6FF68129770C95001003D0 /* FBSDKLoginKit.xcframework */; };
-		CE6FF68329770C95001003D0 /* FBSDKLoginKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE6FF68129770C95001003D0 /* FBSDKLoginKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CE6FF68529770C9D001003D0 /* FBSDKCoreKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE6FF68429770C9D001003D0 /* FBSDKCoreKit.xcframework */; };
-		CE6FF68629770C9D001003D0 /* FBSDKCoreKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CE6FF68429770C9D001003D0 /* FBSDKCoreKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CE6FF68829770DFC001003D0 /* (null) in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CE6FF68929771623001003D0 /* FBAEMKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE6FF67929770C62001003D0 /* FBAEMKit.xcframework */; };
 		CE6FF68A29771634001003D0 /* FBAEMKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE6FF67929770C62001003D0 /* FBAEMKit.xcframework */; };
@@ -39,10 +35,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				CE6FF68829770DFC001003D0 /* (null) in Embed Frameworks */,
-				CE6FF67B29770C62001003D0 /* FBAEMKit.xcframework in Embed Frameworks */,
-				CE6FF68329770C95001003D0 /* FBSDKLoginKit.xcframework in Embed Frameworks */,
-				CE6FF68629770C9D001003D0 /* FBSDKCoreKit.xcframework in Embed Frameworks */,
-				CE6FF67F29770C71001003D0 /* FBSDKCoreKit_Basics.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -278,9 +270,11 @@
 			files = (
 			);
 			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Runner/Pods-Runner-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
