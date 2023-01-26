@@ -31,10 +31,10 @@ class _StartViewState extends State<StartView> {
 
                   Container(
                      margin: EdgeInsets.only(top: height * 0.2),
-                    width: width * 0.6,
-                    height: height * 0.3,
+                    width: width * 0.7,
+                    height: height * 0.4,
                     child: Center(
-                      child: Image.asset("assets/images/logo.png",fit: BoxFit.fill,),
+                      child: Image.asset("assets/images/logo.png",fit: BoxFit.contain,),
                     ),
                   )
                 ],
