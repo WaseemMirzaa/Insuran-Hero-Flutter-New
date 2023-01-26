@@ -238,8 +238,6 @@ class _LoginViewState extends State<LoginView> {
                               ),
                               child: TextButton.icon(
                                 onPressed: () async {
-
-
                                   final LoginResult loginResult = await FacebookAuth.instance.login(permissions: ["email", "public_profile"]);
 
                                   if(loginResult.accessToken?.token != null) {

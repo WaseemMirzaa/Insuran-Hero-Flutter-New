@@ -17,6 +17,7 @@ class _StartViewState extends State<StartView> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
@@ -25,46 +26,17 @@ class _StartViewState extends State<StartView> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  verticalGap(170),
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 15.0, right: 15),
-                      child: AutoSizeText(
-                        'Welcome to\nInsurance Hero',
-                        maxLines: 2,
-                        minFontSize: 12,
-                        maxFontSize: 100,
-                        style: GoogleFonts.roboto(
-                          fontSize: 100,
-                          color: const Color(0xff000000),
-                          fontWeight: FontWeight.w600,
-                          height: 1
-                        ),
-                          textAlign: TextAlign.center,
-                        softWrap: false,
-                      ),
-                    ),
-                  ),
-                  verticalGap(10),
-                   Padding(
-                     padding: const EdgeInsets.only(left: 15.0, right: 15),
-                     child: AutoSizeText(
-                       maxLines: 2,
-                       minFontSize: 12,
-                       maxFontSize: 35,
-                      'Learn different languages at your\nown pace in an interactive way.',
-                      style: TextStyle(
-                        fontFamily: 'Calibri',
-                        fontSize: 35,
-                        color: Color(0xffb4b4b4),
 
-                        letterSpacing: 0.21,
-                      ),
-                      textAlign: TextAlign.center,
-                      softWrap: false,
-                  ),
-                   ),
+                  Container(
+                     margin: EdgeInsets.only(top: height * 0.2),
+                    width: width * 0.6,
+                    height: height * 0.3,
+                    child: Center(
+                      child: Image.asset("assets/images/logo.png",fit: BoxFit.fill,),
+                    ),
+                  )
                 ],
               ),
               Column(
