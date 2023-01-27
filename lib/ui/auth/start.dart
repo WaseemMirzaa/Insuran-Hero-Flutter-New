@@ -28,17 +28,60 @@ class _StartViewState extends State<StartView> {
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  Column(
+                    children: [
+                      verticalGap(100),
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 15.0, right: 15),
+                          child: AutoSizeText(
+                            'Welcome to\nInsurance Hero',
+                            maxLines: 2,
+                            minFontSize: 12,
+                            maxFontSize: 100,
+                            style: GoogleFonts.roboto(
+                                fontSize: 100,
+                                color: const Color(0xff000000),
+                                fontWeight: FontWeight.w600,
+                                height: 1
+                            ),
+                            textAlign: TextAlign.center,
+                            softWrap: false,
+                          ),
+                        ),
+                      ),
+                      verticalGap(10),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15.0, right: 15),
+                        child: AutoSizeText(
+                          maxLines: 2,
+                          minFontSize: 10,
+                          maxFontSize: 20,
+                          'Learn more about Insurance Industry\n at your own pace in an interactive way.',
+                          style: TextStyle(
+                            fontFamily: 'Calibri',
+                            fontSize: 35,
+                            color: Color(0xffb4b4b4),
 
-                  Container(
-                     margin: EdgeInsets.only(top: height * 0.2),
-                    width: width * 0.6,
-                    height: height * 0.3,
-                    child: Center(
-                      child: Image.asset("assets/images/logo.png",fit: BoxFit.fill,),
-                    ),
-                  )
-                ],
-              ),
+                            letterSpacing: 0.21,
+                          ),
+                          textAlign: TextAlign.center,
+                          softWrap: true,
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: 40),
+                        width: width * 0.9,
+                        height: height * 0.4,
+                        child: Center(
+                          child: Image.asset("assets/images/logo.png",fit: BoxFit.contain,),
+                        ),
+                      )
+                    ],
+                  ),
+                    ],
+                  ),
+
               Column(
                 children: [
                   fullWidthButton(

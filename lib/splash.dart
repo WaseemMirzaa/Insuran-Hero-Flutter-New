@@ -29,7 +29,7 @@ class _SplashState extends State<Splash> {
         child: SizedBox(
             width: MediaQuery.of(context).size.width * 0.7,
             height: MediaQuery.of(context).size.height * 0.4,
-            child: Image.asset("assets/images/logo.png",fit: BoxFit.fill,)),
+            child: Image.asset("assets/images/logo.png",fit: BoxFit.contain,)),
       ),
     );
   }
