@@ -26,7 +26,8 @@ import 'models/quiz_history_model.dart';
 
 class QuestionView extends StatefulWidget {
   PaperModel paper;
-  QuestionView({super.key, required this.paper});
+  String img;
+  QuestionView({super.key, required this.paper,required this.img});
 
   @override
   State<QuestionView> createState() => _QuestionViewState();
@@ -111,9 +112,8 @@ class _QuestionViewState extends State<QuestionView>
         time: DateFormat.jm().format(DateTime.now()),
         uid: userController.userModel.value.uid,
         level: widget.paper.lessonNo.toString(),
-        img:
-            "https://firebasestorage.googleapis.com/v0/b/insurance-hero.appspot.com/o/col-maths.png?alt=media&token=7da512f0-76fc-43c8-814a-6385895fe06a"
-    );
+         img: widget.img,
+        );
     addQuizzInHistort(quizHistoryModel);
     setState(() {
       _questionIndex = 0;
@@ -283,8 +283,8 @@ class _QuestionViewState extends State<QuestionView>
                                     day: DateFormat.EEEE().format(DateTime.now()),
                                     time: DateFormat.j().format(DateTime.now()),
                                     uid: userController.userModel.value.uid,
-                                    img:
-                                    "https://firebasestorage.googleapis.com/v0/b/insurance-hero.appspot.com/o/col-maths.png?alt=media&token=7da512f0-76fc-43c8-814a-6385895fe06a");
+                                    img: widget.img
+                               );
                                 addQuizzInHistort(quizHistoryModel);
                                 navBarController.currentIndex.value = 1;
                                 navBarController.controller.index = 1;

@@ -49,8 +49,6 @@ class QuizService {
         UserModel.fromMap(snapshot.data() as Map<String, dynamic>);
   List<dynamic>  mySubjects = currentUser.categories ?? [];
   return mySubjects;
-    
-  
   }
 }
 

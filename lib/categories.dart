@@ -7,6 +7,7 @@ import 'package:insurancehero/constants/gaps.dart';
 import 'package:insurancehero/history.dart';
 import 'package:insurancehero/home.dart';
 import 'package:insurancehero/models/category.dart' as cae;
+import 'package:insurancehero/models/title_model.dart';
 import 'package:insurancehero/services/firebase/quizz_service.dart';
 import 'package:insurancehero/services/firebase/user_services.dart';
 import 'package:insurancehero/ui/bottom_nav.dart';
@@ -26,18 +27,16 @@ class CategoriesView extends StatefulWidget {
 
 class _CategoriesViewState extends State<CategoriesView> {
   List<Category> categoryList = [];
-  List<dynamic> titles = [];
+  List<TitleModel> titles= [];
 
-  Future<List<dynamic>> getPapers() async {
-    DocumentSnapshot snap = await FirebaseFirestore.instance
-        .collection('titles')
-        .doc("iQJ1NqTmLw0ugCoOSMVu")
-        .get();
 
-    List<dynamic> titlesList = (snap.data() as Map<String, dynamic>)['titles'];
-    titles = titlesList;
+  Future<List<TitleModel>>  getTitles() async{
+    QuerySnapshot snap = await FirebaseFirestore.instance.collection("title").get();
+    List<TitleModel> allTitles = snap.docs.map((e) => TitleModel.fromMap(e.data() as Map<String,dynamic>)).toList();
+    print(allTitles.length.toString() + "this is my");
+    titles = allTitles;
     print(titles.length);
-    return Future.value(titlesList);
+    return Future.value(allTitles);
   }
 
   List<dynamic> categories = [];
@@ -52,10 +51,10 @@ class _CategoriesViewState extends State<CategoriesView> {
   getList() async {
     List<dynamic> mySubjects = await getMySubjects();
     //print(titles);
-    List<dynamic> titles = await getPapers();
+    List<TitleModel> titles = await getTitles();
     for (int i = 0; i < titles.length; i++) {
       categoryList.add(Category(
-          mySubjects.contains(titles[i]) ? true : false, titles[i] as String));
+        isChecked: mySubjects.contains(titles[i].title) ? true : false,subjectName:  titles[i].title as String,id:  titles[i].id as String));
       setState(() {});
     }
   }
@@ -67,7 +66,6 @@ class _CategoriesViewState extends State<CategoriesView> {
     super.initState();
     getMySubjects();
     getList();
-    getPapers();
     print(categoryList.length);
   }
 
@@ -122,7 +120,7 @@ class _CategoriesViewState extends State<CategoriesView> {
                   categories = [];
                   for (int i = 0; i < categoryList.length; i++) {
                     categoryList[i].isChecked = true;
-                    categories.add(categoryList[i].subjectName);
+                    categories.add(categoryList[i].id);
                   }
                   setState(() {});
                 }
@@ -154,8 +152,8 @@ class _CategoriesViewState extends State<CategoriesView> {
                             setState(() {
                               category.isChecked = !category.isChecked;
                               category.isChecked
-                                  ? categories.add(category.subjectName)
-                                  : categories.remove(category.subjectName);
+                                  ? categories.add(category.id)
+                                  : categories.remove(category.id);
                             });
                           },
                           child: Container(
@@ -213,9 +211,9 @@ class _CategoriesViewState extends State<CategoriesView> {
                                       category.isChecked = value!;
                                     });
                                     category.isChecked
-                                        ? categories.add(category.subjectName)
+                                        ? categories.add(category.id)
                                         : categories
-                                            .remove(category.subjectName);
+                                            .remove(category.id);
                                   },
                                 ),
                               ],
@@ -236,8 +234,7 @@ class _CategoriesViewState extends State<CategoriesView> {
                     buttonColor: Color(0xff89e100),
                     shadowColor: Color(0xff7ccc00),
                     onTap: () {
-                      updateCategories(
-                              categories: categories, context: context);
+                      updateCategories(categories: categories, context: context);
                       print(categories);
                     }))
           ],
