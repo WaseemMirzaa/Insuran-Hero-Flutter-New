@@ -45,8 +45,7 @@ class QuizService {
         .collection("users")
         .doc(userController.userModel.value.uid)
         .get();
-    UserModel currentUser =
-        UserModel.fromMap(snapshot.data() as Map<String, dynamic>);
+    UserModel currentUser = UserModel.fromMap(snapshot.data() as Map<String, dynamic>);
   List<dynamic>  mySubjects = currentUser.categories ?? [];
   return mySubjects;
   }

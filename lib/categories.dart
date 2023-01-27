@@ -54,7 +54,7 @@ class _CategoriesViewState extends State<CategoriesView> {
     List<TitleModel> titles = await getTitles();
     for (int i = 0; i < titles.length; i++) {
       categoryList.add(Category(
-        isChecked: mySubjects.contains(titles[i].title) ? true : false,subjectName:  titles[i].title as String,id:  titles[i].id as String));
+        isChecked: mySubjects.contains(titles[i].id) ? true : false,subjectName:  titles[i].title as String,id:  titles[i].id as String));
       setState(() {});
     }
   }

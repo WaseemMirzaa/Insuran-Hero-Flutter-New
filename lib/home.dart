@@ -31,8 +31,12 @@ class _HomeState extends State<Home> {
   Future<List<TitleModel>> getMySubjects() async {
     List<dynamic> mySubject = [];
     mySubject = await QuizService().getMySubjects();
-    QuerySnapshot mySnap = await FirebaseFirestore.instance.collection("title").where("id",whereIn: mySubject).get();
-    mySubjects = mySnap.docs.map((e) => TitleModel.fromMap(e.data() as Map<String,dynamic>)).toList();
+    if(mySubject.isNotEmpty) {
+      QuerySnapshot mySnap = await FirebaseFirestore.instance.collection(
+          "title").where("id", whereIn: mySubject).get();
+      mySubjects = mySnap.docs.map((e) =>
+          TitleModel.fromMap(e.data() as Map<String, dynamic>)).toList();
+    }
     return mySubjects;
   }
 
