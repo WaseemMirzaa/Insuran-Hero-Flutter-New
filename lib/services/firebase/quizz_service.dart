@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
 import 'package:insurancehero/main.dart';
 import 'package:insurancehero/models/paper_model.dart';
 
@@ -7,13 +8,19 @@ import '../../models/user_model.dart';
 import '../../utils/firebase_instances.dart';
 
 class QuizService {
+
     Future<List<QuizHistoryModel>> myQuizz() async {
-    QuerySnapshot snap = await FirebaseFirestore.instance.collection("history").where("uid",isEqualTo: userController.userModel.value.uid).get();
-    List<QuizHistoryModel> myList = snap.docs
-        .map((e) => QuizHistoryModel.fromMap(e.data() as Map<String, dynamic>))
-        .toList();
-    print(myList.length.toString() + "my quizz numbers are");
-    return myList;
+      List<QuizHistoryModel> myList = [];
+      try{
+        QuerySnapshot snap = await FirebaseFirestore.instance.collection("history").where("uid",isEqualTo: userController.userModel.value.uid).orderBy("createdAt",descending: true).get();
+         myList = snap.docs
+            .map((e) => QuizHistoryModel.fromMap(e.data() as Map<String, dynamic>))
+            .toList();
+        print(myList.length.toString() + "my Quiz numbers are");
+      }catch(e){
+                print(e.toString());
+      }
+      return myList;
 
     // questions = _data;
   }
@@ -38,12 +45,9 @@ class QuizService {
         .collection("users")
         .doc(userController.userModel.value.uid)
         .get();
-    UserModel currentUser =
-        UserModel.fromMap(snapshot.data() as Map<String, dynamic>);
+    UserModel currentUser = UserModel.fromMap(snapshot.data() as Map<String, dynamic>);
   List<dynamic>  mySubjects = currentUser.categories ?? [];
   return mySubjects;
-    
-  
   }
 }
 
@@ -53,5 +57,5 @@ addQuizzInHistort(QuizHistoryModel quizHistoryModel) {
   firebaseFirestore
       .collection("history")
       .add(quizHistoryModel.toMap())
-      .then((value) => print("Quizz added to the history"));
+      .then((value) => print("Quiz added to the history"));
 }

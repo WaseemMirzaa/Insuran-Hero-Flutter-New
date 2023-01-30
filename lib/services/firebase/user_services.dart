@@ -64,14 +64,22 @@ addSocialUserData() async {
         profile: auth.currentUser!.photoURL,
         isSocialUser: true,
         uid: auth.currentUser!.uid);
-    firebaseFirestore
+
+    DocumentSnapshot documentSnapshot = await firebaseFirestore
         .collection("users")
         .doc(auth.currentUser!.uid)
-        .set(userModel.toMap());
-
-    Fluttertoast.showToast(msg: 'Account Created Successfully');
+        .get();
+    if (!documentSnapshot.exists) {
+      firebaseFirestore
+          .collection("users")
+          .doc(auth.currentUser!.uid)
+          .set(userModel.toMap());
+      Fluttertoast.showToast(msg: 'Account Created Successfully');
+    } else {
+      Fluttertoast.showToast(msg: 'Logged In Successfully');
+    }
   } else {
-    toastMessage("no user logged in");
+    toastMessage("Authentication Failed");
   }
 }
 
@@ -85,26 +93,27 @@ Future<void> updateUser({
   required String phone,
 }) async {
   CollectionReference users = FirebaseFirestore.instance.collection('users');
-  return users
-      .doc(auth.currentUser!.uid)
-      .update({
-        'fullName': fullName,
-        'phone': phone,
-      })
-      .catchError((error) => print("Failed to update user: $error"));
+  return users.doc(auth.currentUser!.uid).update({
+    'fullName': fullName,
+    'phone': phone,
+  }).catchError((error) => print("Failed to update user: $error"));
 }
 
 Future<void> updateCategories(
     {required List<dynamic> categories, required BuildContext context}) async {
   CollectionReference users = FirebaseFirestore.instance.collection('users');
   // ignore: avoid_single_cascade_in_expression_statements
-    users.doc(auth.currentUser!.uid)
-        .update({'categories': FieldValue.delete()}).whenComplete(() {
-      users.doc(auth.currentUser!.uid).update({
-        'categories': categories,
-      }).then((value) => toastMessage("Categories Updated Successfully"))
-      .then((value) => Navigator.pop(context))
-      .catchError((error) => print("Failed to update user: $error"));;
-    });
- 
+  users
+      .doc(auth.currentUser!.uid)
+      .update({'categories': FieldValue.delete()}).whenComplete(() {
+    users
+        .doc(auth.currentUser!.uid)
+        .update({
+          'categories': categories,
+        })
+        .then((value) => toastMessage("Categories Updated Successfully"))
+        .then((value) => Navigator.pop(context))
+        .catchError((error) => print("Failed to update user: $error"));
+    ;
+  });
 }

@@ -35,6 +35,7 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
+  auto_size_text: ^3.0.0
   flutter_switch: ^0.3.2
   cupertino_icons: ^1.0.2
 #  adobe_xd: ^2.0.1
@@ -45,7 +46,6 @@ dependencies:
   persistent_bottom_nav_bar_v2:
   google_sign_in:
   webview_flutter: ^2.8.0
-#  flutter_facebook_auth:
   fluttertoast:
   firebase_storage:
   image_picker:
@@ -54,12 +54,16 @@ dependencies:
   intl:
   progress_border:
   hive:
+  flutter_facebook_auth: ^5.0.7
   hive_flutter:
   circular_countdown_timer:
   sign_in_with_apple:
   email_validator:
   firebase_crashlytics:
   the_apple_sign_in: ^1.1.1
+  percent_indicator: ^4.2.2
+
+
 
 
 

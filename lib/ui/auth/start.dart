@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:insurancehero/constants/gaps.dart';
@@ -15,6 +16,8 @@ class StartView extends StatefulWidget {
 class _StartViewState extends State<StartView> {
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
@@ -23,41 +26,62 @@ class _StartViewState extends State<StartView> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  verticalGap(170),
-                  Center(
-                    child: Text(
-                      'Welcome to\nInsurance Hero',
-                      style: GoogleFonts.roboto(
-                        fontSize: 40,
-                        color: const Color(0xff000000),
-                        fontWeight: FontWeight.w600,
-                        height: 1,
-
+                  Column(
+                    children: [
+                      verticalGap(100),
+                      Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 15.0, right: 15),
+                          child: AutoSizeText(
+                            'Welcome to\nInsurance Hero',
+                            maxLines: 2,
+                            minFontSize: 12,
+                            maxFontSize: 100,
+                            style: GoogleFonts.roboto(
+                                fontSize: 100,
+                                color: const Color(0xff000000),
+                                fontWeight: FontWeight.w600,
+                                height: 1
+                            ),
+                            textAlign: TextAlign.center,
+                            softWrap: false,
+                          ),
+                        ),
                       ),
-                      textHeightBehavior:
-                          const TextHeightBehavior(applyHeightToFirstAscent: false),
-                      textAlign: TextAlign.center,
-                      softWrap: false,
-                    ),
+                      verticalGap(10),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15.0, right: 15),
+                        child: AutoSizeText(
+                          maxLines: 2,
+                          minFontSize: 10,
+                          maxFontSize: 20,
+                          'Learn more about Insurance Industry\n at your own pace in an interactive way.',
+                          style: TextStyle(
+                            fontFamily: 'Calibri',
+                            fontSize: 35,
+                            color: Color(0xffb4b4b4),
+
+                            letterSpacing: 0.21,
+                          ),
+                          textAlign: TextAlign.center,
+                          softWrap: true,
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: 40),
+                        width: width * 0.9,
+                        height: height * 0.4,
+                        child: Center(
+                          child: Image.asset("assets/images/logo.png",fit: BoxFit.contain,),
+                        ),
+                      )
+                    ],
                   ),
-                  verticalGap(10),
-                  const Text(
-                    'Learn different languages at your\nown pace in an interactive way.',
-                    style: TextStyle(
-                      fontFamily: 'Calibri',
-                      fontSize: 22,
-                      color: Color(0xffb4b4b4),
-                      letterSpacing: 0.21,
-                      height: 1.2857142857142858,
-                    ),
-                    textHeightBehavior:
-                        TextHeightBehavior(applyHeightToFirstAscent: false),
-                    textAlign: TextAlign.center,
-                    softWrap: false,
+                    ],
                   ),
-                ],
-              ),
+
               Column(
                 children: [
                   fullWidthButton(

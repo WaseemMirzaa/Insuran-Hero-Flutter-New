@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:insurancehero/constants/gaps.dart';
@@ -36,6 +37,7 @@ class _SettingsViewState extends State<SettingsView> {
 
   UserModel user = UserModel();
 
+
   getUser() async {
     DocumentSnapshot snapshot = await firebaseFirestore
         .collection("users")
@@ -44,21 +46,24 @@ class _SettingsViewState extends State<SettingsView> {
     UserModel currentUser =
         UserModel.fromMap(snapshot.data() as Map<String, dynamic>);
     user = currentUser;
-    name.text = user?.fullName ?? "";
-    phone.text = user?.phone ?? "";
-    setState(() {});
+    setState(() {
+
+    });
   }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    // setInitialValues();
+   // setInitialValues();
     getUser();
   }
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -108,20 +113,40 @@ class _SettingsViewState extends State<SettingsView> {
                 vertical: Gaps.verticalPadding),
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Container(
-                height: 81,
-                width: 90,
-                decoration: BoxDecoration(
-                    border: Border.all(width: 2, color: lightGrey),
-                    borderRadius: BorderRadius.circular(10)),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(9),
-                  child: Image.network(
-                    userController.userModel.value.profile ?? "",
-                    fit: BoxFit.fill,
+                  (userController.userModel.value.profile == null || userController.userModel.value.profile?.isEmpty == true)
+                      ? Container(
+                       height: 75,
+                         width: 75,
+                    decoration: BoxDecoration(
+                        border:
+                        Border.all(width: 2, color: lightGrey),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(9),
+                      child: Image.asset(
+                        "assets/images/user.png",
+                        fit: BoxFit.fill,
+                        height: 45,
+                        width: 45,
+                      ),
+                    ),
+                  )
+                      : Container(
+                    height: 75,
+                    width: 75,
+                    decoration: BoxDecoration(
+                        border:
+                        Border.all(width: 2, color: lightGrey),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(9),
+                      child: Image.network(
+                        userController.userModel.value.profile ??
+                            "",
+                        fit: BoxFit.fill,
+                      ),
+                    ),
                   ),
-                ),
-              ),
               verticalGap(5),
               Text(
                 user.fullName ?? "",
@@ -133,68 +158,82 @@ class _SettingsViewState extends State<SettingsView> {
                 ),
                 softWrap: false,
               ),
-              verticalGap(35),
-              Column(
-                children: [
-                  Row(
-                    children: [
-                      buildIconBox("Icon awesome-user-alt"),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      customsTextField("User Name", name, TextInputType.name)
-                    ],
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 20, bottom: 15),
-                    child: divider(),
-                  ),
-                  Row(
-                    children: [
-                      buildIconBox("mail"),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Email",
-                              style: TextStyle(
-                                fontFamily: 'Calibri',
-                                fontSize: 12,
-                                color: Color(0xffd5d5d5),
+                verticalGap(35),
+                 StreamBuilder(
+                  stream: firebaseFirestore.collection("users").doc(userController.userModel.value.uid).snapshots(),
+                  builder: (context,snap){
+                    if(snap.hasData ) {
+                      name.text = snap.data?["fullName"] ?? "";
+                      phone.text = snap.data?["phone"] ?? "";
+                      return Column(
+                        children: [
+                          Row(
+                            children: [
+                              buildIconBox("Icon awesome-user-alt"),
+                              const SizedBox(
+                                width: 10,
                               ),
+                              customsTextField("User Name", name, width
+                              )
+                            ],
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 20, bottom: 15),
+                            child: divider(),
+                          ),
+                          Row(
+                            children: [
+                              buildIconBox("mail"),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Email",
+                                    style: TextStyle(
+                                      fontFamily: 'Calibri',
+                                      fontSize: 14,
+                                      color: Color(0xffd5d5d5),
+                                    ),
+                                  ),
+                                  AutoSizeText(
+                                      snap.data?["email"] ?? "",
+                                      style: TextStyle(
+                                        fontFamily: 'Simply Rounded',
+                                        color: Colors.black,
+                                      ),
+                                    minFontSize: 16,
+                                    maxFontSize: 18,
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 20, bottom: 15),
+                            child: divider(),
+                          ),
+                          Offstage(
+                            offstage: user.isSocialUser ?? false,
+                            child: Row(
+                              children: [
+                                buildIconBox("phone"),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                customsTextField("Phone", phone, width
+
+                                ),
+                              ],
                             ),
-                            Text(user.email ?? "",
-                                style: TextStyle(
-                                  fontFamily: 'Simply Rounded',
-                                  fontSize: 18,
-                                  color: Colors.black,
-                                )),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 20, bottom: 15),
-                    child: divider(),
-                  ),
-                  Offstage(
-                    offstage: user.isSocialUser ?? false,
-                    child: Row(
-                      children: [
-                        buildIconBox("phone"),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        customsTextField("Phone", phone, TextInputType.phone),
-                      ],
-                    ),
-                  ),
-                ],
+                          ),
+                        ],
+                      );
+                    }else {
+                      return Center(child: Text("Please login "),);
+                    } },
               ),
               Offstage(
                   offstage: user.isSocialUser ?? false,
@@ -218,8 +257,6 @@ class _SettingsViewState extends State<SettingsView> {
                           content: Text("Updated Successfully"),
                           duration: Duration(milliseconds: 300),
                         ));
-                        user.fullName = name.text;
-                        user.phone = phone.text;
                         index = 0;
                         setState(() {});
                       } catch (e) {
@@ -242,12 +279,13 @@ class _SettingsViewState extends State<SettingsView> {
     );
   }
 
-  Expanded customsTextField(String text, TextEditingController controller, TextInputType textInputType) {
+  Expanded customsTextField(
+      String text,TextEditingController controller,double width) {
     return Expanded(
       child: TextFormField(
         enabled: index == 1 ? true : false,
         controller: controller,
-        keyboardType: textInputType,
+        keyboardType: TextInputType.name,
         style: TextStyle(
           fontFamily: 'Simply Rounded',
           fontSize: 18,
@@ -257,7 +295,7 @@ class _SettingsViewState extends State<SettingsView> {
           labelText: text,
           labelStyle: TextStyle(
             fontFamily: 'Calibri',
-            fontSize: 12,
+            fontSize: 14,
             color: Color(0xffd5d5d5),
           ),
           border: InputBorder.none,

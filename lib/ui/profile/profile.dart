@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ import 'package:insurancehero/utils/colors.dart';
 
 import 'package:get/get.dart';
 import 'package:insurancehero/controller/user_controller.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
 import '../../../categories.dart';
 import '../../main.dart';
@@ -50,6 +52,8 @@ class _ProfileViewState extends State<ProfileView> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -81,7 +85,6 @@ class _ProfileViewState extends State<ProfileView> {
                     height: 15,
                   ),
                   Container(
-                    height: 130,
                     decoration: BoxDecoration(
                       color: const Color(0xffffffff),
                       borderRadius: BorderRadius.circular(15),
@@ -95,66 +98,78 @@ class _ProfileViewState extends State<ProfileView> {
                         ),
                       ],
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        userController.userModel.value.profile == null
-                            ? SizedBox()
-                            : Container(
-                                margin: EdgeInsets.only(left: 10),
-                                height: 81,
-                                width: 90,
-                                decoration: BoxDecoration(
-                                    border:
-                                        Border.all(width: 2, color: lightGrey),
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(9),
-                                  child: Image.network(
-                                    userController.userModel.value.profile ??
-                                        "",
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          (userController.userModel.value.profile == null || userController.userModel.value.profile?.isEmpty == true)
+                              ? Container(
+                            height: 75,
+                            width: 75,
+                            decoration: BoxDecoration(
+                                border:
+                                Border.all(width: 2, color: lightGrey),
+                                borderRadius: BorderRadius.circular(10)),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(9),
+                              child: Image.asset(
+                                "assets/images/user.png",
+                                fit: BoxFit.fill,
+                                height: 45,
+                                width: 45,
                               ),
-                        Container(
-                          margin: EdgeInsets.only(left: 10),
-                          height: 91,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: Container(
-                                  child: Text(
-                                    overflow: TextOverflow.ellipsis,
-                                    userd.fullName ?? "",
-                                    style: TextStyle(
-                                      fontFamily: 'Simply Rounded',
-                                      fontSize: 30,
-                                      color: const Color(0xff000000),
-                                      letterSpacing: 0.3,
+                            ),
+                          )
+                              : Container(
+                                  height: 75,
+                                  width: 75,
+                                  decoration: BoxDecoration(
+                                      border:
+                                          Border.all(width: 2, color: lightGrey),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(9),
+                                    child: Image.network(
+                                      userController.userModel.value.profile ??
+                                          "",
+                                      fit: BoxFit.fill,
                                     ),
                                   ),
                                 ),
+                          SizedBox(width: 10,),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              AutoSizeText(
+                                minFontSize: 10,
+                                maxFontSize: 24,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                '${userd.fullName}'?? "",
+                                style: TextStyle(
+                                  fontFamily: 'Simply Rounded',
+                                  color: const Color(0xff000000),
+                                  letterSpacing: 0.3,
+                                ),
                               ),
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  'Joined ${userController.userModel.value.joinedDate}',
-                                  style: TextStyle(
-                                    fontFamily: 'Calibri',
-                                    fontSize: 12,
-                                    color: Color(0xffb4b4b4),
-                                  ),
-                                  softWrap: false,
+                              SizedBox(height: 10,),
+                              AutoSizeText(
+                                minFontSize: 10,
+                                maxFontSize: 15,
+                                maxLines: 1,
+                                'Joined ${userController.userModel.value.joinedDate}',
+                                style: TextStyle(
+                                  fontFamily: 'Calibri',
+                                  fontSize: 15,
+                                  color: Color(0xffb4b4b4),
                                 ),
                               ),
                             ],
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   SizedBox(
@@ -437,6 +452,56 @@ class _ProfileViewState extends State<ProfileView> {
                           color: const Color(0xffffffff),
                           borderRadius: BorderRadius.circular(15.0),
                           border: Border.all(
+                              width: 2.0, color:  Colors.red),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.red,
+                              offset: Offset(0, 3),
+                              blurRadius: 0,
+                            ),
+                          ],
+                        ),
+                        child: TextButton(
+                          onPressed: () async{
+                          await showExitPopup();
+                          },
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Delete Account',
+                                  style: TextStyle(
+                                    fontFamily: 'Calibri',
+                                    fontSize: 16,
+                                    color: Colors.red,
+                                  ),
+                                  softWrap: false,
+                                ),
+                                Container(
+                                  height: 20,
+                                  width: 20,
+                                  decoration: BoxDecoration(
+                                    color:  Colors.red,
+                                    borderRadius: BorderRadius.circular(7.0),
+                                  ),
+                                  child: Image.asset(
+                                    'assets/images/right-arrow.png',
+                                    color: Colors.white,
+                                    scale: 3,
+                                  ),
+                                ),
+                              ]),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Container(
+                        height: 52,
+                        decoration: BoxDecoration(
+                          color: const Color(0xffffffff),
+                          borderRadius: BorderRadius.circular(15.0),
+                          border: Border.all(
                               width: 2.0, color: const Color(0xff89e100)),
                           boxShadow: const [
                             BoxShadow(
@@ -499,5 +564,53 @@ class _ProfileViewState extends State<ProfileView> {
         ),
       ),
     );
+  }
+
+  Future<bool> showExitPopup() async {
+    return await showDialog(
+      //show confirm dialogue
+      //the return value will be from "Yes" or "No" options
+      context: context,
+      builder: (context) => Container(
+        height: 180,
+        child: AlertDialog(
+          title: Text('Delete Account'),
+          content: Text('Are you sure you want to delete your account? Deleting your account will delete all the data associated with this account.'),
+          actions: [
+            Padding(
+              padding:  EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ElevatedButton(
+                    onPressed: () => Navigator.of(context).pop(false),
+                    //return false when click on "NO"
+                    child: Text('Cancel'),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Color(0xff89e100))
+                    ),
+                  ),
+                  ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.red)
+                    ),
+                    onPressed: () async{
+                      deleteAccount();
+                      user = await Hive.openBox("users");
+                      user.delete("users");
+                      pushNewScreen(context, screen: StartView(),withNavBar: false);
+                    },
+                    //return true when click on "Yes"
+                    child: Text('Yes',),
+                  ),
+                ],
+              ),
+            ),
+
+          ],
+        ),
+      ),
+    ) ??
+        false; //if showDialouge had returned null, then return false
   }
 }

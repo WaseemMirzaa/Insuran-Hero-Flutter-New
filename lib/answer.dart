@@ -4,9 +4,12 @@ class Answer extends StatelessWidget {
   final String answerText;
   final Color answerColor;
   final void Function()? answerTap;
+  bool isPaperDetails;
 
   Answer(
-      {required this.answerText,
+      {
+        required this.isPaperDetails,
+        required this.answerText,
       required this.answerColor,
       required this.answerTap});
 
@@ -34,15 +37,13 @@ class Answer extends StatelessWidget {
         child: Center(
           child: Padding(
             padding: const EdgeInsets.fromLTRB(8, 10, 8, 10),
-            child: Expanded(
-              child: Text(
-                answerText,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'Calibri',
-                  fontSize: 17,
-                  color: Colors.black,
-                ),
+            child: Text(
+              answerText,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: 'Calibri',
+                fontSize: this.isPaperDetails ? 12 : 14,
+                color: this.isPaperDetails ?   Color(0xffB4B4B4) :  Colors.black,
               ),
             ),
           ),

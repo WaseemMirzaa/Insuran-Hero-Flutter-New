@@ -25,17 +25,31 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
+				<string>fb713969236758394</string>
 				<string>com.googleusercontent.apps.790957298562-35g9hoe4ehihlfd8p3qev8si334mfmvm</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>FacebookAdvertiserIDCollectionEnabled</key>
+	<true/>
+	<key>FacebookAppID</key>
+	<string>713969236758394</string>
+	<key>FacebookAutoLogAppEventsEnabled</key>
+	<false/>
+	<key>FacebookClientToken</key>
+	<string>9cbcf4431cd540bacaea8b7263768998</string>
+	<key>FacebookDisplayName</key>
+	<string>Insurance Hero</string>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.education</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>com.googleusercontent.apps.{your-app-specific-url}</string>
 		<string>fbapi</string>
 		<string>fb-messenger-share-api</string>
 	</array>
@@ -47,6 +61,7 @@
 	<string>Used to capture audio for image picker plugin</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Used to demonstrate image picker plugin</string>
+	
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

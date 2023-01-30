@@ -17,31 +17,19 @@ class _SplashState extends State<Splash> {
   }
 
   _navigatetohome() async {
-    await Future.delayed(Duration(milliseconds: 1500), () {});
+    await Future.delayed(Duration(milliseconds: 2000), () {});
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => StartView()));
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: const Color(0xff77c801),
-      child: const Center(
-        child: Text(
-          'Insurance\nHero',
-          style: TextStyle(
-            decoration: TextDecoration.none,
-            fontFamily: 'Calibri',
-            fontSize: 60,
-            color: Color(0xffffffff),
-            height: 1,
-            fontWeight: FontWeight.w400,
-          ),
-          textHeightBehavior:
-              TextHeightBehavior(applyHeightToFirstAscent: false),
-          textAlign: TextAlign.center,
-          softWrap: false,
-        ),
+    return Scaffold(
+      body: Center(
+        child: SizedBox(
+            width: MediaQuery.of(context).size.width * 0.7,
+            height: MediaQuery.of(context).size.height * 0.4,
+            child: Image.asset("assets/images/logo.png",fit: BoxFit.contain,)),
       ),
     );
   }
