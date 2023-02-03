@@ -49,6 +49,7 @@ dependencies:
   fluttertoast:
   firebase_storage:
   image_picker:
+  shared_preferences: ^2.0.17
   get:
   uuid:
   intl:
