@@ -2,19 +2,19 @@
 class AppInfoModel {
 
   String? title;
-  String? description;
+  String? htmlData;
   bool? isEnabled;
 
   AppInfoModel(
       {
         this.isEnabled,
         this.title,
-        this.description
+        this.htmlData
       });
 
   factory AppInfoModel.fromMap(Map<String, dynamic> map) {
     return AppInfoModel(
-      description: map['description']  ?? [],
+      htmlData: map['htmlData']  ?? [],
       title: map['title'] ?? "",
       isEnabled: map['isEnabled']  ?? false,
     );

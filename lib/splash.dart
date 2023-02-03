@@ -1,8 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:insurancehero/information_screen.dart';
 import 'package:insurancehero/ui/auth/start.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:insurancehero/utils/firebase_instances.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'models/app_info_model.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -12,6 +16,10 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
+
+  String? title;
+  String? desc;
+
   @override
   void initState() {
     super.initState();
@@ -28,8 +36,15 @@ class _SplashState extends State<Splash> {
 
     if (informationScreen == null || !informationScreen) {
 
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => InformationScreen()));
+      AppInfoModel infoModel = await _fetchInformation();
+      if(infoModel != null && (infoModel.isEnabled ?? false)){
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => InformationScreen()));
+      } else{
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => StartView()));
+      }
+
     }
     else {
 
@@ -38,6 +53,19 @@ class _SplashState extends State<Splash> {
     }
   }
 
+  Future<AppInfoModel> _fetchInformation() async {
+    DocumentSnapshot snap = await firebaseFirestore
+        .collection("settings")
+        .doc('app-info')
+        .get();
+
+     return AppInfoModel.fromMap(snap.data() as Map<String, dynamic>);
+
+    // setState(() {
+    //   title = infoModel.title;
+    //   desc = infoModel.description;
+    // });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
