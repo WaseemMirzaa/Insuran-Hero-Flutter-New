@@ -102,7 +102,7 @@ class _QuestionViewState extends State<QuestionView>
 
   void _resetQuiz() {
     print(DateFormat.EEEE().format(DateTime.now()));
-    print(quizzQuestions.length.toString() + "this is lenght of questions before uploading");
+    print(quizzQuestions.length.toString() + "this is length of questions before uploading");
     QuizHistoryModel quizHistoryModel = QuizHistoryModel(
         questions: quizzQuestions,
         totalQuestions: widget.paper.questions!.length.toString(),

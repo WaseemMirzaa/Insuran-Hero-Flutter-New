@@ -106,7 +106,7 @@ class _InformationScreenState extends State<InformationScreen> {
           Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => StartView())),
         },
-          child: const Text('Done'),
+          child: const Text('Done', style: TextStyle(color: Color(0xff77c801)),),
         ),
       ),
     );
