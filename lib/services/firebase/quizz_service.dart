@@ -53,7 +53,7 @@ class QuizService {
 
 
 
-addQuizzInHistort(QuizHistoryModel quizHistoryModel) {
+addQuizzInHistory(QuizHistoryModel quizHistoryModel) {
   firebaseFirestore
       .collection("history")
       .add(quizHistoryModel.toMap())
