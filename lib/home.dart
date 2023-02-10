@@ -260,12 +260,16 @@ class _HomeState extends State<Home> {
                               allQuizz[i].attemptedUsers!.contains(
                                       userController.userModel.value.uid)
                                   ? toastMessage("Quiz Already Completed")
-                                  : Navigator.of(context)
-                                      .push(MaterialPageRoute(
-                                          builder: (context) => QuestionView(
-                                                img : img,
-                                                paper: allQuizz[i],
-                                              )));
+                                  : {
+                                Navigator.of(context).pop(),
+                                Navigator.of(context)
+                                    .push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        QuestionView(
+                                          img: img,
+                                          paper: allQuizz[i],
+                                        ))),
+                              };
                             },
                             img: allQuizz[i].attemptedUsers!.contains(
                                     userController.userModel.value.uid)

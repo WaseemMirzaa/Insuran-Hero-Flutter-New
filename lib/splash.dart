@@ -48,9 +48,13 @@ class _SplashState extends State<Splash> {
 
     }
     else {
+      //Client wants to keep showing information screen every time so i commented it
+
+      // Navigator.pushReplacement(
+      //     context, MaterialPageRoute(builder: (context) => StartView()));
 
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => StartView()));
+          context, MaterialPageRoute(builder: (context) => InformationScreen()));
     }
   }
 

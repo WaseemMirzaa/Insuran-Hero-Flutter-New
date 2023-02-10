@@ -99,7 +99,7 @@ class _InformationScreenState extends State<InformationScreen> {
         ]),
       ),
       bottomNavigationBar: Container(
-        height: 80,
+        height: 60,
         child: TextButton(
           onPressed: () async => {
 
@@ -114,16 +114,6 @@ class _InformationScreenState extends State<InformationScreen> {
             letterSpacing: 0.18,
           ),),
         ),
-        // child: fullWidthButton(
-        //     context: context,
-        //     buttonColor: const Color(0xff77c801),
-        //     shadowColor: const Color(0xff6bb500),
-        //     title: 'Done',
-        //     onTap: () {
-        //       prefs.setBool('information_screen', true);
-        //         Navigator.pushReplacement(
-        //         context, MaterialPageRoute(builder: (context) => StartView()));
-        //     }),
       ),
     );
   }
