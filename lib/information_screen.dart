@@ -4,6 +4,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:insurancehero/models/app_info_model.dart';
 import 'package:insurancehero/ui/auth/start.dart';
 import 'package:insurancehero/utils/firebase_instances.dart';
+import 'package:insurancehero/widgets/full_width_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class InformationScreen extends StatefulWidget {
@@ -98,7 +99,7 @@ class _InformationScreenState extends State<InformationScreen> {
         ]),
       ),
       bottomNavigationBar: Container(
-        height: 60,
+        height: 80,
         child: TextButton(
           onPressed: () async => {
 
@@ -106,8 +107,23 @@ class _InformationScreenState extends State<InformationScreen> {
           Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => StartView())),
         },
-          child: const Text('Done'),
+          child: const Text('Done', style: TextStyle(
+            fontFamily: 'Calibri',
+            fontSize: 18,
+            color: const Color(0xff77c801),
+            letterSpacing: 0.18,
+          ),),
         ),
+        // child: fullWidthButton(
+        //     context: context,
+        //     buttonColor: const Color(0xff77c801),
+        //     shadowColor: const Color(0xff6bb500),
+        //     title: 'Done',
+        //     onTap: () {
+        //       prefs.setBool('information_screen', true);
+        //         Navigator.pushReplacement(
+        //         context, MaterialPageRoute(builder: (context) => StartView()));
+        //     }),
       ),
     );
   }

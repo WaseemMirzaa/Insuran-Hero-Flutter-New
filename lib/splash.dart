@@ -37,6 +37,7 @@ class _SplashState extends State<Splash> {
     if (informationScreen == null || !informationScreen) {
 
       AppInfoModel infoModel = await _fetchInformation();
+
       if(infoModel != null && (infoModel.isEnabled ?? false)){
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => InformationScreen()));
