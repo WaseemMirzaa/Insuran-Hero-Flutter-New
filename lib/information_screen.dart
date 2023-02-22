@@ -8,9 +8,9 @@ import 'package:insurancehero/widgets/full_width_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class InformationScreen extends StatefulWidget {
-  const InformationScreen
+  final bool isShowButton;
 
-  ({super.key});
+  const InformationScreen({super.key, required this.isShowButton});
 
   @override
   State<InformationScreen> createState() => _InformationScreenState();
@@ -107,12 +107,7 @@ class _InformationScreenState extends State<InformationScreen> {
           Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => StartView())),
         },
-          child: const Text('Done', style: TextStyle(
-            fontFamily: 'Calibri',
-            fontSize: 18,
-            color: const Color(0xff77c801),
-            letterSpacing: 0.18,
-          ),),
+          child: Visibility(child: const Text('Done', style: TextStyle(color: Color(0xff77c801))), visible: widget.isShowButton,),
         ),
       ),
     );

@@ -40,7 +40,7 @@ class _SplashState extends State<Splash> {
 
       if(infoModel != null && (infoModel.isEnabled ?? false)){
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => InformationScreen()));
+            context, MaterialPageRoute(builder: (context) => InformationScreen(isShowButton: true,)));
       } else{
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => StartView()));
@@ -54,7 +54,7 @@ class _SplashState extends State<Splash> {
       //     context, MaterialPageRoute(builder: (context) => StartView()));
 
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => InformationScreen()));
+          context, MaterialPageRoute(builder: (context) => InformationScreen(isShowButton: true,)));
     }
   }
 
