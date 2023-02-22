@@ -7,9 +7,9 @@ import 'package:insurancehero/utils/firebase_instances.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class InformationScreen extends StatefulWidget {
-  const InformationScreen
+  final bool isShowButton;
 
-  ({super.key});
+  const InformationScreen({super.key, required this.isShowButton});
 
   @override
   State<InformationScreen> createState() => _InformationScreenState();
@@ -106,7 +106,7 @@ class _InformationScreenState extends State<InformationScreen> {
           Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => StartView())),
         },
-          child: const Text('Done', style: TextStyle(color: Color(0xff77c801)),),
+          child: Visibility(child: const Text('Done', style: TextStyle(color: Color(0xff77c801))), visible: widget.isShowButton,),
         ),
       ),
     );

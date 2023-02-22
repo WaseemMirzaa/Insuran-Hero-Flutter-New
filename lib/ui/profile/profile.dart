@@ -4,6 +4,7 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:insurancehero/constants/gaps.dart';
+import 'package:insurancehero/information_screen.dart';
 import 'package:insurancehero/services/firebase/auth_service.dart';
 import 'package:insurancehero/ui/auth/start.dart';
 import 'package:insurancehero/ui/privacy_policy.dart';
@@ -282,6 +283,60 @@ class _ProfileViewState extends State<ProfileView> {
                               ]),
                         ),
                       ),
+                      // verticalGap(15),
+                      // Container(
+                      //   height: 52,
+                      //   decoration: BoxDecoration(
+                      //     color: const Color(0xffffffff),
+                      //     borderRadius: BorderRadius.circular(15.0),
+                      //     border: Border.all(
+                      //         width: 2.0, color: const Color(0xffe9e9e9)),
+                      //     boxShadow: const [
+                      //       BoxShadow(
+                      //         color: Color(0xffe9e9e9),
+                      //         offset: Offset(0, 3),
+                      //         blurRadius: 0,
+                      //       ),
+                      //     ],
+                      //   ),
+                      //   child: Padding(
+                      //     padding: const EdgeInsets.all(10.0),
+                      //     child: Row(
+                      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //         children: [
+                      //           Text(
+                      //             'Notification',
+                      //             style: TextStyle(
+                      //               fontFamily: 'Calibri',
+                      //               fontSize: 16,
+                      //               color: Color(0xffb4b4b4),
+                      //             ),
+                      //             softWrap: false,
+                      //           ),
+                      //           FlutterSwitch(
+                      //             height: 20,
+                      //             width: 35,
+                      //             padding: 1,
+                      //             toggleSize: 15,
+                      //             toggleBorder: Border.all(
+                      //                 width: 1.0,
+                      //                 color: const Color(0xff7ccc00)),
+                      //             toggleColor: const Color(0xff89e100),
+                      //             switchBorder: Border.all(
+                      //                 width: 2.0,
+                      //                 color: const Color(0xffe9e9e9)),
+                      //             activeColor: const Color(0xfff6f6f6),
+                      //             inactiveColor: const Color(0xfff6f6f6),
+                      //             value: status,
+                      //             onToggle: (val) {
+                      //               setState(() {
+                      //                 status = val;
+                      //               });
+                      //             },
+                      //           ),
+                      //         ]),
+                      //   ),
+                      // ),
                       verticalGap(15),
                       Container(
                         height: 52,
@@ -298,13 +353,19 @@ class _ProfileViewState extends State<ProfileView> {
                             ),
                           ],
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        InformationScreen(isShowButton:false)));
+                          },
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'Notification',
+                                  'How to use?',
                                   style: TextStyle(
                                     fontFamily: 'Calibri',
                                     fontSize: 16,
@@ -312,26 +373,20 @@ class _ProfileViewState extends State<ProfileView> {
                                   ),
                                   softWrap: false,
                                 ),
-                                FlutterSwitch(
+                                Container(
                                   height: 20,
-                                  width: 35,
-                                  padding: 1,
-                                  toggleSize: 15,
-                                  toggleBorder: Border.all(
-                                      width: 1.0,
-                                      color: const Color(0xff7ccc00)),
-                                  toggleColor: const Color(0xff89e100),
-                                  switchBorder: Border.all(
-                                      width: 2.0,
-                                      color: const Color(0xffe9e9e9)),
-                                  activeColor: const Color(0xfff6f6f6),
-                                  inactiveColor: const Color(0xfff6f6f6),
-                                  value: status,
-                                  onToggle: (val) {
-                                    setState(() {
-                                      status = val;
-                                    });
-                                  },
+                                  width: 20,
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xfff6f6f6),
+                                    borderRadius: BorderRadius.circular(7.0),
+                                    border: Border.all(
+                                        width: 2.0,
+                                        color: const Color(0xffe9e9e9)),
+                                  ),
+                                  child: Image.asset(
+                                    'assets/images/right-arrow.png',
+                                    scale: 3,
+                                  ),
                                 ),
                               ]),
                         ),
