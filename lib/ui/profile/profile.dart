@@ -18,6 +18,7 @@ import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 
 import '../../../categories.dart';
 import '../../main.dart';
+import '../../models/app_info_model.dart';
 import '../../models/user_model.dart';
 import '../../utils/firebase_instances.dart';
 
@@ -31,9 +32,29 @@ class ProfileView extends StatefulWidget {
 class _ProfileViewState extends State<ProfileView> {
   bool status = false;
   UserController userController = Get.put(UserController());
+  AppInfoModel? infoModel;
 
   UserModel userd = UserModel();
+
+
+  Future<AppInfoModel> _fetchInformation() async {
+    DocumentSnapshot snap = await firebaseFirestore
+        .collection("settings")
+        .doc('app-info')
+        .get();
+
+    return AppInfoModel.fromMap(snap.data() as Map<String, dynamic>);
+
+    // setState(() {
+    //   title = infoModel.title;
+    //   desc = infoModel.description;
+    // });
+  }
+
   getUser() async {
+
+    infoModel = await _fetchInformation();
+
     DocumentSnapshot snapshot = await firebaseFirestore
         .collection("users")
         .doc(userController.userModel.value.uid)
@@ -48,6 +69,7 @@ class _ProfileViewState extends State<ProfileView> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     getUser();
   }
 
@@ -55,6 +77,7 @@ class _ProfileViewState extends State<ProfileView> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -337,7 +360,11 @@ class _ProfileViewState extends State<ProfileView> {
                       //         ]),
                       //   ),
                       // ),
-                      verticalGap(15),
+                      if(infoModel != null && (infoModel!.isEnabled ?? false))
+
+                        verticalGap(15),
+
+            if(infoModel != null && (infoModel!.isEnabled ?? false))
                       Container(
                         height: 52,
                         decoration: BoxDecoration(
@@ -355,6 +382,7 @@ class _ProfileViewState extends State<ProfileView> {
                         ),
                         child: TextButton(
                           onPressed: () {
+
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(

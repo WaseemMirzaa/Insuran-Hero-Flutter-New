@@ -69,6 +69,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+
       routes: {
         loginRoute: (context) => const LoginView(),
         signupRoute: (context) => const SignupView(),
@@ -80,6 +81,7 @@ class MyApp extends StatelessWidget {
         categoriesRoute: (context) => const CategoriesView(),
         rankingRoute: (context) => const RankingView()
       },
+        debugShowCheckedModeBanner: false,
       home: userController.userModel.value.uid == null ? Splash() : HomeView(),
     );
   }

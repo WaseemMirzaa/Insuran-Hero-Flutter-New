@@ -77,6 +77,12 @@ class _HomeState extends State<Home> {
           builder: ((context, snapshot) {
             if (snapshot.hasData && snapshot.data!.length > 0) {
               mySubjects = snapshot.data!;
+              double width = MediaQuery.of(context).size.width;
+              var maxWidth = 500.0;
+              var columns = 2;
+              var columnWidth = width / columns;
+//136 is the height of one grid item
+              var aspectRatio = columnWidth / 220;
               return Container(
                 padding:
                     EdgeInsets.symmetric(horizontal: Gaps.horizontalPadding),
@@ -94,9 +100,15 @@ class _HomeState extends State<Home> {
                             itemCount: mySubjects.length,
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
-                            gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
-                               childAspectRatio: MediaQuery.of(context).size.height > 300 ?  0.9 : 0.9,
+                            // gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                            //    childAspectRatio: aspectRatio,
+                            //   crossAxisCount: 2,
+                            // ),
+                             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 10,
+                              mainAxisExtent: 190, // here set custom Height You Want
                             ),
                             itemBuilder: (context, i) {
                               return subjectItem(
@@ -290,7 +302,13 @@ class _HomeState extends State<Home> {
 
   Widget subjectItem({required String title, required VoidCallback onTap,required String img}) {
     double width = MediaQuery.of(context).size.width;
+    var maxWidth = 500.0;
+    var columns = 2;
+    var columnWidth = width / columns;
+//136 is the height of one grid item
+    var aspectRatio = columnWidth / 136;
     return SizedBox(
+      height: 200,
       child: Column(
         children: [
           InkWell(
@@ -318,22 +336,25 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 8),
-            child: AutoSizeText(
-              maxLines: 3,
-              minFontSize: 5,
-              '$title',
-              overflow: TextOverflow.ellipsis,
-              style:  TextStyle(
-                fontFamily: 'Calibri',
-                fontSize: 18,
-                color: Color(0xff000000),
-                letterSpacing: 0.18,
+          Container(
+            height: 80,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: AutoSizeText(
+                maxLines: 3,
+                minFontSize: 5,
+                '$title',
+                overflow: TextOverflow.ellipsis,
+                style:  TextStyle(
+                  fontFamily: 'Calibri',
+                  fontSize: 17,
+                  color: Color(0xff000000),
+                  letterSpacing: 0.18,
+                ),
+                // textHeightBehavior:
+                //     const TextHeightBehavior(applyHeightToFirstAscent: false),
+                textAlign: TextAlign.center,
               ),
-              // textHeightBehavior:
-              //     const TextHeightBehavior(applyHeightToFirstAscent: false),
-              textAlign: TextAlign.center,
             ),
           ),
         ],

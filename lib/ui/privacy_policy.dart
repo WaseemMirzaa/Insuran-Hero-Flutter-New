@@ -3,6 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:insurancehero/utils/colors.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 
 class PrivacyPolicyView extends StatelessWidget {
   PrivacyPolicyView();
@@ -44,3 +49,5 @@ class PrivacyPolicyView extends StatelessWidget {
         }));
   }
 }
+
+

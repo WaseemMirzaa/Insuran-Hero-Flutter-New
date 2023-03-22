@@ -57,8 +57,18 @@ class _InformationScreenState extends State<InformationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+      appBar: !widget.isShowButton ? AppBar(
+        backgroundColor: const Color(0xff7ccc00),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        centerTitle: true,
+      ): null ,
       body: SingleChildScrollView(
         child: Column(children: [
+          if(widget.isShowButton)
           Container(
             height: 20,
           ),

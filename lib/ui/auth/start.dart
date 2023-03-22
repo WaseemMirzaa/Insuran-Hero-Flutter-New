@@ -73,7 +73,8 @@ class _StartViewState extends State<StartView> {
                         Container(
                           margin: EdgeInsets.only(top: 40),
                           width: width * 0.9,
-                          height: height * 0.4,
+                          height: height * 0.35
+                          ,
                           child: Center(
                             child: Image.asset("assets/images/logo.png",fit: BoxFit.contain,),
                           ),
@@ -83,35 +84,38 @@ class _StartViewState extends State<StartView> {
                       ],
                     ),
 
-                Column(
-                  children: [
-                    fullWidthButton(
-                        context: context,
-                        buttonColor: const Color(0xff77c801),
-                        shadowColor: const Color(0xff6bb500),
-                        title: 'GET STARTED',
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const SignupView())
-                          );
-                        }),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    fullWidthButton(
-                        context: context,
-                        buttonColor: const Color(0xff89e100),
-                        shadowColor: const Color(0xff7ccc00),
-                        title: 'I ALREADY HAVE AN ACCOUNT',
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const LoginView())
-                          );
-                        }),
-                    verticalGap(50)
-                  ],
+                Padding(
+                  padding: const EdgeInsets.only(top: 18.0),
+                  child: Column(
+                    children: [
+                      fullWidthButton(
+                          context: context,
+                          buttonColor: const Color(0xff77c801),
+                          shadowColor: const Color(0xff6bb500),
+                          title: 'GET STARTED',
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const SignupView())
+                            );
+                          }),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      fullWidthButton(
+                          context: context,
+                          buttonColor: const Color(0xff89e100),
+                          shadowColor: const Color(0xff7ccc00),
+                          title: 'I ALREADY HAVE AN ACCOUNT',
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const LoginView())
+                            );
+                          }),
+                      verticalGap(50)
+                    ],
+                  ),
                 ),
               ]),
         ),
